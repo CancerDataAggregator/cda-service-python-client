@@ -16,11 +16,11 @@ import unittest
 import datetime
 
 import cda_client
-from cda_client.models.error_report import ErrorReport  # noqa: E501
+from cda_client.models.inline_response200 import InlineResponse200  # noqa: E501
 from cda_client.rest import ApiException
 
-class TestErrorReport(unittest.TestCase):
-    """ErrorReport unit test stubs"""
+class TestInlineResponse200(unittest.TestCase):
+    """InlineResponse200 unit test stubs"""
 
     def setUp(self):
         pass
@@ -29,25 +29,26 @@ class TestErrorReport(unittest.TestCase):
         pass
 
     def make_instance(self, include_optional):
-        """Test ErrorReport
+        """Test InlineResponse200
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = cda_client.models.error_report.ErrorReport()  # noqa: E501
+        # model = cda_client.models.inline_response200.InlineResponse200()  # noqa: E501
         if include_optional :
-            return ErrorReport(
-                message = '0', 
-                status_code = 56, 
-                causes = [
-                    '0'
-                    ]
+            return InlineResponse200(
+                query_sql = '0', 
+                result = [
+                    None
+                    ], 
+                previous_url = '0', 
+                next_url = '0'
             )
         else :
-            return ErrorReport(
+            return InlineResponse200(
         )
 
-    def testErrorReport(self):
-        """Test ErrorReport"""
+    def testInlineResponse200(self):
+        """Test InlineResponse200"""
         inst_req_only = self.make_instance(include_optional=False)
         inst_req_and_optional = self.make_instance(include_optional=True)
 

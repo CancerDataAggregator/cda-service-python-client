@@ -17,8 +17,8 @@ from __future__ import absolute_import
 from cda_client.models.dataset_description import DatasetDescription
 from cda_client.models.dataset_info import DatasetInfo
 from cda_client.models.error_report import ErrorReport
-from cda_client.models.inline_response200 import InlineResponse200
 from cda_client.models.model import Model
 from cda_client.models.query import Query
+from cda_client.models.query_response_data import QueryResponseData
 from cda_client.models.system_status import SystemStatus
 from cda_client.models.system_status_systems import SystemStatusSystems

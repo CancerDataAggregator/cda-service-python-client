@@ -85,7 +85,7 @@ class Query(object):
         :param node_type: The node_type of this Query.  # noqa: E501
         :type: str
         """
-        allowed_values = ["column", "quoted", "unquoted", ">=", "<=", "<", ">", "=", "~", "AND", "OR", "NOT", "LIMIT"]  # noqa: E501
+        allowed_values = ["column", "quoted", "unquoted", ">=", "<=", "<", ">", "=", "~", "AND", "OR", "NOT", "SUBQUERY"]  # noqa: E501
         if self.local_vars_configuration.client_side_validation and node_type not in allowed_values:  # noqa: E501
             raise ValueError(
                 "Invalid value for `node_type` ({0}), must be one of {1}"  # noqa: E501

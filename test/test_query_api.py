@@ -42,12 +42,6 @@ class TestQueryApi(unittest.TestCase):
         """
         pass
 
-    def test_ping(self):
-        """Test case for ping
-
-        """
-        pass
-
     def test_sql_query(self):
         """Test case for sql_query
 

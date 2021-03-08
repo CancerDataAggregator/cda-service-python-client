@@ -337,6 +337,10 @@ class Configuration(object):
             {
                 'url': "http://localhost:8080",
                 'description': "No description provided",
+            },
+            {
+                'url': "https://cda.cda-dev.broadinstitute.org",
+                'description': "No description provided",
             }
         ]
 

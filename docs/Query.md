@@ -1,6 +1,6 @@
 # Query
 
-Queries are built up of operators flanked by columns, values or further queries.  For example, the query \"age < 50\" (where age is a column name and not a value) is expressed as:    ```   node_type: \"<\",   l:     node_type: column     value: age   r:     node_type: value     value: 50   ``` 
+Queries are built up of operators flanked by columns, values or further queries.  For example, the query \"age < 50\" (where age is a column name and not a value) is expressed as:  A query's contents depends on its node type:  column, quoted, unquoted - only `value` is used >=, <=, <, >, =, ~, AND, OR, SUBQUERY - only `l` and `r` are used NOT - only `l` is used  SUBQUERY supports sub-queries. `l` is run as a query on the results of `r`.    ```   node_type: \"<\",   l:     node_type: column     value: age   r:     node_type: unquoted     value: 50   ``` 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

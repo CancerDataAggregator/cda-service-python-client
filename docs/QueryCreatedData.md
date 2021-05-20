@@ -1,11 +1,11 @@
-# SystemStatus
+# QueryCreatedData
 
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ok** | **bool** | status of this service | [optional] 
-**systems** | [**{str: (SystemStatusSystems,)}**](SystemStatusSystems.md) |  | [optional] 
+**query_id** | **str** | the created query ID | [optional] 
+**query_sql** | **str** | the generated BigQuery SQL | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

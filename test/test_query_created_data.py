@@ -12,11 +12,11 @@ import sys
 import unittest
 
 import cda_client
-from cda_client.model.model import Model
+from cda_client.model.query_created_data import QueryCreatedData
 
 
-class TestModel(unittest.TestCase):
-    """Model unit test stubs"""
+class TestQueryCreatedData(unittest.TestCase):
+    """QueryCreatedData unit test stubs"""
 
     def setUp(self):
         pass
@@ -24,10 +24,10 @@ class TestModel(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def testModel(self):
-        """Test Model"""
+    def testQueryCreatedData(self):
+        """Test QueryCreatedData"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = Model()  # noqa: E501
+        # model = QueryCreatedData()  # noqa: E501
         pass
 
 

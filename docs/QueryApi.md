@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**boolean_query**](QueryApi.md#boolean_query) | **POST** /api/v1/boolean-query/{version} | Execute boolean query
 [**bulk_data**](QueryApi.md#bulk_data) | **GET** /api/v1/bulk-data/{version} | Return all data in CDA
 [**query**](QueryApi.md#query) | **GET** /api/v1/query/{id} | Given a query ID, return the a page of data from the query result.
-[**sql_query**](QueryApi.md#sql_query) | **POST** /api/v1/sql-query/{version} | Execute SQL directly on a version of the dataset
+[**sql_query**](QueryApi.md#sql_query) | **POST** /api/v1/sql-query | Execute SQL directly on a version of the dataset
 [**unique_values**](QueryApi.md#unique_values) | **POST** /api/v1/unique-values/{version} | Returns all unique values
 
 
@@ -277,7 +277,6 @@ with cda_client.ApiClient() as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | **str**| BigQuery SQL to run on data table |
- **version** | **str**| Dataset version | defaults to "v3"
 
 ### Return type
 
@@ -326,7 +325,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
-    body = "body_example" # str | TABLE.column_name of table value being requested
+    body = "body_example" # str | column_name of table value being requested
 
     # example passing only required values which don't have defaults set
     try:
@@ -342,7 +341,7 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | **str**| TABLE.column_name of table value being requested |
+ **body** | **str**| column_name of table value being requested |
  **version** | **str**| Dataset version | defaults to "v3"
 
 ### Return type

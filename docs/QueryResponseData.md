@@ -4,7 +4,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**query_id** | **str** | queryId of these results | [optional] 
 **result** | **[{str: (bool, date, datetime, dict, float, int, list, str, none_type)}]** |  | [optional] 
 **query_sql** | **str** | the generated BigQuery SQL | [optional] 
 **total_row_count** | **int, none_type** | the total number of rows in the query. can be null if the query is not complete | [optional] 

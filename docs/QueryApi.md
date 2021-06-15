@@ -7,7 +7,8 @@ Method | HTTP request | Description
 [**boolean_query**](QueryApi.md#boolean_query) | **POST** /api/v1/boolean-query/{version} | Execute boolean query
 [**bulk_data**](QueryApi.md#bulk_data) | **GET** /api/v1/bulk-data/{version} | Return all data in CDA
 [**query**](QueryApi.md#query) | **GET** /api/v1/query/{id} | Given a query ID, return the a page of data from the query result.
-[**sql_query**](QueryApi.md#sql_query) | **POST** /api/v1/sql-query/{version} | Execute SQL directly on a version of the dataset
+[**sql_query**](QueryApi.md#sql_query) | **POST** /api/v1/sql-query | Execute SQL directly on a version of the dataset
+[**unique_values**](QueryApi.md#unique_values) | **POST** /api/v1/unique-values/{version} | Returns all unique values
 
 
 # **boolean_query**
@@ -185,7 +186,7 @@ with cda_client.ApiClient() as api_client:
     api_instance = query_api.QueryApi(api_client)
     id = "id_example" # str | Query ID
     offset = 0 # int | The number of entries to skip (optional) if omitted the server will use the default value of 0
-    limit = 1 # int | The numbers of entries to return per page of data (optional)
+    limit = 1000 # int | The numbers of entries to return per page of data (optional) if omitted the server will use the default value of 1000
 
     # example passing only required values which don't have defaults set
     try:
@@ -212,7 +213,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Query ID |
  **offset** | **int**| The number of entries to skip | [optional] if omitted the server will use the default value of 0
- **limit** | **int**| The numbers of entries to return per page of data | [optional]
+ **limit** | **int**| The numbers of entries to return per page of data | [optional] if omitted the server will use the default value of 1000
 
 ### Return type
 
@@ -276,6 +277,71 @@ with cda_client.ApiClient() as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | **str**| BigQuery SQL to run on data table |
+
+### Return type
+
+[**QueryCreatedData**](QueryCreatedData.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: text/plain
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | query created response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **unique_values**
+> QueryCreatedData unique_values(body)
+
+Returns all unique values
+
+Return unique values given a qualified columnName
+
+### Example
+
+```python
+import time
+import cda_client
+from cda_client.api import query_api
+from cda_client.model.query_created_data import QueryCreatedData
+from pprint import pprint
+# Defining the host is optional and defaults to https://cda.cda-dev.broadinstitute.org
+# See configuration.py for a list of all supported configuration parameters.
+configuration = cda_client.Configuration(
+    host = "https://cda.cda-dev.broadinstitute.org"
+)
+
+
+# Enter a context with an instance of the API client
+with cda_client.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = query_api.QueryApi(api_client)
+    body = "body_example" # str | column_name of table value being requested
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Returns all unique values
+        api_response = api_instance.unique_values(body)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->unique_values: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **str**| column_name of table value being requested |
  **version** | **str**| Dataset version | defaults to "v3"
 
 ### Return type

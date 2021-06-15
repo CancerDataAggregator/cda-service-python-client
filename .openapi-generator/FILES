@@ -1,5 +1,6 @@
 .gitignore
 .gitlab-ci.yml
+.openapi-generator-ignore
 .travis.yml
 README.md
 cda_client/__init__.py
@@ -40,4 +41,15 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_dataset_description.py
+test/test_dataset_info.py
+test/test_error_report.py
+test/test_meta_api.py
+test/test_model.py
+test/test_query.py
+test/test_query_api.py
+test/test_query_created_data.py
+test/test_query_response_data.py
+test/test_system_status.py
+test/test_system_status_systems.py
 tox.ini

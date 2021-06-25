@@ -326,11 +326,21 @@ with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
     body = "body_example" # str | column_name of table value being requested
+    system = "system_example" # str | Filter on system for results (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Returns all unique values
         api_response = api_instance.unique_values(body)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->unique_values: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Returns all unique values
+        api_response = api_instance.unique_values(body, system=system)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->unique_values: %s\n" % e)
@@ -343,6 +353,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | **str**| column_name of table value being requested |
  **version** | **str**| Dataset version | defaults to "v3"
+ **system** | **str**| Filter on system for results | [optional]
 
 ### Return type
 

@@ -176,7 +176,6 @@ class QueryApi(object):
             self,
             query,
             version="v3",
-            table="gdc-bq-sample.cda_mvp",
             **kwargs
         ):
             """Execute boolean query  # noqa: E501
@@ -185,16 +184,16 @@ class QueryApi(object):
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
 
-            >>> thread = api.boolean_query2(query, version="v3", table="gdc-bq-sample.cda_mvp", async_req=True)
+            >>> thread = api.boolean_query2(query, version="v3", async_req=True)
             >>> result = thread.get()
 
             Args:
                 query (Query): The boolean query
                 version (str): Dataset version. defaults to "v3", must be one of ["v3"]
-                table (str): table name. defaults to "gdc-bq-sample.cda_mvp", must be one of ["gdc-bq-sample.cda_mvp"]
 
             Keyword Args:
                 dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+                table (str): table name. [optional] if omitted the server will use the default value of "gdc-bq-sample.cda_mvp"
                 _return_http_data_only (bool): response data without head status
                     code and headers. Default is True.
                 _preload_content (bool): if False, the urllib3.HTTPResponse object
@@ -241,8 +240,6 @@ class QueryApi(object):
             kwargs['_host_index'] = kwargs.get('_host_index')
             kwargs['version'] = \
                 version
-            kwargs['table'] = \
-                table
             kwargs['query'] = \
                 query
             return self.call_with_http_info(**kwargs)
@@ -259,13 +256,12 @@ class QueryApi(object):
             params_map={
                 'all': [
                     'version',
-                    'table',
                     'query',
                     'dry_run',
+                    'table',
                 ],
                 'required': [
                     'version',
-                    'table',
                     'query',
                 ],
                 'nullable': [
@@ -283,23 +279,23 @@ class QueryApi(object):
                 'openapi_types': {
                     'version':
                         (str,),
-                    'table':
-                        (str,),
                     'query':
                         (Query,),
                     'dry_run':
                         (bool,),
+                    'table':
+                        (str,),
                 },
                 'attribute_map': {
                     'version': 'version',
-                    'table': 'table',
                     'dry_run': 'dryRun',
+                    'table': 'table',
                 },
                 'location_map': {
                     'version': 'path',
-                    'table': 'path',
                     'query': 'body',
                     'dry_run': 'query',
+                    'table': 'query',
                 },
                 'collection_format_map': {
                 }

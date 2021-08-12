@@ -129,6 +129,7 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The boolean query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "gdc-bq-sample.cda_mvp" # str | table name (optional) if omitted the server will use the default value of "gdc-bq-sample.cda_mvp"
 
     # example passing only required values which don't have defaults set
     try:
@@ -142,7 +143,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute boolean query
-        api_response = api_instance.boolean_query2(query, dry_run=dry_run)
+        api_response = api_instance.boolean_query2(query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->boolean_query2: %s\n" % e)
@@ -155,8 +156,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query** | [**Query**](Query.md)| The boolean query |
  **version** | **str**| Dataset version | defaults to "v3"
- **table** | **str**| table name | defaults to "gdc-bq-sample.cda_mvp"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| table name | [optional] if omitted the server will use the default value of "gdc-bq-sample.cda_mvp"
 
 ### Return type
 

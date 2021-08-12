@@ -83,6 +83,7 @@ Class | Method | HTTP request | Description
 *MetaApi* | [**latest_release_notes**](docs/MetaApi.md#latest_release_notes) | **GET** /api/v1/dataset-description/latest | Description of latest dataset
 *MetaApi* | [**service_status**](docs/MetaApi.md#service_status) | **GET** /status | CDA status
 *QueryApi* | [**boolean_query**](docs/QueryApi.md#boolean_query) | **POST** /api/v1/boolean-query/{version} | Execute boolean query
+*QueryApi* | [**boolean_query2**](docs/QueryApi.md#boolean_query2) | **POST** /api/v1/boolean-query2/{version} | Execute boolean query
 *QueryApi* | [**bulk_data**](docs/QueryApi.md#bulk_data) | **GET** /api/v1/bulk-data/{version} | Return all data in CDA
 *QueryApi* | [**query**](docs/QueryApi.md#query) | **GET** /api/v1/query/{id} | Given a query ID, return the a page of data from the query result.
 *QueryApi* | [**sql_query**](docs/QueryApi.md#sql_query) | **POST** /api/v1/sql-query | Execute SQL directly on a version of the dataset

@@ -59,6 +59,7 @@ class QueryApi(object):
 
             Keyword Args:
                 dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+                table (str): [optional] if omitted the server will use the default value of "gdc-bq-sample.cda_mvp"
                 _return_http_data_only (bool): response data without head status
                     code and headers. Default is True.
                 _preload_content (bool): if False, the urllib3.HTTPResponse object
@@ -123,6 +124,7 @@ class QueryApi(object):
                     'version',
                     'query',
                     'dry_run',
+                    'table',
                 ],
                 'required': [
                     'version',
@@ -147,15 +149,19 @@ class QueryApi(object):
                         (Query,),
                     'dry_run':
                         (bool,),
+                    'table':
+                        (str,),
                 },
                 'attribute_map': {
                     'version': 'version',
                     'dry_run': 'dryRun',
+                    'table': 'table',
                 },
                 'location_map': {
                     'version': 'path',
                     'query': 'body',
                     'dry_run': 'query',
+                    'table': 'query',
                 },
                 'collection_format_map': {
                 }

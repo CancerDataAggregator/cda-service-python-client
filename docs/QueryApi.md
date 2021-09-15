@@ -46,7 +46,7 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The boolean query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "gdc-bq-sample.cda_mvp" # str | table name (optional) if omitted the server will use the default value of "gdc-bq-sample.cda_mvp"
+    table = "gdc-bq-sample.integration" # str | table name (optional) if omitted the server will use the default value of "gdc-bq-sample.integration"
 
     # example passing only required values which don't have defaults set
     try:
@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
  **query** | [**Query**](Query.md)| The boolean query |
  **version** | **str**| Dataset version | defaults to "v3"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| table name | [optional] if omitted the server will use the default value of "gdc-bq-sample.cda_mvp"
+ **table** | **str**| table name | [optional] if omitted the server will use the default value of "gdc-bq-sample.integration"
 
 ### Return type
 
@@ -222,7 +222,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | null |  -  |
+**200** | Get&#39;s Bigquery job id status |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -254,7 +254,7 @@ with cda_client.ApiClient() as api_client:
     api_instance = query_api.QueryApi(api_client)
     id = "id_example" # str | Query ID
     offset = 0 # int | The number of entries to skip (optional) if omitted the server will use the default value of 0
-    limit = 1000 # int | The numbers of entries to return per page of data (optional) if omitted the server will use the default value of 1000
+    limit = 100 # int | The numbers of entries to return per page of data (optional) if omitted the server will use the default value of 100
 
     # example passing only required values which don't have defaults set
     try:
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Query ID |
  **offset** | **int**| The number of entries to skip | [optional] if omitted the server will use the default value of 0
- **limit** | **int**| The numbers of entries to return per page of data | [optional] if omitted the server will use the default value of 1000
+ **limit** | **int**| The numbers of entries to return per page of data | [optional] if omitted the server will use the default value of 100
 
 ### Return type
 
@@ -395,6 +395,7 @@ with cda_client.ApiClient() as api_client:
     api_instance = query_api.QueryApi(api_client)
     body = "body_example" # str | column_name of table value being requested
     system = "system_example" # str | Filter on system for results (optional)
+    table_name = "gdc-bq-sample.cda_mvp" # str | Filter on system for results (optional) if omitted the server will use the default value of "gdc-bq-sample.cda_mvp"
 
     # example passing only required values which don't have defaults set
     try:
@@ -408,7 +409,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Returns all unique values
-        api_response = api_instance.unique_values(body, system=system)
+        api_response = api_instance.unique_values(body, system=system, table_name=table_name)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->unique_values: %s\n" % e)
@@ -422,6 +423,7 @@ Name | Type | Description  | Notes
  **body** | **str**| column_name of table value being requested |
  **version** | **str**| Dataset version | defaults to "v3"
  **system** | **str**| Filter on system for results | [optional]
+ **table_name** | **str**| Filter on system for results | [optional] if omitted the server will use the default value of "gdc-bq-sample.cda_mvp"
 
 ### Return type
 

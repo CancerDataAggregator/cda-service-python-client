@@ -47,7 +47,7 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The boolean query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "gdc-bq-sample.cda_mvp" # str | tablename (optional) if omitted the server will use the default value of "gdc-bq-sample.cda_mvp"
+    table = "gdc-bq-sample.integration" # str | tablename (optional) if omitted the server will use the default value of "gdc-bq-sample.integration"
 
     # example passing only required values which don't have defaults set
     try:
@@ -73,9 +73,9 @@ with cda_client.ApiClient() as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query** | [**Query**](Query.md)| The boolean query |
- **version** | **str**| Dataset version | defaults to "v3"
+ **version** | **str**| Dataset version | defaults to "all_v2"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "gdc-bq-sample.cda_mvp"
+ **table** | **str**| tablename | [optional] if omitted the server will use the default value of "gdc-bq-sample.integration"
 
 ### Return type
 
@@ -139,7 +139,7 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | defaults to "v3"
+ **version** | **str**| Dataset version | defaults to "all_v2"
 
 ### Return type
 
@@ -188,7 +188,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
-    table = "gdc-bq-sample.cda_mvp" # str | tablename (optional) if omitted the server will use the default value of "gdc-bq-sample.cda_mvp"
+    table = "gdc-bq-sample.integration" # str | tablename (optional) if omitted the server will use the default value of "gdc-bq-sample.integration"
 
     # example passing only required values which don't have defaults set
     try:
@@ -213,8 +213,8 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | defaults to "v3"
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "gdc-bq-sample.cda_mvp"
+ **version** | **str**| Dataset version | defaults to "all_v2"
+ **table** | **str**| tablename | [optional] if omitted the server will use the default value of "gdc-bq-sample.integration"
 
 ### Return type
 
@@ -330,7 +330,7 @@ with cda_client.ApiClient() as api_client:
     api_instance = query_api.QueryApi(api_client)
     id = "id_example" # str | Query ID
     offset = 0 # int | The number of entries to skip (optional) if omitted the server will use the default value of 0
-    limit = 1000 # int | The numbers of entries to return per page of data (optional) if omitted the server will use the default value of 1000
+    limit = 100 # int | The numbers of entries to return per page of data (optional) if omitted the server will use the default value of 100
 
     # example passing only required values which don't have defaults set
     try:
@@ -357,7 +357,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Query ID |
  **offset** | **int**| The number of entries to skip | [optional] if omitted the server will use the default value of 0
- **limit** | **int**| The numbers of entries to return per page of data | [optional] if omitted the server will use the default value of 1000
+ **limit** | **int**| The numbers of entries to return per page of data | [optional] if omitted the server will use the default value of 100
 
 ### Return type
 
@@ -471,7 +471,7 @@ with cda_client.ApiClient() as api_client:
     api_instance = query_api.QueryApi(api_client)
     body = "body_example" # str | column_name of table value being requested
     system = "system_example" # str | Filter on system for results (optional)
-    table = "gdc-bq-sample.cda_mvp" # str | tablename (optional) if omitted the server will use the default value of "gdc-bq-sample.cda_mvp"
+    table = "gdc-bq-sample.integration" # str | tablename (optional) if omitted the server will use the default value of "gdc-bq-sample.integration"
 
     # example passing only required values which don't have defaults set
     try:
@@ -497,9 +497,9 @@ with cda_client.ApiClient() as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | **str**| column_name of table value being requested |
- **version** | **str**| Dataset version | defaults to "v3"
+ **version** | **str**| Dataset version | defaults to "all_v2"
  **system** | **str**| Filter on system for results | [optional]
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "gdc-bq-sample.cda_mvp"
+ **table** | **str**| tablename | [optional] if omitted the server will use the default value of "gdc-bq-sample.integration"
 
 ### Return type
 

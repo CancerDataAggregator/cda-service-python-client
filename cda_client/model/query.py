@@ -67,6 +67,7 @@ class Query(ModelNormal):
             'NOT': "NOT",
             'SUBQUERY': "SUBQUERY",
             'WHERE': "WHERE",
+            'IN': "IN",
         },
     }
 

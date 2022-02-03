@@ -11,7 +11,7 @@
 from setuptools import setup, find_packages  # noqa: H301
 
 NAME = "cda-client"
-VERSION = "10.20.2021"
+VERSION = "2.3.2022"
 # To install the library, run the following
 #
 # python setup.py install

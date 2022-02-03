@@ -42,7 +42,7 @@ class QueryApi(object):
         def __boolean_query(
             self,
             query,
-            version="all_v2",
+            version="all_v2_1",
             **kwargs
         ):
             """Execute boolean query  # noqa: E501
@@ -51,12 +51,12 @@ class QueryApi(object):
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
 
-            >>> thread = api.boolean_query(query, version="all_v2", async_req=True)
+            >>> thread = api.boolean_query(query, version="all_v2_1", async_req=True)
             >>> result = thread.get()
 
             Args:
                 query (Query): The boolean query
-                version (str): Dataset version. defaults to "all_v2", must be one of ["all_v2"]
+                version (str): Dataset version. defaults to "all_v2_1", must be one of ["all_v2_1"]
 
             Keyword Args:
                 dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
@@ -181,7 +181,7 @@ class QueryApi(object):
 
         def __bulk_data(
             self,
-            version="all_v2",
+            version="all_v2_1",
             **kwargs
         ):
             """Return all data in CDA  # noqa: E501
@@ -190,11 +190,11 @@ class QueryApi(object):
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
 
-            >>> thread = api.bulk_data(version="all_v2", async_req=True)
+            >>> thread = api.bulk_data(version="all_v2_1", async_req=True)
             >>> result = thread.get()
 
             Args:
-                version (str): Dataset version. defaults to "all_v2", must be one of ["all_v2"]
+                version (str): Dataset version. defaults to "all_v2_1", must be one of ["all_v2_1"]
 
             Keyword Args:
                 _return_http_data_only (bool): response data without head status
@@ -298,7 +298,7 @@ class QueryApi(object):
 
         def __columns(
             self,
-            version="all_v2",
+            version="all_v2_1",
             **kwargs
         ):
             """Returns all column names  # noqa: E501
@@ -307,11 +307,11 @@ class QueryApi(object):
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
 
-            >>> thread = api.columns(version="all_v2", async_req=True)
+            >>> thread = api.columns(version="all_v2_1", async_req=True)
             >>> result = thread.get()
 
             Args:
-                version (str): Dataset version. defaults to "all_v2", must be one of ["all_v2"]
+                version (str): Dataset version. defaults to "all_v2_1", must be one of ["all_v2_1"]
 
             Keyword Args:
                 table (str): tablename. [optional] if omitted the server will use the default value of "gdc-bq-sample.integration"
@@ -417,6 +417,146 @@ class QueryApi(object):
             },
             api_client=api_client,
             callable=__columns
+        )
+
+        def __global_counts(
+            self,
+            query,
+            version="all_v2_1",
+            **kwargs
+        ):
+            """Returns counts of the DCS  # noqa: E501
+
+            Return GlobalCounts for schema  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+
+            >>> thread = api.global_counts(query, version="all_v2_1", async_req=True)
+            >>> result = thread.get()
+
+            Args:
+                query (Query): counts
+                version (str): Dataset version. defaults to "all_v2_1", must be one of ["all_v2_1"]
+
+            Keyword Args:
+                dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+                table (str): tablename. [optional] if omitted the server will use the default value of "gdc-bq-sample.integration"
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
+
+            Returns:
+                QueryCreatedData
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['version'] = \
+                version
+            kwargs['query'] = \
+                query
+            return self.call_with_http_info(**kwargs)
+
+        self.global_counts = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/global-counts/{version}',
+                'operation_id': 'global_counts',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__global_counts
         )
 
         def __job_status(
@@ -785,7 +925,7 @@ class QueryApi(object):
         def __unique_values(
             self,
             body,
-            version="all_v2",
+            version="all_v2_1",
             **kwargs
         ):
             """Returns all unique values  # noqa: E501
@@ -794,12 +934,12 @@ class QueryApi(object):
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
 
-            >>> thread = api.unique_values(body, version="all_v2", async_req=True)
+            >>> thread = api.unique_values(body, version="all_v2_1", async_req=True)
             >>> result = thread.get()
 
             Args:
                 body (str): column_name of table value being requested
-                version (str): Dataset version. defaults to "all_v2", must be one of ["all_v2"]
+                version (str): Dataset version. defaults to "all_v2_1", must be one of ["all_v2_1"]
 
             Keyword Args:
                 system (str): Filter on system for results. [optional]

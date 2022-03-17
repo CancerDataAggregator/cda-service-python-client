@@ -44,6 +44,13 @@ class TestQueryApi(unittest.TestCase):
         """
         pass
 
+    def test_files(self):
+        """Test case for files
+
+        Returns a list of files given a boolean query  # noqa: E501
+        """
+        pass
+
     def test_global_counts(self):
         """Test case for global_counts
 

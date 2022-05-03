@@ -85,11 +85,16 @@ Class | Method | HTTP request | Description
 *QueryApi* | [**boolean_query**](docs/QueryApi.md#boolean_query) | **POST** /api/v1/boolean-query/{version} | Execute boolean query
 *QueryApi* | [**bulk_data**](docs/QueryApi.md#bulk_data) | **GET** /api/v1/bulk-data/{version} | Return all data in CDA
 *QueryApi* | [**columns**](docs/QueryApi.md#columns) | **GET** /api/v1/columns/{version} | Returns all column names
+*QueryApi* | [**diagnosis_query**](docs/QueryApi.md#diagnosis_query) | **POST** /api/v1/diagnosis/{version} | Execute Diagnosis query
 *QueryApi* | [**files**](docs/QueryApi.md#files) | **POST** /api/v1/files/{version} | Returns a list of files given a boolean query
 *QueryApi* | [**global_counts**](docs/QueryApi.md#global_counts) | **POST** /api/v1/global-counts/{version} | Returns counts of the DCS
 *QueryApi* | [**job_status**](docs/QueryApi.md#job_status) | **GET** /api/v1/job-status/{id} | Return the running status of long running queries.
 *QueryApi* | [**query**](docs/QueryApi.md#query) | **GET** /api/v1/query/{id} | Given a query ID, return the a page of data from the query result.
+*QueryApi* | [**research_subject_query**](docs/QueryApi.md#research_subject_query) | **POST** /api/v1/researchsubjects/{version} | Execute Research Subject query
+*QueryApi* | [**specimen_query**](docs/QueryApi.md#specimen_query) | **POST** /api/v1/specimens/{version} | Execute Specimens query
 *QueryApi* | [**sql_query**](docs/QueryApi.md#sql_query) | **POST** /api/v1/sql-query | Execute SQL directly on a version of the dataset
+*QueryApi* | [**subject_query**](docs/QueryApi.md#subject_query) | **POST** /api/v1/subjects/{version} | Execute Subject query
+*QueryApi* | [**treatments_query**](docs/QueryApi.md#treatments_query) | **POST** /api/v1/treatments/{version} | Execute Treatments query
 *QueryApi* | [**unique_values**](docs/QueryApi.md#unique_values) | **POST** /api/v1/unique-values/{version} | Returns all unique values
 
 
@@ -103,7 +108,6 @@ Class | Method | HTTP request | Description
  - [Query](docs/Query.md)
  - [QueryCreatedData](docs/QueryCreatedData.md)
  - [QueryResponseData](docs/QueryResponseData.md)
- - [Row](docs/Row.md)
  - [SystemStatus](docs/SystemStatus.md)
  - [SystemStatusSystems](docs/SystemStatusSystems.md)
 

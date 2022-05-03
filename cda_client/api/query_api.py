@@ -425,10 +425,150 @@ class QueryApi(object):
             callable=__columns
         )
 
-        def __files(
+        def __diagnosis_query(
             self,
             query,
             version="all_v3_0_subjects_meta",
+            **kwargs
+        ):
+            """Execute Diagnosis query  # noqa: E501
+
+            Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+
+            >>> thread = api.diagnosis_query(query, version="all_v3_0_subjects_meta", async_req=True)
+            >>> result = thread.get()
+
+            Args:
+                query (Query): The diagnosis query
+                version (str): Dataset version. defaults to "all_v3_0_subjects_meta", must be one of ["all_v3_0_subjects_meta"]
+
+            Keyword Args:
+                dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+                table (str): tablename. [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
+
+            Returns:
+                QueryCreatedData
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['version'] = \
+                version
+            kwargs['query'] = \
+                query
+            return self.call_with_http_info(**kwargs)
+
+        self.diagnosis_query = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/diagnosis/{version}',
+                'operation_id': 'diagnosis_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__diagnosis_query
+        )
+
+        def __files(
+            self,
+            query,
+            version="all_v3_0_Files",
             **kwargs
         ):
             """Returns a list of files given a boolean query  # noqa: E501
@@ -437,12 +577,12 @@ class QueryApi(object):
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
 
-            >>> thread = api.files(query, version="all_v3_0_subjects_meta", async_req=True)
+            >>> thread = api.files(query, version="all_v3_0_Files", async_req=True)
             >>> result = thread.get()
 
             Args:
                 query (Query): The boolean query
-                version (str): Dataset version. defaults to "all_v3_0_subjects_meta", must be one of ["all_v3_0_subjects_meta"]
+                version (str): Dataset version. defaults to "all_v3_0_Files", must be one of ["all_v3_0_Files"]
 
             Keyword Args:
                 dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
@@ -568,7 +708,7 @@ class QueryApi(object):
         def __global_counts(
             self,
             query,
-            version="all_v3_0_subjects_meta",
+            version="all_v3_0_Files",
             **kwargs
         ):
             """Returns counts of the DCS  # noqa: E501
@@ -577,12 +717,12 @@ class QueryApi(object):
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
 
-            >>> thread = api.global_counts(query, version="all_v3_0_subjects_meta", async_req=True)
+            >>> thread = api.global_counts(query, version="all_v3_0_Files", async_req=True)
             >>> result = thread.get()
 
             Args:
                 query (Query): counts
-                version (str): Dataset version. defaults to "all_v3_0_subjects_meta", must be one of ["all_v3_0_subjects_meta"]
+                version (str): Dataset version. defaults to "all_v3_0_Files", must be one of ["all_v3_0_Files"]
 
             Keyword Args:
                 dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
@@ -842,8 +982,6 @@ class QueryApi(object):
             Keyword Args:
                 offset (int): The number of entries to skip. [optional] if omitted the server will use the default value of 0
                 limit (int): The numbers of entries to return per page of data. [optional] if omitted the server will use the default value of 100
-                format (str): Output format. [optional] if omitted the server will use the default value of "JSON"
-                include_headers (str): Include the column headers in TSV returns. [optional] if omitted the server will use the default value of "true"
                 _return_http_data_only (bool): response data without head status
                     code and headers. Default is True.
                 _preload_content (bool): if False, the urllib3.HTTPResponse object
@@ -906,8 +1044,6 @@ class QueryApi(object):
                     'id',
                     'offset',
                     'limit',
-                    'format',
-                    'include_headers',
                 ],
                 'required': [
                     'id',
@@ -915,7 +1051,6 @@ class QueryApi(object):
                 'nullable': [
                 ],
                 'enum': [
-                    'format',
                 ],
                 'validation': [
                 ]
@@ -924,11 +1059,6 @@ class QueryApi(object):
                 'validations': {
                 },
                 'allowed_values': {
-                    ('format',): {
-
-                        "JSON": "JSON",
-                        "TSV": "TSV"
-                    },
                 },
                 'openapi_types': {
                     'id':
@@ -937,24 +1067,16 @@ class QueryApi(object):
                         (int,),
                     'limit':
                         (int,),
-                    'format':
-                        (str,),
-                    'include_headers':
-                        (str,),
                 },
                 'attribute_map': {
                     'id': 'id',
                     'offset': 'offset',
                     'limit': 'limit',
-                    'format': 'format',
-                    'include_headers': 'includeHeaders',
                 },
                 'location_map': {
                     'id': 'path',
                     'offset': 'query',
                     'limit': 'query',
-                    'format': 'query',
-                    'include_headers': 'query',
                 },
                 'collection_format_map': {
                 }
@@ -967,6 +1089,286 @@ class QueryApi(object):
             },
             api_client=api_client,
             callable=__query
+        )
+
+        def __research_subject_query(
+            self,
+            query,
+            version="all_v3_0_subjects_meta",
+            **kwargs
+        ):
+            """Execute Research Subject query  # noqa: E501
+
+            Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+
+            >>> thread = api.research_subject_query(query, version="all_v3_0_subjects_meta", async_req=True)
+            >>> result = thread.get()
+
+            Args:
+                query (Query): The Research Subject query
+                version (str): Dataset version. defaults to "all_v3_0_subjects_meta", must be one of ["all_v3_0_subjects_meta"]
+
+            Keyword Args:
+                dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+                table (str): tablename. [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
+
+            Returns:
+                QueryCreatedData
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['version'] = \
+                version
+            kwargs['query'] = \
+                query
+            return self.call_with_http_info(**kwargs)
+
+        self.research_subject_query = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/researchsubjects/{version}',
+                'operation_id': 'research_subject_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__research_subject_query
+        )
+
+        def __specimen_query(
+            self,
+            query,
+            version="all_v3_0_subjects_meta",
+            **kwargs
+        ):
+            """Execute Specimens query  # noqa: E501
+
+            Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+
+            >>> thread = api.specimen_query(query, version="all_v3_0_subjects_meta", async_req=True)
+            >>> result = thread.get()
+
+            Args:
+                query (Query): The specimen query
+                version (str): Dataset version. defaults to "all_v3_0_subjects_meta", must be one of ["all_v3_0_subjects_meta"]
+
+            Keyword Args:
+                dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+                table (str): tablename. [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
+
+            Returns:
+                QueryCreatedData
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['version'] = \
+                version
+            kwargs['query'] = \
+                query
+            return self.call_with_http_info(**kwargs)
+
+        self.specimen_query = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/specimens/{version}',
+                'operation_id': 'specimen_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__specimen_query
         )
 
         def __sql_query(
@@ -1084,6 +1486,286 @@ class QueryApi(object):
             },
             api_client=api_client,
             callable=__sql_query
+        )
+
+        def __subject_query(
+            self,
+            query,
+            version="all_v3_0_subjects_meta",
+            **kwargs
+        ):
+            """Execute Subject query  # noqa: E501
+
+            Execute a Subject query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+
+            >>> thread = api.subject_query(query, version="all_v3_0_subjects_meta", async_req=True)
+            >>> result = thread.get()
+
+            Args:
+                query (Query): The subject query
+                version (str): Dataset version. defaults to "all_v3_0_subjects_meta", must be one of ["all_v3_0_subjects_meta"]
+
+            Keyword Args:
+                dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+                table (str): tablename. [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
+
+            Returns:
+                QueryCreatedData
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['version'] = \
+                version
+            kwargs['query'] = \
+                query
+            return self.call_with_http_info(**kwargs)
+
+        self.subject_query = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/subjects/{version}',
+                'operation_id': 'subject_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__subject_query
+        )
+
+        def __treatments_query(
+            self,
+            query,
+            version="all_v3_0_subjects_meta",
+            **kwargs
+        ):
+            """Execute Treatments query  # noqa: E501
+
+            Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+
+            >>> thread = api.treatments_query(query, version="all_v3_0_subjects_meta", async_req=True)
+            >>> result = thread.get()
+
+            Args:
+                query (Query): The treatments query
+                version (str): Dataset version. defaults to "all_v3_0_subjects_meta", must be one of ["all_v3_0_subjects_meta"]
+
+            Keyword Args:
+                dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+                table (str): tablename. [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
+
+            Returns:
+                QueryCreatedData
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['version'] = \
+                version
+            kwargs['query'] = \
+                query
+            return self.call_with_http_info(**kwargs)
+
+        self.treatments_query = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/treatments/{version}',
+                'operation_id': 'treatments_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__treatments_query
         )
 
         def __unique_values(

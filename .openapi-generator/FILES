@@ -19,6 +19,7 @@ cda_client/model/model.py
 cda_client/model/query.py
 cda_client/model/query_created_data.py
 cda_client/model/query_response_data.py
+cda_client/model/row.py
 cda_client/model/system_status.py
 cda_client/model/system_status_systems.py
 cda_client/model_utils.py
@@ -34,6 +35,7 @@ docs/Query.md
 docs/QueryApi.md
 docs/QueryCreatedData.md
 docs/QueryResponseData.md
+docs/Row.md
 docs/SystemStatus.md
 docs/SystemStatusSystems.md
 git_push.sh

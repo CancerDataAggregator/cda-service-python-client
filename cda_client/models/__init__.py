@@ -17,5 +17,6 @@ from cda_client.model.model import Model
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from cda_client.model.query_response_data import QueryResponseData
+from cda_client.model.row import Row
 from cda_client.model.system_status import SystemStatus
 from cda_client.model.system_status_systems import SystemStatusSystems

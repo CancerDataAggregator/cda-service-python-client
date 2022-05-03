@@ -49,7 +49,7 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The boolean query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "gdc-bq-sample.dev" # str | tablename (optional) if omitted the server will use the default value of "gdc-bq-sample.dev"
+    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
 
     # example passing only required values which don't have defaults set
     try:
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
  **query** | [**Query**](Query.md)| The boolean query |
  **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "gdc-bq-sample.dev"
+ **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
 
 ### Return type
 
@@ -126,7 +126,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
-    table = "gdc-bq-sample.dev" # str | tablename (optional) if omitted the server will use the default value of "gdc-bq-sample.dev"
+    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
 
     # example passing only required values which don't have defaults set
     try:
@@ -152,7 +152,7 @@ with cda_client.ApiClient() as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "gdc-bq-sample.dev"
+ **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
 
 ### Return type
 
@@ -201,7 +201,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
-    table = "gdc-bq-sample.dev" # str | tablename (optional) if omitted the server will use the default value of "gdc-bq-sample.dev"
+    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
 
     # example passing only required values which don't have defaults set
     try:
@@ -227,7 +227,7 @@ with cda_client.ApiClient() as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "gdc-bq-sample.dev"
+ **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
 
 ### Return type
 
@@ -284,7 +284,7 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The boolean query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "gdc-bq-sample.dev" # str | tablename (optional) if omitted the server will use the default value of "gdc-bq-sample.dev"
+    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
 
     # example passing only required values which don't have defaults set
     try:
@@ -312,7 +312,7 @@ Name | Type | Description  | Notes
  **query** | [**Query**](Query.md)| The boolean query |
  **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "gdc-bq-sample.dev"
+ **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
 
 ### Return type
 
@@ -369,7 +369,7 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | counts
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "gdc-bq-sample.dev" # str | tablename (optional) if omitted the server will use the default value of "gdc-bq-sample.dev"
+    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
 
     # example passing only required values which don't have defaults set
     try:
@@ -397,7 +397,7 @@ Name | Type | Description  | Notes
  **query** | [**Query**](Query.md)| counts |
  **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "gdc-bq-sample.dev"
+ **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
 
 ### Return type
 
@@ -514,6 +514,8 @@ with cda_client.ApiClient() as api_client:
     id = "id_example" # str | Query ID
     offset = 0 # int | The number of entries to skip (optional) if omitted the server will use the default value of 0
     limit = 100 # int | The numbers of entries to return per page of data (optional) if omitted the server will use the default value of 100
+    format = "JSON" # str | Output format (optional) if omitted the server will use the default value of "JSON"
+    include_headers = "true" # str | Include the column headers in TSV returns (optional) if omitted the server will use the default value of "true"
 
     # example passing only required values which don't have defaults set
     try:
@@ -527,7 +529,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Given a query ID, return the a page of data from the query result.
-        api_response = api_instance.query(id, offset=offset, limit=limit)
+        api_response = api_instance.query(id, offset=offset, limit=limit, format=format, include_headers=include_headers)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->query: %s\n" % e)
@@ -541,6 +543,8 @@ Name | Type | Description  | Notes
  **id** | **str**| Query ID |
  **offset** | **int**| The number of entries to skip | [optional] if omitted the server will use the default value of 0
  **limit** | **int**| The numbers of entries to return per page of data | [optional] if omitted the server will use the default value of 100
+ **format** | **str**| Output format | [optional] if omitted the server will use the default value of "JSON"
+ **include_headers** | **str**| Include the column headers in TSV returns | [optional] if omitted the server will use the default value of "true"
 
 ### Return type
 
@@ -654,7 +658,7 @@ with cda_client.ApiClient() as api_client:
     api_instance = query_api.QueryApi(api_client)
     body = "body_example" # str | column_name of table value being requested
     system = "system_example" # str | Filter on system for results (optional)
-    table = "gdc-bq-sample.dev" # str | tablename (optional) if omitted the server will use the default value of "gdc-bq-sample.dev"
+    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
 
     # example passing only required values which don't have defaults set
     try:
@@ -682,7 +686,7 @@ Name | Type | Description  | Notes
  **body** | **str**| column_name of table value being requested |
  **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **system** | **str**| Filter on system for results | [optional]
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "gdc-bq-sample.dev"
+ **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
 
 ### Return type
 

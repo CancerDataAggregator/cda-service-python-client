@@ -71,6 +71,10 @@ class Query(ModelNormal):
             'SELECTVALUES': "SELECTVALUES",
             'SELECT': "SELECT",
             'LIKE': "LIKE",
+            'IS': "IS",
+            'IS_NOT': "IS NOT",
+            'NOT_IN': "NOT IN",
+            'NOT_LIKE': "NOT LIKE",
         },
     }
 

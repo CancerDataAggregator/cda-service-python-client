@@ -9,18 +9,22 @@ Method | HTTP request | Description
 [**columns**](QueryApi.md#columns) | **GET** /api/v1/columns/{version} | Returns all column names
 [**diagnosis_counts_query**](QueryApi.md#diagnosis_counts_query) | **POST** /api/v1/diagnosis/counts/{version} | Execute Diagnosis Counts query
 [**diagnosis_query**](QueryApi.md#diagnosis_query) | **POST** /api/v1/diagnosis/{version} | Execute Diagnosis query
+[**file_counts_query**](QueryApi.md#file_counts_query) | **POST** /api/v1/files/counts/{version} | Execute File Counts query
 [**files**](QueryApi.md#files) | **POST** /api/v1/files/{version} | Returns a list of files given a boolean query
 [**global_counts**](QueryApi.md#global_counts) | **POST** /api/v1/global-counts/{version} | Returns counts of the DCS
 [**job_status**](QueryApi.md#job_status) | **GET** /api/v1/job-status/{id} | Return the running status of long running queries.
 [**query**](QueryApi.md#query) | **GET** /api/v1/query/{id} | Given a query ID, return the a page of data from the query result.
 [**research_subject_counts_query**](QueryApi.md#research_subject_counts_query) | **POST** /api/v1/researchsubjects/counts/{version} | Execute ResearchSubjects Counts query
+[**research_subject_file_counts_query**](QueryApi.md#research_subject_file_counts_query) | **POST** /api/v1/researchsubjects/files/counts/{version} | Execute ResearchSubjects File Counts query
 [**research_subject_files_query**](QueryApi.md#research_subject_files_query) | **POST** /api/v1/researchsubjects/files/{version} | Execute ResearchSubject Files query
 [**research_subject_query**](QueryApi.md#research_subject_query) | **POST** /api/v1/researchsubjects/{version} | Execute Research Subject query
 [**specimen_counts_query**](QueryApi.md#specimen_counts_query) | **POST** /api/v1/specimen/counts/{version} | Execute Specimen Counts query
+[**specimen_file_counts_query**](QueryApi.md#specimen_file_counts_query) | **POST** /api/v1/specimen/files/counts/{version} | Execute Specimen File Counts query
 [**specimen_files_query**](QueryApi.md#specimen_files_query) | **POST** /api/v1/specimen/files/{version} | Execute Specimen Files query
 [**specimen_query**](QueryApi.md#specimen_query) | **POST** /api/v1/specimens/{version} | Execute Specimens query
 [**sql_query**](QueryApi.md#sql_query) | **POST** /api/v1/sql-query | Execute SQL directly on a version of the dataset
 [**subject_counts_query**](QueryApi.md#subject_counts_query) | **POST** /api/v1/subjects/counts/{version} | Execute Subjects Counts query
+[**subject_file_counts_query**](QueryApi.md#subject_file_counts_query) | **POST** /api/v1/subjects/files/counts/{version} | Execute Subjects File Counts query
 [**subject_files_query**](QueryApi.md#subject_files_query) | **POST** /api/v1/subjects/files/{version} | Execute Subject Files query
 [**subject_query**](QueryApi.md#subject_query) | **POST** /api/v1/subjects/{version} | Execute Subject query
 [**treatment_counts_query**](QueryApi.md#treatment_counts_query) | **POST** /api/v1/treatments/counts/{version} | Execute Treatments Counts query
@@ -408,6 +412,91 @@ with cda_client.ApiClient() as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query** | [**Query**](Query.md)| The diagnosis query |
+ **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+
+### Return type
+
+[**QueryCreatedData**](QueryCreatedData.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | query created response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **file_counts_query**
+> QueryCreatedData file_counts_query(query)
+
+Execute File Counts query
+
+Execute a File Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
+
+### Example
+
+```python
+import time
+import cda_client
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
+from pprint import pprint
+# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# See configuration.py for a list of all supported configuration parameters.
+configuration = cda_client.Configuration(
+    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+)
+
+
+# Enter a context with an instance of the API client
+with cda_client.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = query_api.QueryApi(api_client)
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The files query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute File Counts query
+        api_response = api_instance.file_counts_query(query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->file_counts_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Execute File Counts query
+        api_response = api_instance.file_counts_query(query, dry_run=dry_run, table=table)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->file_counts_query: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **query** | [**Query**](Query.md)| The files query |
  **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
  **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
@@ -831,6 +920,91 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **research_subject_file_counts_query**
+> QueryCreatedData research_subject_file_counts_query(query)
+
+Execute ResearchSubjects File Counts query
+
+Execute a ResearchSubjects File Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
+
+### Example
+
+```python
+import time
+import cda_client
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
+from pprint import pprint
+# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# See configuration.py for a list of all supported configuration parameters.
+configuration = cda_client.Configuration(
+    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+)
+
+
+# Enter a context with an instance of the API client
+with cda_client.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = query_api.QueryApi(api_client)
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The research subjects query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute ResearchSubjects File Counts query
+        api_response = api_instance.research_subject_file_counts_query(query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->research_subject_file_counts_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Execute ResearchSubjects File Counts query
+        api_response = api_instance.research_subject_file_counts_query(query, dry_run=dry_run, table=table)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->research_subject_file_counts_query: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **query** | [**Query**](Query.md)| The research subjects query |
+ **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+
+### Return type
+
+[**QueryCreatedData**](QueryCreatedData.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | query created response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **research_subject_files_query**
 > QueryCreatedData research_subject_files_query(query)
 
@@ -1053,6 +1227,91 @@ with cda_client.ApiClient() as api_client:
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->specimen_counts_query: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **query** | [**Query**](Query.md)| The specimen query |
+ **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+
+### Return type
+
+[**QueryCreatedData**](QueryCreatedData.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | query created response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **specimen_file_counts_query**
+> QueryCreatedData specimen_file_counts_query(query)
+
+Execute Specimen File Counts query
+
+Execute a Specimen File Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
+
+### Example
+
+```python
+import time
+import cda_client
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
+from pprint import pprint
+# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# See configuration.py for a list of all supported configuration parameters.
+configuration = cda_client.Configuration(
+    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+)
+
+
+# Enter a context with an instance of the API client
+with cda_client.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = query_api.QueryApi(api_client)
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The specimen query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute Specimen File Counts query
+        api_response = api_instance.specimen_file_counts_query(query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->specimen_file_counts_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Execute Specimen File Counts query
+        api_response = api_instance.specimen_file_counts_query(query, dry_run=dry_run, table=table)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->specimen_file_counts_query: %s\n" % e)
 ```
 
 
@@ -1371,6 +1630,91 @@ with cda_client.ApiClient() as api_client:
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->subject_counts_query: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **query** | [**Query**](Query.md)| The subjects query |
+ **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+
+### Return type
+
+[**QueryCreatedData**](QueryCreatedData.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | query created response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **subject_file_counts_query**
+> QueryCreatedData subject_file_counts_query(query)
+
+Execute Subjects File Counts query
+
+Execute a Subjects File Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
+
+### Example
+
+```python
+import time
+import cda_client
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
+from pprint import pprint
+# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# See configuration.py for a list of all supported configuration parameters.
+configuration = cda_client.Configuration(
+    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+)
+
+
+# Enter a context with an instance of the API client
+with cda_client.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = query_api.QueryApi(api_client)
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The subjects query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute Subjects File Counts query
+        api_response = api_instance.subject_file_counts_query(query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->subject_file_counts_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Execute Subjects File Counts query
+        api_response = api_instance.subject_file_counts_query(query, dry_run=dry_run, table=table)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->subject_file_counts_query: %s\n" % e)
 ```
 
 

@@ -1,6 +1,6 @@
 # cda_client.MetaApi
 
-All URIs are relative to *https://cancerdata.dsde-dev.broadinstitute.org*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -24,10 +24,10 @@ import cda_client
 from cda_client.api import meta_api
 from cda_client.model.dataset_description import DatasetDescription
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -85,10 +85,10 @@ import cda_client
 from cda_client.api import meta_api
 from cda_client.model.dataset_description import DatasetDescription
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -146,10 +146,10 @@ import cda_client
 from cda_client.api import meta_api
 from cda_client.model.system_status import SystemStatus
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 

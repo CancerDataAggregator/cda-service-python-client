@@ -1,6 +1,6 @@
 # cda_client.QueryApi
 
-All URIs are relative to *https://cancerdata.dsde-dev.broadinstitute.org*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -33,7 +33,7 @@ Method | HTTP request | Description
 
 
 # **boolean_query**
-> QueryCreatedData boolean_query(query)
+> QueryCreatedData boolean_query(version, query)
 
 Execute boolean query
 
@@ -48,10 +48,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -59,6 +59,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -66,12 +67,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The boolean query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Execute boolean query
-        api_response = api_instance.boolean_query(query)
+        api_response = api_instance.boolean_query(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->boolean_query: %s\n" % e)
@@ -80,7 +81,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute boolean query
-        api_response = api_instance.boolean_query(query, dry_run=dry_run, table=table)
+        api_response = api_instance.boolean_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->boolean_query: %s\n" % e)
@@ -91,10 +92,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The boolean query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -118,7 +119,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_data**
-> QueryCreatedData bulk_data()
+> QueryCreatedData bulk_data(version)
 
 Return all data in CDA
 
@@ -132,10 +133,10 @@ import cda_client
 from cda_client.api import query_api
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -143,12 +144,13 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    version = "version_example" # str | Dataset version
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Return all data in CDA
-        api_response = api_instance.bulk_data()
+        api_response = api_instance.bulk_data(version)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->bulk_data: %s\n" % e)
@@ -157,7 +159,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Return all data in CDA
-        api_response = api_instance.bulk_data(table=table)
+        api_response = api_instance.bulk_data(version, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->bulk_data: %s\n" % e)
@@ -168,8 +170,8 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **version** | **str**| Dataset version |
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -193,7 +195,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **columns**
-> QueryCreatedData columns()
+> QueryCreatedData columns(version)
 
 Returns all column names
 
@@ -207,10 +209,10 @@ import cda_client
 from cda_client.api import query_api
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -218,12 +220,13 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    version = "version_example" # str | Dataset version
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Returns all column names
-        api_response = api_instance.columns()
+        api_response = api_instance.columns(version)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->columns: %s\n" % e)
@@ -232,7 +235,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Returns all column names
-        api_response = api_instance.columns(table=table)
+        api_response = api_instance.columns(version, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->columns: %s\n" % e)
@@ -243,8 +246,8 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **version** | **str**| Dataset version |
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -268,7 +271,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **diagnosis_counts_query**
-> QueryCreatedData diagnosis_counts_query(query)
+> QueryCreatedData diagnosis_counts_query(version, query)
 
 Execute Diagnosis Counts query
 
@@ -283,10 +286,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -294,6 +297,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -301,12 +305,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The diagnosis query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Execute Diagnosis Counts query
-        api_response = api_instance.diagnosis_counts_query(query)
+        api_response = api_instance.diagnosis_counts_query(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->diagnosis_counts_query: %s\n" % e)
@@ -315,7 +319,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute Diagnosis Counts query
-        api_response = api_instance.diagnosis_counts_query(query, dry_run=dry_run, table=table)
+        api_response = api_instance.diagnosis_counts_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->diagnosis_counts_query: %s\n" % e)
@@ -326,10 +330,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The diagnosis query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -353,7 +357,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **diagnosis_query**
-> QueryCreatedData diagnosis_query(query)
+> QueryCreatedData diagnosis_query(version, query)
 
 Execute Diagnosis query
 
@@ -368,10 +372,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -379,6 +383,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -386,12 +391,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The diagnosis query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Execute Diagnosis query
-        api_response = api_instance.diagnosis_query(query)
+        api_response = api_instance.diagnosis_query(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->diagnosis_query: %s\n" % e)
@@ -400,7 +405,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute Diagnosis query
-        api_response = api_instance.diagnosis_query(query, dry_run=dry_run, table=table)
+        api_response = api_instance.diagnosis_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->diagnosis_query: %s\n" % e)
@@ -411,10 +416,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The diagnosis query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -438,7 +443,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **file_counts_query**
-> QueryCreatedData file_counts_query(query)
+> QueryCreatedData file_counts_query(version, query)
 
 Execute File Counts query
 
@@ -453,10 +458,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -464,6 +469,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -471,12 +477,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The files query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Execute File Counts query
-        api_response = api_instance.file_counts_query(query)
+        api_response = api_instance.file_counts_query(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->file_counts_query: %s\n" % e)
@@ -485,7 +491,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute File Counts query
-        api_response = api_instance.file_counts_query(query, dry_run=dry_run, table=table)
+        api_response = api_instance.file_counts_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->file_counts_query: %s\n" % e)
@@ -496,10 +502,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The files query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -523,7 +529,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **files**
-> QueryCreatedData files(query)
+> QueryCreatedData files(version, query)
 
 Returns a list of files given a boolean query
 
@@ -538,10 +544,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -549,6 +555,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -556,12 +563,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The boolean query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Returns a list of files given a boolean query
-        api_response = api_instance.files(query)
+        api_response = api_instance.files(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->files: %s\n" % e)
@@ -570,7 +577,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Returns a list of files given a boolean query
-        api_response = api_instance.files(query, dry_run=dry_run, table=table)
+        api_response = api_instance.files(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->files: %s\n" % e)
@@ -581,10 +588,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The boolean query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_Files"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -608,7 +615,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **global_counts**
-> QueryCreatedData global_counts(query)
+> QueryCreatedData global_counts(version, query)
 
 Returns counts of the DCS
 
@@ -623,10 +630,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -634,6 +641,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -641,12 +649,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | counts
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Returns counts of the DCS
-        api_response = api_instance.global_counts(query)
+        api_response = api_instance.global_counts(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->global_counts: %s\n" % e)
@@ -655,7 +663,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Returns counts of the DCS
-        api_response = api_instance.global_counts(query, dry_run=dry_run, table=table)
+        api_response = api_instance.global_counts(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->global_counts: %s\n" % e)
@@ -666,10 +674,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| counts |
- **version** | **str**| Dataset version | defaults to "all_v3_0_Files"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -707,10 +715,10 @@ import cda_client
 from cda_client.api import query_api
 from cda_client.model.job_status_data import JobStatusData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -772,10 +780,10 @@ import cda_client
 from cda_client.api import query_api
 from cda_client.model.query_response_data import QueryResponseData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -836,7 +844,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **research_subject_counts_query**
-> QueryCreatedData research_subject_counts_query(query)
+> QueryCreatedData research_subject_counts_query(version, query)
 
 Execute ResearchSubjects Counts query
 
@@ -851,10 +859,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -862,6 +870,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -869,12 +878,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The research subjects query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Execute ResearchSubjects Counts query
-        api_response = api_instance.research_subject_counts_query(query)
+        api_response = api_instance.research_subject_counts_query(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->research_subject_counts_query: %s\n" % e)
@@ -883,7 +892,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute ResearchSubjects Counts query
-        api_response = api_instance.research_subject_counts_query(query, dry_run=dry_run, table=table)
+        api_response = api_instance.research_subject_counts_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->research_subject_counts_query: %s\n" % e)
@@ -894,10 +903,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The research subjects query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -921,7 +930,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **research_subject_file_counts_query**
-> QueryCreatedData research_subject_file_counts_query(query)
+> QueryCreatedData research_subject_file_counts_query(version, query)
 
 Execute ResearchSubjects File Counts query
 
@@ -936,10 +945,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -947,6 +956,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -954,12 +964,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The research subjects query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Execute ResearchSubjects File Counts query
-        api_response = api_instance.research_subject_file_counts_query(query)
+        api_response = api_instance.research_subject_file_counts_query(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->research_subject_file_counts_query: %s\n" % e)
@@ -968,7 +978,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute ResearchSubjects File Counts query
-        api_response = api_instance.research_subject_file_counts_query(query, dry_run=dry_run, table=table)
+        api_response = api_instance.research_subject_file_counts_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->research_subject_file_counts_query: %s\n" % e)
@@ -979,10 +989,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The research subjects query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1006,7 +1016,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **research_subject_files_query**
-> QueryCreatedData research_subject_files_query(query)
+> QueryCreatedData research_subject_files_query(version, query)
 
 Execute ResearchSubject Files query
 
@@ -1021,10 +1031,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -1032,6 +1042,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -1039,12 +1050,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The research subject query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Execute ResearchSubject Files query
-        api_response = api_instance.research_subject_files_query(query)
+        api_response = api_instance.research_subject_files_query(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->research_subject_files_query: %s\n" % e)
@@ -1053,7 +1064,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute ResearchSubject Files query
-        api_response = api_instance.research_subject_files_query(query, dry_run=dry_run, table=table)
+        api_response = api_instance.research_subject_files_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->research_subject_files_query: %s\n" % e)
@@ -1064,10 +1075,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The research subject query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1091,7 +1102,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **research_subject_query**
-> QueryCreatedData research_subject_query(query)
+> QueryCreatedData research_subject_query(version, query)
 
 Execute Research Subject query
 
@@ -1106,10 +1117,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -1117,6 +1128,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -1124,12 +1136,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The Research Subject query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Execute Research Subject query
-        api_response = api_instance.research_subject_query(query)
+        api_response = api_instance.research_subject_query(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->research_subject_query: %s\n" % e)
@@ -1138,7 +1150,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute Research Subject query
-        api_response = api_instance.research_subject_query(query, dry_run=dry_run, table=table)
+        api_response = api_instance.research_subject_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->research_subject_query: %s\n" % e)
@@ -1149,10 +1161,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The Research Subject query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1176,7 +1188,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **specimen_counts_query**
-> QueryCreatedData specimen_counts_query(query)
+> QueryCreatedData specimen_counts_query(version, query)
 
 Execute Specimen Counts query
 
@@ -1191,10 +1203,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -1202,6 +1214,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -1209,12 +1222,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The specimen query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Execute Specimen Counts query
-        api_response = api_instance.specimen_counts_query(query)
+        api_response = api_instance.specimen_counts_query(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->specimen_counts_query: %s\n" % e)
@@ -1223,7 +1236,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute Specimen Counts query
-        api_response = api_instance.specimen_counts_query(query, dry_run=dry_run, table=table)
+        api_response = api_instance.specimen_counts_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->specimen_counts_query: %s\n" % e)
@@ -1234,10 +1247,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The specimen query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1261,7 +1274,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **specimen_file_counts_query**
-> QueryCreatedData specimen_file_counts_query(query)
+> QueryCreatedData specimen_file_counts_query(version, query)
 
 Execute Specimen File Counts query
 
@@ -1276,10 +1289,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -1287,6 +1300,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -1294,12 +1308,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The specimen query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Execute Specimen File Counts query
-        api_response = api_instance.specimen_file_counts_query(query)
+        api_response = api_instance.specimen_file_counts_query(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->specimen_file_counts_query: %s\n" % e)
@@ -1308,7 +1322,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute Specimen File Counts query
-        api_response = api_instance.specimen_file_counts_query(query, dry_run=dry_run, table=table)
+        api_response = api_instance.specimen_file_counts_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->specimen_file_counts_query: %s\n" % e)
@@ -1319,10 +1333,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The specimen query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1346,7 +1360,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **specimen_files_query**
-> QueryCreatedData specimen_files_query(query)
+> QueryCreatedData specimen_files_query(version, query)
 
 Execute Specimen Files query
 
@@ -1361,10 +1375,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -1372,6 +1386,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -1379,12 +1394,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The specimen query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Execute Specimen Files query
-        api_response = api_instance.specimen_files_query(query)
+        api_response = api_instance.specimen_files_query(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->specimen_files_query: %s\n" % e)
@@ -1393,7 +1408,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute Specimen Files query
-        api_response = api_instance.specimen_files_query(query, dry_run=dry_run, table=table)
+        api_response = api_instance.specimen_files_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->specimen_files_query: %s\n" % e)
@@ -1404,10 +1419,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The specimen query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1431,7 +1446,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **specimen_query**
-> QueryCreatedData specimen_query(query)
+> QueryCreatedData specimen_query(version, query)
 
 Execute Specimens query
 
@@ -1446,10 +1461,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -1457,6 +1472,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -1464,12 +1480,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The specimen query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Execute Specimens query
-        api_response = api_instance.specimen_query(query)
+        api_response = api_instance.specimen_query(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->specimen_query: %s\n" % e)
@@ -1478,7 +1494,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute Specimens query
-        api_response = api_instance.specimen_query(query, dry_run=dry_run, table=table)
+        api_response = api_instance.specimen_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->specimen_query: %s\n" % e)
@@ -1489,10 +1505,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The specimen query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1528,10 +1544,10 @@ import cda_client
 from cda_client.api import query_api
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -1579,7 +1595,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **subject_counts_query**
-> QueryCreatedData subject_counts_query(query)
+> QueryCreatedData subject_counts_query(version, query)
 
 Execute Subjects Counts query
 
@@ -1594,10 +1610,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -1605,6 +1621,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -1612,12 +1629,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The subjects query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Execute Subjects Counts query
-        api_response = api_instance.subject_counts_query(query)
+        api_response = api_instance.subject_counts_query(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->subject_counts_query: %s\n" % e)
@@ -1626,7 +1643,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute Subjects Counts query
-        api_response = api_instance.subject_counts_query(query, dry_run=dry_run, table=table)
+        api_response = api_instance.subject_counts_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->subject_counts_query: %s\n" % e)
@@ -1637,10 +1654,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The subjects query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1664,7 +1681,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **subject_file_counts_query**
-> QueryCreatedData subject_file_counts_query(query)
+> QueryCreatedData subject_file_counts_query(version, query)
 
 Execute Subjects File Counts query
 
@@ -1679,10 +1696,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -1690,6 +1707,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -1697,12 +1715,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The subjects query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Execute Subjects File Counts query
-        api_response = api_instance.subject_file_counts_query(query)
+        api_response = api_instance.subject_file_counts_query(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->subject_file_counts_query: %s\n" % e)
@@ -1711,7 +1729,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute Subjects File Counts query
-        api_response = api_instance.subject_file_counts_query(query, dry_run=dry_run, table=table)
+        api_response = api_instance.subject_file_counts_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->subject_file_counts_query: %s\n" % e)
@@ -1722,10 +1740,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The subjects query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1749,7 +1767,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **subject_files_query**
-> QueryCreatedData subject_files_query(query)
+> QueryCreatedData subject_files_query(version, query)
 
 Execute Subject Files query
 
@@ -1764,10 +1782,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -1775,6 +1793,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -1782,12 +1801,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The subject query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Execute Subject Files query
-        api_response = api_instance.subject_files_query(query)
+        api_response = api_instance.subject_files_query(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->subject_files_query: %s\n" % e)
@@ -1796,7 +1815,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute Subject Files query
-        api_response = api_instance.subject_files_query(query, dry_run=dry_run, table=table)
+        api_response = api_instance.subject_files_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->subject_files_query: %s\n" % e)
@@ -1807,10 +1826,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The subject query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1834,7 +1853,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **subject_query**
-> QueryCreatedData subject_query(query)
+> QueryCreatedData subject_query(version, query)
 
 Execute Subject query
 
@@ -1849,10 +1868,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -1860,6 +1879,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -1867,12 +1887,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The subject query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Execute Subject query
-        api_response = api_instance.subject_query(query)
+        api_response = api_instance.subject_query(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->subject_query: %s\n" % e)
@@ -1881,7 +1901,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute Subject query
-        api_response = api_instance.subject_query(query, dry_run=dry_run, table=table)
+        api_response = api_instance.subject_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->subject_query: %s\n" % e)
@@ -1892,10 +1912,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The subject query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1919,7 +1939,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **treatment_counts_query**
-> QueryCreatedData treatment_counts_query(query)
+> QueryCreatedData treatment_counts_query(version, query)
 
 Execute Treatments Counts query
 
@@ -1934,10 +1954,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -1945,6 +1965,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -1952,12 +1973,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The treatment query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Execute Treatments Counts query
-        api_response = api_instance.treatment_counts_query(query)
+        api_response = api_instance.treatment_counts_query(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->treatment_counts_query: %s\n" % e)
@@ -1966,7 +1987,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute Treatments Counts query
-        api_response = api_instance.treatment_counts_query(query, dry_run=dry_run, table=table)
+        api_response = api_instance.treatment_counts_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->treatment_counts_query: %s\n" % e)
@@ -1977,10 +1998,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The treatment query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -2004,7 +2025,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **treatments_query**
-> QueryCreatedData treatments_query(query)
+> QueryCreatedData treatments_query(version, query)
 
 Execute Treatments query
 
@@ -2019,10 +2040,10 @@ from cda_client.api import query_api
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -2030,6 +2051,7 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     query = Query(
         node_type="column",
         value="value_example",
@@ -2037,12 +2059,12 @@ with cda_client.ApiClient() as api_client:
         r=Query(),
     ) # Query | The treatments query
     dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Execute Treatments query
-        api_response = api_instance.treatments_query(query)
+        api_response = api_instance.treatments_query(version, query)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->treatments_query: %s\n" % e)
@@ -2051,7 +2073,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Execute Treatments query
-        api_response = api_instance.treatments_query(query, dry_run=dry_run, table=table)
+        api_response = api_instance.treatments_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->treatments_query: %s\n" % e)
@@ -2062,10 +2084,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **query** | [**Query**](Query.md)| The treatments query |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -2089,7 +2111,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unique_values**
-> QueryCreatedData unique_values(body)
+> QueryCreatedData unique_values(version, body)
 
 Returns all unique values
 
@@ -2103,10 +2125,10 @@ import cda_client
 from cda_client.api import query_api
 from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
-# Defining the host is optional and defaults to https://cancerdata.dsde-dev.broadinstitute.org
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = cda_client.Configuration(
-    host = "https://cancerdata.dsde-dev.broadinstitute.org"
+    host = "http://localhost"
 )
 
 
@@ -2114,14 +2136,15 @@ configuration = cda_client.Configuration(
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
     body = "body_example" # str | column_name of table value being requested
     system = "system_example" # str | Filter on system for results (optional)
-    table = "broad-dsde-dev.cda_dev" # str | tablename (optional) if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+    table = "table_example" # str | tablename (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Returns all unique values
-        api_response = api_instance.unique_values(body)
+        api_response = api_instance.unique_values(version, body)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->unique_values: %s\n" % e)
@@ -2130,7 +2153,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Returns all unique values
-        api_response = api_instance.unique_values(body, system=system, table=table)
+        api_response = api_instance.unique_values(version, body, system=system, table=table)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->unique_values: %s\n" % e)
@@ -2141,10 +2164,10 @@ with cda_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **version** | **str**| Dataset version |
  **body** | **str**| column_name of table value being requested |
- **version** | **str**| Dataset version | defaults to "all_v3_0_subjects_meta"
  **system** | **str**| Filter on system for results | [optional]
- **table** | **str**| tablename | [optional] if omitted the server will use the default value of "broad-dsde-dev.cda_dev"
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 

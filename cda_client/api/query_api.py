@@ -3470,6 +3470,7 @@ class QueryApi(object):
             Keyword Args:
                 system (str): Filter on system for results. [optional]
                 table (str): tablename. [optional]
+                count (bool): Filter on system for results. [optional]
                 _return_http_data_only (bool): response data without head status
                     code and headers. Default is True.
                 _preload_content (bool): if False, the urllib3.HTTPResponse object
@@ -3535,6 +3536,7 @@ class QueryApi(object):
                     'body',
                     'system',
                     'table',
+                    'count',
                 ],
                 'required': [
                     'version',
@@ -3561,17 +3563,21 @@ class QueryApi(object):
                         (str,),
                     'table':
                         (str,),
+                    'count':
+                        (bool,),
                 },
                 'attribute_map': {
                     'version': 'version',
                     'system': 'system',
                     'table': 'table',
+                    'count': 'count',
                 },
                 'location_map': {
                     'version': 'path',
                     'body': 'body',
                     'system': 'query',
                     'table': 'query',
+                    'count': 'query',
                 },
                 'collection_format_map': {
                 }

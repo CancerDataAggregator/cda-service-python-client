@@ -2140,6 +2140,7 @@ with cda_client.ApiClient() as api_client:
     body = "body_example" # str | column_name of table value being requested
     system = "system_example" # str | Filter on system for results (optional)
     table = "table_example" # str | tablename (optional)
+    count = True # bool | Filter on system for results (optional)
 
     # example passing only required values which don't have defaults set
     try:
@@ -2153,7 +2154,7 @@ with cda_client.ApiClient() as api_client:
     # and optional values
     try:
         # Returns all unique values
-        api_response = api_instance.unique_values(version, body, system=system, table=table)
+        api_response = api_instance.unique_values(version, body, system=system, table=table, count=count)
         pprint(api_response)
     except cda_client.ApiException as e:
         print("Exception when calling QueryApi->unique_values: %s\n" % e)
@@ -2168,6 +2169,7 @@ Name | Type | Description  | Notes
  **body** | **str**| column_name of table value being requested |
  **system** | **str**| Filter on system for results | [optional]
  **table** | **str**| tablename | [optional]
+ **count** | **bool**| Filter on system for results | [optional]
 
 ### Return type
 

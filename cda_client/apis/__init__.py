@@ -6,7 +6,7 @@
 # raise a `RecursionError`.
 # In order to avoid this, import only the API that you directly need like:
 #
-#   from .api.meta_api import MetaApi
+#   from cda_client.api.meta_api import MetaApi
 #
 # or import this package, but before doing it, use:
 #

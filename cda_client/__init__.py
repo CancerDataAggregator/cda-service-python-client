@@ -1,3 +1,5 @@
+# coding: utf-8
+
 # flake8: noqa
 
 """
@@ -10,18 +12,32 @@
 """
 
 
-__version__ = "8.17.2022"
+from __future__ import absolute_import
+
+__version__ = "8.18.2022"
+
+# import apis into sdk package
+from cda_client.api.meta_api import MetaApi
+from cda_client.api.query_api import QueryApi
 
 # import ApiClient
 from cda_client.api_client import ApiClient
-
-# import Configuration
 from cda_client.configuration import Configuration
-
-# import exceptions
 from cda_client.exceptions import OpenApiException
-from cda_client.exceptions import ApiAttributeError
 from cda_client.exceptions import ApiTypeError
 from cda_client.exceptions import ApiValueError
 from cda_client.exceptions import ApiKeyError
+from cda_client.exceptions import ApiAttributeError
 from cda_client.exceptions import ApiException
+# import models into sdk package
+from cda_client.models.dataset_description import DatasetDescription
+from cda_client.models.dataset_info import DatasetInfo
+from cda_client.models.error_report import ErrorReport
+from cda_client.models.job_status_data import JobStatusData
+from cda_client.models.model import Model
+from cda_client.models.query import Query
+from cda_client.models.query_created_data import QueryCreatedData
+from cda_client.models.query_response_data import QueryResponseData
+from cda_client.models.system_status import SystemStatus
+from cda_client.models.system_status_systems_value import SystemStatusSystemsValue
+

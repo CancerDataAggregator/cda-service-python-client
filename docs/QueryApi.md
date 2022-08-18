@@ -33,7 +33,7 @@ Method | HTTP request | Description
 
 
 # **boolean_query**
-> QueryCreatedData boolean_query(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData boolean_query(version, query)
 
 Execute boolean query
 
@@ -41,11 +41,13 @@ Execute a query composed of conditions on columns combined with boolean operator
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -57,28 +59,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The boolean query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The boolean query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute boolean query
+        api_response = api_instance.boolean_query(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->boolean_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Execute boolean query
         api_response = api_instance.boolean_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->boolean_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The boolean query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The boolean query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -93,7 +111,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -101,7 +121,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_data**
-> QueryCreatedData bulk_data(version, table=table)
+> QueryCreatedData bulk_data(version)
 
 Return all data in CDA
 
@@ -109,11 +129,12 @@ Return all data in CDA
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -125,24 +146,35 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Return all data in CDA
+        api_response = api_instance.bulk_data(version)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->bulk_data: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Return all data in CDA
         api_response = api_instance.bulk_data(version, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->bulk_data: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -157,7 +189,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -165,7 +199,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **columns**
-> QueryCreatedData columns(version, table=table)
+> QueryCreatedData columns(version)
 
 Returns all column names
 
@@ -173,11 +207,12 @@ Return columnNames for schema
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -189,24 +224,35 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Returns all column names
+        api_response = api_instance.columns(version)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->columns: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Returns all column names
         api_response = api_instance.columns(version, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->columns: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -221,7 +267,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -229,7 +277,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **diagnosis_counts_query**
-> QueryCreatedData diagnosis_counts_query(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData diagnosis_counts_query(version, query)
 
 Execute Diagnosis Counts query
 
@@ -237,11 +285,13 @@ Execute a Diagnosis Counts query composed of conditions on columns combined with
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -253,28 +303,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The diagnosis query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The diagnosis query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute Diagnosis Counts query
+        api_response = api_instance.diagnosis_counts_query(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->diagnosis_counts_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Execute Diagnosis Counts query
         api_response = api_instance.diagnosis_counts_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->diagnosis_counts_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The diagnosis query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The diagnosis query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -289,7 +355,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -297,7 +365,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **diagnosis_query**
-> QueryCreatedData diagnosis_query(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData diagnosis_query(version, query)
 
 Execute Diagnosis query
 
@@ -305,11 +373,13 @@ Execute a query composed of conditions on columns combined with boolean operator
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -321,28 +391,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The diagnosis query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The diagnosis query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute Diagnosis query
+        api_response = api_instance.diagnosis_query(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->diagnosis_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Execute Diagnosis query
         api_response = api_instance.diagnosis_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->diagnosis_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The diagnosis query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The diagnosis query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -357,7 +443,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -365,7 +453,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **file_counts_query**
-> QueryCreatedData file_counts_query(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData file_counts_query(version, query)
 
 Execute File Counts query
 
@@ -373,11 +461,13 @@ Execute a File Counts query composed of conditions on columns combined with bool
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -389,28 +479,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The files query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The files query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute File Counts query
+        api_response = api_instance.file_counts_query(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->file_counts_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Execute File Counts query
         api_response = api_instance.file_counts_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->file_counts_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The files query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The files query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -425,7 +531,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -433,7 +541,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **files**
-> QueryCreatedData files(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData files(version, query)
 
 Returns a list of files given a boolean query
 
@@ -441,11 +549,13 @@ Return list of files for given query
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -457,28 +567,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The boolean query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The boolean query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Returns a list of files given a boolean query
+        api_response = api_instance.files(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->files: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Returns a list of files given a boolean query
         api_response = api_instance.files(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->files: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The boolean query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The boolean query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -493,7 +619,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -501,7 +629,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **global_counts**
-> QueryCreatedData global_counts(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData global_counts(version, query)
 
 Returns counts of the DCS
 
@@ -509,11 +637,13 @@ Return GlobalCounts for schema
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -525,28 +655,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | counts
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | counts
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Returns counts of the DCS
+        api_response = api_instance.global_counts(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->global_counts: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Returns counts of the DCS
         api_response = api_instance.global_counts(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->global_counts: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| counts | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| counts |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -561,7 +707,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -577,11 +725,12 @@ For long running queries we may need to determine if the query is PENDING RUNNIN
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.job_status_data import JobStatusData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -593,22 +742,24 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    id = 'id_example' # str | Query ID
+    api_instance = query_api.QueryApi(api_client)
+    id = "id_example" # str | Query ID
 
+    # example passing only required values which don't have defaults set
     try:
         # Return the running status of long running queries.
         api_response = api_instance.job_status(id)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->job_status: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Query ID | 
+ **id** | **str**| Query ID |
 
 ### Return type
 
@@ -623,7 +774,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Get&#39;s Bigquery job id status |  -  |
@@ -631,7 +784,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **query**
-> QueryResponseData query(id, offset=offset, limit=limit)
+> QueryResponseData query(id)
 
 Given a query ID, return the a page of data from the query result.
 
@@ -639,11 +792,12 @@ Use this API to get the data back from a query. If there is more data present, n
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query_response_data import QueryResponseData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -655,26 +809,37 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    id = 'id_example' # str | Query ID
-offset = 0 # int | The number of entries to skip (optional) (default to 0)
-limit = 100 # int | The numbers of entries to return per page of data (optional) (default to 100)
+    api_instance = query_api.QueryApi(api_client)
+    id = "id_example" # str | Query ID
+    offset = 0 # int | The number of entries to skip (optional) if omitted the server will use the default value of 0
+    limit = 100 # int | The numbers of entries to return per page of data (optional) if omitted the server will use the default value of 100
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Given a query ID, return the a page of data from the query result.
+        api_response = api_instance.query(id)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Given a query ID, return the a page of data from the query result.
         api_response = api_instance.query(id, offset=offset, limit=limit)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Query ID | 
- **offset** | **int**| The number of entries to skip | [optional] [default to 0]
- **limit** | **int**| The numbers of entries to return per page of data | [optional] [default to 100]
+ **id** | **str**| Query ID |
+ **offset** | **int**| The number of entries to skip | [optional] if omitted the server will use the default value of 0
+ **limit** | **int**| The numbers of entries to return per page of data | [optional] if omitted the server will use the default value of 100
 
 ### Return type
 
@@ -689,7 +854,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query data response |  -  |
@@ -697,7 +864,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **research_subject_counts_query**
-> QueryCreatedData research_subject_counts_query(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData research_subject_counts_query(version, query)
 
 Execute ResearchSubjects Counts query
 
@@ -705,11 +872,13 @@ Execute a ResearchSubjects Counts query composed of conditions on columns combin
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -721,28 +890,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The research subjects query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The research subjects query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute ResearchSubjects Counts query
+        api_response = api_instance.research_subject_counts_query(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->research_subject_counts_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Execute ResearchSubjects Counts query
         api_response = api_instance.research_subject_counts_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->research_subject_counts_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The research subjects query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The research subjects query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -757,7 +942,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -765,7 +952,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **research_subject_file_counts_query**
-> QueryCreatedData research_subject_file_counts_query(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData research_subject_file_counts_query(version, query)
 
 Execute ResearchSubjects File Counts query
 
@@ -773,11 +960,13 @@ Execute a ResearchSubjects File Counts query composed of conditions on columns c
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -789,28 +978,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The research subjects query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The research subjects query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute ResearchSubjects File Counts query
+        api_response = api_instance.research_subject_file_counts_query(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->research_subject_file_counts_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Execute ResearchSubjects File Counts query
         api_response = api_instance.research_subject_file_counts_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->research_subject_file_counts_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The research subjects query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The research subjects query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -825,7 +1030,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -833,7 +1040,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **research_subject_files_query**
-> QueryCreatedData research_subject_files_query(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData research_subject_files_query(version, query)
 
 Execute ResearchSubject Files query
 
@@ -841,11 +1048,13 @@ Execute a ResearchSubject Files query composed of conditions on columns combined
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -857,28 +1066,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The research subject query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The research subject query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute ResearchSubject Files query
+        api_response = api_instance.research_subject_files_query(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->research_subject_files_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Execute ResearchSubject Files query
         api_response = api_instance.research_subject_files_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->research_subject_files_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The research subject query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The research subject query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -893,7 +1118,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -901,7 +1128,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **research_subject_query**
-> QueryCreatedData research_subject_query(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData research_subject_query(version, query)
 
 Execute Research Subject query
 
@@ -909,11 +1136,13 @@ Execute a query composed of conditions on columns combined with boolean operator
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -925,28 +1154,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The Research Subject query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The Research Subject query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute Research Subject query
+        api_response = api_instance.research_subject_query(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->research_subject_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Execute Research Subject query
         api_response = api_instance.research_subject_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->research_subject_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The Research Subject query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The Research Subject query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -961,7 +1206,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -969,7 +1216,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **specimen_counts_query**
-> QueryCreatedData specimen_counts_query(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData specimen_counts_query(version, query)
 
 Execute Specimen Counts query
 
@@ -977,11 +1224,13 @@ Execute a Specimen Counts query composed of conditions on columns combined with 
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -993,28 +1242,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The specimen query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The specimen query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute Specimen Counts query
+        api_response = api_instance.specimen_counts_query(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->specimen_counts_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Execute Specimen Counts query
         api_response = api_instance.specimen_counts_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->specimen_counts_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The specimen query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The specimen query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1029,7 +1294,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1037,7 +1304,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **specimen_file_counts_query**
-> QueryCreatedData specimen_file_counts_query(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData specimen_file_counts_query(version, query)
 
 Execute Specimen File Counts query
 
@@ -1045,11 +1312,13 @@ Execute a Specimen File Counts query composed of conditions on columns combined 
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -1061,28 +1330,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The specimen query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The specimen query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute Specimen File Counts query
+        api_response = api_instance.specimen_file_counts_query(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->specimen_file_counts_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Execute Specimen File Counts query
         api_response = api_instance.specimen_file_counts_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->specimen_file_counts_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The specimen query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The specimen query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1097,7 +1382,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1105,7 +1392,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **specimen_files_query**
-> QueryCreatedData specimen_files_query(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData specimen_files_query(version, query)
 
 Execute Specimen Files query
 
@@ -1113,11 +1400,13 @@ Execute a Specimen Files query composed of conditions on columns combined with b
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -1129,28 +1418,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The specimen query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The specimen query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute Specimen Files query
+        api_response = api_instance.specimen_files_query(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->specimen_files_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Execute Specimen Files query
         api_response = api_instance.specimen_files_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->specimen_files_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The specimen query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The specimen query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1165,7 +1470,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1173,7 +1480,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **specimen_query**
-> QueryCreatedData specimen_query(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData specimen_query(version, query)
 
 Execute Specimens query
 
@@ -1181,11 +1488,13 @@ Execute a query composed of conditions on columns combined with boolean operator
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -1197,28 +1506,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The specimen query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The specimen query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute Specimens query
+        api_response = api_instance.specimen_query(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->specimen_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Execute Specimens query
         api_response = api_instance.specimen_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->specimen_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The specimen query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The specimen query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1233,7 +1558,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1247,11 +1574,12 @@ Execute SQL directly on a version of the dataset
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -1263,22 +1591,24 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    body = 'body_example' # str | BigQuery SQL to run on data table
+    api_instance = query_api.QueryApi(api_client)
+    body = "body_example" # str | BigQuery SQL to run on data table
 
+    # example passing only required values which don't have defaults set
     try:
         # Execute SQL directly on a version of the dataset
         api_response = api_instance.sql_query(body)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->sql_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | **str**| BigQuery SQL to run on data table | 
+ **body** | **str**| BigQuery SQL to run on data table |
 
 ### Return type
 
@@ -1293,7 +1623,9 @@ No authorization required
  - **Content-Type**: text/plain
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1301,7 +1633,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **subject_counts_query**
-> QueryCreatedData subject_counts_query(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData subject_counts_query(version, query)
 
 Execute Subjects Counts query
 
@@ -1309,11 +1641,13 @@ Execute a Subjects Counts query composed of conditions on columns combined with 
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -1325,28 +1659,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The subjects query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The subjects query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute Subjects Counts query
+        api_response = api_instance.subject_counts_query(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->subject_counts_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Execute Subjects Counts query
         api_response = api_instance.subject_counts_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->subject_counts_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The subjects query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The subjects query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1361,7 +1711,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1369,7 +1721,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **subject_file_counts_query**
-> QueryCreatedData subject_file_counts_query(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData subject_file_counts_query(version, query)
 
 Execute Subjects File Counts query
 
@@ -1377,11 +1729,13 @@ Execute a Subjects File Counts query composed of conditions on columns combined 
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -1393,28 +1747,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The subjects query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The subjects query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute Subjects File Counts query
+        api_response = api_instance.subject_file_counts_query(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->subject_file_counts_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Execute Subjects File Counts query
         api_response = api_instance.subject_file_counts_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->subject_file_counts_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The subjects query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The subjects query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1429,7 +1799,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1437,7 +1809,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **subject_files_query**
-> QueryCreatedData subject_files_query(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData subject_files_query(version, query)
 
 Execute Subject Files query
 
@@ -1445,11 +1817,13 @@ Execute a Subject Files query composed of conditions on columns combined with bo
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -1461,28 +1835,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The subject query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The subject query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute Subject Files query
+        api_response = api_instance.subject_files_query(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->subject_files_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Execute Subject Files query
         api_response = api_instance.subject_files_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->subject_files_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The subject query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The subject query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1497,7 +1887,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1505,7 +1897,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **subject_query**
-> QueryCreatedData subject_query(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData subject_query(version, query)
 
 Execute Subject query
 
@@ -1513,11 +1905,13 @@ Execute a Subject query composed of conditions on columns combined with boolean 
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -1529,28 +1923,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The subject query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The subject query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute Subject query
+        api_response = api_instance.subject_query(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->subject_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Execute Subject query
         api_response = api_instance.subject_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->subject_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The subject query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The subject query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1565,7 +1975,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1573,7 +1985,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **treatment_counts_query**
-> QueryCreatedData treatment_counts_query(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData treatment_counts_query(version, query)
 
 Execute Treatments Counts query
 
@@ -1581,11 +1993,13 @@ Execute a Treatments Counts query composed of conditions on columns combined wit
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -1597,28 +2011,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The treatment query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The treatment query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute Treatments Counts query
+        api_response = api_instance.treatment_counts_query(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->treatment_counts_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Execute Treatments Counts query
         api_response = api_instance.treatment_counts_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->treatment_counts_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The treatment query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The treatment query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1633,7 +2063,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1641,7 +2073,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **treatments_query**
-> QueryCreatedData treatments_query(version, query, dry_run=dry_run, table=table)
+> QueryCreatedData treatments_query(version, query)
 
 Execute Treatments query
 
@@ -1649,11 +2081,13 @@ Execute a query composed of conditions on columns combined with boolean operator
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -1665,28 +2099,44 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-query = cda_client.Query() # Query | The treatments query
-dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) (default to False)
-table = 'table_example' # str | tablename (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    query = Query(
+        node_type="column",
+        value="value_example",
+        l=Query(),
+        r=Query(),
+    ) # Query | The treatments query
+    dry_run = False # bool | If true, don't run the query, only generate and return it. (optional) if omitted the server will use the default value of False
+    table = "table_example" # str | tablename (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Execute Treatments query
+        api_response = api_instance.treatments_query(version, query)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->treatments_query: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Execute Treatments query
         api_response = api_instance.treatments_query(version, query, dry_run=dry_run, table=table)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->treatments_query: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **query** | [**Query**](Query.md)| The treatments query | 
- **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] [default to False]
- **table** | **str**| tablename | [optional] 
+ **version** | **str**| Dataset version |
+ **query** | [**Query**](Query.md)| The treatments query |
+ **dry_run** | **bool**| If true, don&#39;t run the query, only generate and return it. | [optional] if omitted the server will use the default value of False
+ **table** | **str**| tablename | [optional]
 
 ### Return type
 
@@ -1701,7 +2151,9 @@ No authorization required
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1709,7 +2161,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unique_values**
-> QueryCreatedData unique_values(version, body, system=system, table=table, count=count)
+> QueryCreatedData unique_values(version, body)
 
 Returns all unique values
 
@@ -1717,11 +2169,12 @@ Return unique values given a qualified columnName
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import query_api
+from cda_client.model.query_created_data import QueryCreatedData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -1733,30 +2186,41 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.QueryApi(api_client)
-    version = 'version_example' # str | Dataset version
-body = 'body_example' # str | column_name of table value being requested
-system = 'system_example' # str | Filter on system for results (optional)
-table = 'table_example' # str | tablename (optional)
-count = True # bool | Filter on system for results (optional)
+    api_instance = query_api.QueryApi(api_client)
+    version = "version_example" # str | Dataset version
+    body = "body_example" # str | column_name of table value being requested
+    system = "system_example" # str | Filter on system for results (optional)
+    table = "table_example" # str | tablename (optional)
+    count = True # bool | Filter on system for results (optional)
 
+    # example passing only required values which don't have defaults set
+    try:
+        # Returns all unique values
+        api_response = api_instance.unique_values(version, body)
+        pprint(api_response)
+    except cda_client.ApiException as e:
+        print("Exception when calling QueryApi->unique_values: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # Returns all unique values
         api_response = api_instance.unique_values(version, body, system=system, table=table, count=count)
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling QueryApi->unique_values: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **version** | **str**| Dataset version | 
- **body** | **str**| column_name of table value being requested | 
- **system** | **str**| Filter on system for results | [optional] 
- **table** | **str**| tablename | [optional] 
- **count** | **bool**| Filter on system for results | [optional] 
+ **version** | **str**| Dataset version |
+ **body** | **str**| column_name of table value being requested |
+ **system** | **str**| Filter on system for results | [optional]
+ **table** | **str**| tablename | [optional]
+ **count** | **bool**| Filter on system for results | [optional]
 
 ### Return type
 
@@ -1771,7 +2235,9 @@ No authorization required
  - **Content-Type**: text/plain
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |

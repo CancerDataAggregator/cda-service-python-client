@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     CDA API
 
@@ -21,8 +19,10 @@ VERSION = "8.18.2022"
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 
-REQUIRES = ["urllib3 >= 1.25.3", "six >= 1.10", "python-dateutil"]
-REQUIRES.append("tornado>=4.2,<5")
+REQUIRES = [
+  "urllib3 >= 1.25.3",
+  "python-dateutil",
+]
 
 setup(
     name=NAME,
@@ -32,11 +32,11 @@ setup(
     author_email="team@openapitools.org",
     url="",
     keywords=["OpenAPI", "OpenAPI-Generator", "CDA API"],
+    python_requires=">=3.6",
     install_requires=REQUIRES,
     packages=find_packages(exclude=["test", "tests"]),
     include_package_data=True,
     license="Apache 2.0",
-    long_description_content_type='text/markdown',
     long_description="""\
     API definition for the CDA  # noqa: E501
     """

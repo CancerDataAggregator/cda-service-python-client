@@ -14,7 +14,7 @@
 
 from __future__ import absolute_import
 
-__version__ = "8.17.2022"
+__version__ = "8.18.2022"
 
 # import apis into sdk package
 from cda_client.api.meta_api import MetaApi

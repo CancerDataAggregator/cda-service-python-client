@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **all_release_notes**
-> list[DatasetDescription] all_release_notes()
+> [DatasetDescription] all_release_notes()
 
 List descriptions of all available datasets
 
@@ -18,11 +18,12 @@ Return data model and release notes of all releases.
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import meta_api
+from cda_client.model.dataset_description import DatasetDescription
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -34,22 +35,24 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.MetaApi(api_client)
-    
+    api_instance = meta_api.MetaApi(api_client)
+
+    # example, this endpoint has no required or optional parameters
     try:
         # List descriptions of all available datasets
         api_response = api_instance.all_release_notes()
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling MetaApi->all_release_notes: %s\n" % e)
 ```
+
 
 ### Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-[**list[DatasetDescription]**](DatasetDescription.md)
+[**[DatasetDescription]**](DatasetDescription.md)
 
 ### Authorization
 
@@ -60,7 +63,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | List of dataset descriptions |  -  |
@@ -76,11 +81,12 @@ Return data model and release notes for latest release.
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import meta_api
+from cda_client.model.dataset_description import DatasetDescription
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -92,15 +98,17 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.MetaApi(api_client)
-    
+    api_instance = meta_api.MetaApi(api_client)
+
+    # example, this endpoint has no required or optional parameters
     try:
         # Description of latest dataset
         api_response = api_instance.latest_release_notes()
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling MetaApi->latest_release_notes: %s\n" % e)
 ```
+
 
 ### Parameters
 This endpoint does not need any parameter.
@@ -118,7 +126,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Latest dataset description |  -  |
@@ -134,11 +144,12 @@ Returns the operational status of the service
 
 ### Example
 
+
 ```python
-from __future__ import print_function
 import time
 import cda_client
-from cda_client.rest import ApiException
+from cda_client.api import meta_api
+from cda_client.model.system_status import SystemStatus
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -150,15 +161,17 @@ configuration = cda_client.Configuration(
 # Enter a context with an instance of the API client
 with cda_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = cda_client.MetaApi(api_client)
-    
+    api_instance = meta_api.MetaApi(api_client)
+
+    # example, this endpoint has no required or optional parameters
     try:
         # CDA status
         api_response = api_instance.service_status()
         pprint(api_response)
-    except ApiException as e:
+    except cda_client.ApiException as e:
         print("Exception when calling MetaApi->service_status: %s\n" % e)
 ```
+
 
 ### Parameters
 This endpoint does not need any parameter.
@@ -176,7 +189,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | common status response |  -  |

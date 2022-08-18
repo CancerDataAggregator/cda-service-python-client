@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     CDA API
 
@@ -10,16 +8,13 @@
 """
 
 
-from __future__ import absolute_import
-
 import copy
 import logging
 import multiprocessing
 import sys
 import urllib3
 
-import six
-from six.moves import http_client as httplib
+from http import client as http_client
 from cda_client.exceptions import ApiValueError
 
 
@@ -87,6 +82,7 @@ class Configuration(object):
 
     def __init__(self, host=None,
                  api_key=None, api_key_prefix=None,
+                 access_token=None,
                  username=None, password=None,
                  discard_unknown_keys=False,
                  disabled_client_side_validations="",
@@ -111,6 +107,7 @@ class Configuration(object):
         """Temp file folder for downloading files
         """
         # Authentication Settings
+        self.access_token = access_token
         self.api_key = {}
         if api_key:
             self.api_key = api_key
@@ -182,6 +179,9 @@ class Configuration(object):
         self.proxy = None
         """Proxy URL
         """
+        self.no_proxy = None
+        """bypass proxy for host in the no_proxy list.
+        """
         self.proxy_headers = None
         """Proxy headers
         """
@@ -194,9 +194,8 @@ class Configuration(object):
         # Enable client side validation
         self.client_side_validation = True
 
+        # Options to pass down to the underlying urllib3 socket
         self.socket_options = None
-        """Options to pass down to the underlying urllib3 socket
-        """
 
     def __deepcopy__(self, memo):
         cls = self.__class__
@@ -275,7 +274,7 @@ class Configuration(object):
             # then add file handler and remove stream handler.
             self.logger_file_handler = logging.FileHandler(self.__logger_file)
             self.logger_file_handler.setFormatter(self.logger_formatter)
-            for _, logger in six.iteritems(self.logger):
+            for _, logger in self.logger.items():
                 logger.addHandler(self.logger_file_handler)
 
     @property
@@ -297,17 +296,17 @@ class Configuration(object):
         self.__debug = value
         if self.__debug:
             # if debug status is True, turn on debug logging
-            for _, logger in six.iteritems(self.logger):
+            for _, logger in self.logger.items():
                 logger.setLevel(logging.DEBUG)
-            # turn on httplib debug
-            httplib.HTTPConnection.debuglevel = 1
+            # turn on http_client debug
+            http_client.HTTPConnection.debuglevel = 1
         else:
             # if debug status is False, turn off debug logging,
             # setting log level to default `logging.WARNING`
-            for _, logger in six.iteritems(self.logger):
+            for _, logger in self.logger.items():
                 logger.setLevel(logging.WARNING)
-            # turn off httplib debug
-            httplib.HTTPConnection.debuglevel = 0
+            # turn off http_client debug
+            http_client.HTTPConnection.debuglevel = 0
 
     @property
     def logger_format(self):
@@ -381,7 +380,7 @@ class Configuration(object):
                "OS: {env}\n"\
                "Python Version: {pyversion}\n"\
                "Version of the API: 3.0.0\n"\
-               "SDK Package Version: 8.17.2022".\
+               "SDK Package Version: 8.18.2022".\
                format(env=sys.platform, pyversion=sys.version)
 
     def get_host_settings(self):

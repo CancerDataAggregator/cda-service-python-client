@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     CDA API
 
@@ -10,18 +8,23 @@
 """
 
 
-from __future__ import absolute_import
-
 import re  # noqa: F401
+import sys  # noqa: F401
 
-# python 2 and python 3 compatibility library
-import six
-
-from cda_client.api_client import ApiClient
-from cda_client.exceptions import (  # noqa: F401
-    ApiTypeError,
-    ApiValueError
+from cda_client.api_client import ApiClient, Endpoint as _Endpoint
+from cda_client.model_utils import (  # noqa: F401
+    check_allowed_values,
+    check_validations,
+    date,
+    datetime,
+    file_type,
+    none_type,
+    validate_and_convert_types
 )
+from cda_client.model.job_status_data import JobStatusData
+from cda_client.model.query import Query
+from cda_client.model.query_created_data import QueryCreatedData
+from cda_client.model.query_response_data import QueryResponseData
 
 
 class QueryApi(object):
@@ -35,8 +38,1670 @@ class QueryApi(object):
         if api_client is None:
             api_client = ApiClient()
         self.api_client = api_client
+        self.boolean_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/boolean-query/{version}',
+                'operation_id': 'boolean_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.bulk_data_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/bulk-data/{version}',
+                'operation_id': 'bulk_data',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client
+        )
+        self.columns_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/columns/{version}',
+                'operation_id': 'columns',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client
+        )
+        self.diagnosis_counts_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/diagnosis/counts/{version}',
+                'operation_id': 'diagnosis_counts_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.diagnosis_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/diagnosis/{version}',
+                'operation_id': 'diagnosis_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.file_counts_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/files/counts/{version}',
+                'operation_id': 'file_counts_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.files_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/files/{version}',
+                'operation_id': 'files',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.global_counts_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/global-counts/{version}',
+                'operation_id': 'global_counts',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.job_status_endpoint = _Endpoint(
+            settings={
+                'response_type': (JobStatusData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/job-status/{id}',
+                'operation_id': 'job_status',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'id',
+                ],
+                'required': [
+                    'id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'id': 'id',
+                },
+                'location_map': {
+                    'id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client
+        )
+        self.query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryResponseData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/query/{id}',
+                'operation_id': 'query',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'id',
+                    'offset',
+                    'limit',
+                ],
+                'required': [
+                    'id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'id':
+                        (str,),
+                    'offset':
+                        (int,),
+                    'limit':
+                        (int,),
+                },
+                'attribute_map': {
+                    'id': 'id',
+                    'offset': 'offset',
+                    'limit': 'limit',
+                },
+                'location_map': {
+                    'id': 'path',
+                    'offset': 'query',
+                    'limit': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client
+        )
+        self.research_subject_counts_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/researchsubjects/counts/{version}',
+                'operation_id': 'research_subject_counts_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.research_subject_file_counts_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/researchsubjects/files/counts/{version}',
+                'operation_id': 'research_subject_file_counts_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.research_subject_files_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/researchsubjects/files/{version}',
+                'operation_id': 'research_subject_files_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.research_subject_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/researchsubjects/{version}',
+                'operation_id': 'research_subject_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.specimen_counts_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/specimen/counts/{version}',
+                'operation_id': 'specimen_counts_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.specimen_file_counts_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/specimen/files/counts/{version}',
+                'operation_id': 'specimen_file_counts_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.specimen_files_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/specimen/files/{version}',
+                'operation_id': 'specimen_files_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.specimen_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/specimens/{version}',
+                'operation_id': 'specimen_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.sql_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/sql-query',
+                'operation_id': 'sql_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'body',
+                ],
+                'required': [
+                    'body',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'body':
+                        (str,),
+                },
+                'attribute_map': {
+                },
+                'location_map': {
+                    'body': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'text/plain'
+                ]
+            },
+            api_client=api_client
+        )
+        self.subject_counts_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/subjects/counts/{version}',
+                'operation_id': 'subject_counts_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.subject_file_counts_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/subjects/files/counts/{version}',
+                'operation_id': 'subject_file_counts_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.subject_files_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/subjects/files/{version}',
+                'operation_id': 'subject_files_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.subject_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/subjects/{version}',
+                'operation_id': 'subject_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.treatment_counts_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/treatments/counts/{version}',
+                'operation_id': 'treatment_counts_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.treatments_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/treatments/{version}',
+                'operation_id': 'treatments_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.unique_values_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/unique-values/{version}',
+                'operation_id': 'unique_values',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'body',
+                    'system',
+                    'table',
+                    'count',
+                ],
+                'required': [
+                    'version',
+                    'body',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'body':
+                        (str,),
+                    'system':
+                        (str,),
+                    'table':
+                        (str,),
+                    'count':
+                        (bool,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'system': 'system',
+                    'table': 'table',
+                    'count': 'count',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'body': 'body',
+                    'system': 'query',
+                    'table': 'query',
+                    'count': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'text/plain'
+                ]
+            },
+            api_client=api_client
+        )
 
-    def boolean_query(self, version, query, **kwargs):  # noqa: E501
+    def boolean_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Execute boolean query  # noqa: E501
 
         Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
@@ -46,166 +1711,85 @@ class QueryApi(object):
         >>> thread = api.boolean_query(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The boolean query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The boolean query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.boolean_query_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def boolean_query_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Execute boolean query  # noqa: E501
-
-        Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.boolean_query_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The boolean query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.boolean_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method boolean_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `boolean_query`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `boolean_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/boolean-query/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def bulk_data(self, version, **kwargs):  # noqa: E501
+    def bulk_data(
+        self,
+        version,
+        **kwargs
+    ):
         """Return all data in CDA  # noqa: E501
 
         Return all data in CDA  # noqa: E501
@@ -215,141 +1799,81 @@ class QueryApi(object):
         >>> thread = api.bulk_data(version, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+
+        Keyword Args:
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.bulk_data_with_http_info(version, **kwargs)  # noqa: E501
-
-    def bulk_data_with_http_info(self, version, **kwargs):  # noqa: E501
-        """Return all data in CDA  # noqa: E501
-
-        Return all data in CDA  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.bulk_data_with_http_info(version, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        return self.bulk_data_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method bulk_data" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `bulk_data`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/bulk-data/{version}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def columns(self, version, **kwargs):  # noqa: E501
+    def columns(
+        self,
+        version,
+        **kwargs
+    ):
         """Returns all column names  # noqa: E501
 
         Return columnNames for schema  # noqa: E501
@@ -359,141 +1883,82 @@ class QueryApi(object):
         >>> thread = api.columns(version, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+
+        Keyword Args:
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.columns_with_http_info(version, **kwargs)  # noqa: E501
-
-    def columns_with_http_info(self, version, **kwargs):  # noqa: E501
-        """Returns all column names  # noqa: E501
-
-        Return columnNames for schema  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.columns_with_http_info(version, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        return self.columns_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method columns" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `columns`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/columns/{version}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def diagnosis_counts_query(self, version, query, **kwargs):  # noqa: E501
+    def diagnosis_counts_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Execute Diagnosis Counts query  # noqa: E501
 
         Execute a Diagnosis Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
@@ -503,166 +1968,86 @@ class QueryApi(object):
         >>> thread = api.diagnosis_counts_query(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The diagnosis query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The diagnosis query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.diagnosis_counts_query_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def diagnosis_counts_query_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Execute Diagnosis Counts query  # noqa: E501
-
-        Execute a Diagnosis Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.diagnosis_counts_query_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The diagnosis query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.diagnosis_counts_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method diagnosis_counts_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `diagnosis_counts_query`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `diagnosis_counts_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/diagnosis/counts/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def diagnosis_query(self, version, query, **kwargs):  # noqa: E501
+    def diagnosis_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Execute Diagnosis query  # noqa: E501
 
         Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
@@ -672,166 +2057,86 @@ class QueryApi(object):
         >>> thread = api.diagnosis_query(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The diagnosis query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The diagnosis query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.diagnosis_query_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def diagnosis_query_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Execute Diagnosis query  # noqa: E501
-
-        Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.diagnosis_query_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The diagnosis query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.diagnosis_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method diagnosis_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `diagnosis_query`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `diagnosis_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/diagnosis/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def file_counts_query(self, version, query, **kwargs):  # noqa: E501
+    def file_counts_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Execute File Counts query  # noqa: E501
 
         Execute a File Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
@@ -841,166 +2146,86 @@ class QueryApi(object):
         >>> thread = api.file_counts_query(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The files query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The files query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.file_counts_query_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def file_counts_query_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Execute File Counts query  # noqa: E501
-
-        Execute a File Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.file_counts_query_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The files query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.file_counts_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method file_counts_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `file_counts_query`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `file_counts_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/files/counts/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def files(self, version, query, **kwargs):  # noqa: E501
+    def files(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Returns a list of files given a boolean query  # noqa: E501
 
         Return list of files for given query  # noqa: E501
@@ -1010,166 +2235,86 @@ class QueryApi(object):
         >>> thread = api.files(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The boolean query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The boolean query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.files_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def files_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Returns a list of files given a boolean query  # noqa: E501
-
-        Return list of files for given query  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.files_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The boolean query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.files_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method files" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `files`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `files`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/files/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def global_counts(self, version, query, **kwargs):  # noqa: E501
+    def global_counts(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Returns counts of the DCS  # noqa: E501
 
         Return GlobalCounts for schema  # noqa: E501
@@ -1179,166 +2324,85 @@ class QueryApi(object):
         >>> thread = api.global_counts(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: counts (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): counts
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.global_counts_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def global_counts_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Returns counts of the DCS  # noqa: E501
-
-        Return GlobalCounts for schema  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.global_counts_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: counts (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.global_counts_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method global_counts" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `global_counts`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `global_counts`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/global-counts/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def job_status(self, id, **kwargs):  # noqa: E501
+    def job_status(
+        self,
+        id,
+        **kwargs
+    ):
         """Return the running status of long running queries.  # noqa: E501
 
         For long running queries we may need to determine if the query is PENDING RUNNING, DONE or FAILURE. Pass the Job ID to this endpoint and get the running status back.   # noqa: E501
@@ -1348,134 +2412,80 @@ class QueryApi(object):
         >>> thread = api.job_status(id, async_req=True)
         >>> result = thread.get()
 
-        :param id: Query ID (required)
-        :type id: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: JobStatusData
+        Args:
+            id (str): Query ID
+
+        Keyword Args:
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            JobStatusData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.job_status_with_http_info(id, **kwargs)  # noqa: E501
-
-    def job_status_with_http_info(self, id, **kwargs):  # noqa: E501
-        """Return the running status of long running queries.  # noqa: E501
-
-        For long running queries we may need to determine if the query is PENDING RUNNING, DONE or FAILURE. Pass the Job ID to this endpoint and get the running status back.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.job_status_with_http_info(id, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Query ID (required)
-        :type id: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(JobStatusData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['id'] = \
+            id
+        return self.job_status_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method job_status" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `id` when calling `job_status`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'id' in local_var_params:
-            path_params['id'] = local_var_params['id']  # noqa: E501
-
-        query_params = []
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "JobStatusData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/job-status/{id}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def query(self, id, **kwargs):  # noqa: E501
+    def query(
+        self,
+        id,
+        **kwargs
+    ):
         """Given a query ID, return the a page of data from the query result.  # noqa: E501
 
         Use this API to get the data back from a query. If there is more data present, next_url will contain the link to use to get the rest of the data. If the current page of data is not yet ready, the result will be empty, but next_url will be set.   # noqa: E501
@@ -1485,148 +2495,83 @@ class QueryApi(object):
         >>> thread = api.query(id, async_req=True)
         >>> result = thread.get()
 
-        :param id: Query ID (required)
-        :type id: str
-        :param offset: The number of entries to skip
-        :type offset: int
-        :param limit: The numbers of entries to return per page of data
-        :type limit: int
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryResponseData
+        Args:
+            id (str): Query ID
+
+        Keyword Args:
+            offset (int): The number of entries to skip. [optional] if omitted the server will use the default value of 0
+            limit (int): The numbers of entries to return per page of data. [optional] if omitted the server will use the default value of 100
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryResponseData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.query_with_http_info(id, **kwargs)  # noqa: E501
-
-    def query_with_http_info(self, id, **kwargs):  # noqa: E501
-        """Given a query ID, return the a page of data from the query result.  # noqa: E501
-
-        Use this API to get the data back from a query. If there is more data present, next_url will contain the link to use to get the rest of the data. If the current page of data is not yet ready, the result will be empty, but next_url will be set.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.query_with_http_info(id, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Query ID (required)
-        :type id: str
-        :param offset: The number of entries to skip
-        :type offset: int
-        :param limit: The numbers of entries to return per page of data
-        :type limit: int
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryResponseData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'id',
-            'offset',
-            'limit'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['id'] = \
+            id
+        return self.query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `id` when calling `query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'id' in local_var_params:
-            path_params['id'] = local_var_params['id']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('offset') is not None:  # noqa: E501
-            query_params.append(('offset', local_var_params['offset']))  # noqa: E501
-        if local_var_params.get('limit') is not None:  # noqa: E501
-            query_params.append(('limit', local_var_params['limit']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryResponseData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/query/{id}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def research_subject_counts_query(self, version, query, **kwargs):  # noqa: E501
+    def research_subject_counts_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Execute ResearchSubjects Counts query  # noqa: E501
 
         Execute a ResearchSubjects Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
@@ -1636,166 +2581,86 @@ class QueryApi(object):
         >>> thread = api.research_subject_counts_query(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The research subjects query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The research subjects query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.research_subject_counts_query_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def research_subject_counts_query_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Execute ResearchSubjects Counts query  # noqa: E501
-
-        Execute a ResearchSubjects Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.research_subject_counts_query_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The research subjects query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.research_subject_counts_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method research_subject_counts_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `research_subject_counts_query`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `research_subject_counts_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/researchsubjects/counts/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def research_subject_file_counts_query(self, version, query, **kwargs):  # noqa: E501
+    def research_subject_file_counts_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Execute ResearchSubjects File Counts query  # noqa: E501
 
         Execute a ResearchSubjects File Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
@@ -1805,166 +2670,86 @@ class QueryApi(object):
         >>> thread = api.research_subject_file_counts_query(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The research subjects query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The research subjects query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.research_subject_file_counts_query_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def research_subject_file_counts_query_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Execute ResearchSubjects File Counts query  # noqa: E501
-
-        Execute a ResearchSubjects File Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.research_subject_file_counts_query_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The research subjects query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.research_subject_file_counts_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method research_subject_file_counts_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `research_subject_file_counts_query`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `research_subject_file_counts_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/researchsubjects/files/counts/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def research_subject_files_query(self, version, query, **kwargs):  # noqa: E501
+    def research_subject_files_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Execute ResearchSubject Files query  # noqa: E501
 
         Execute a ResearchSubject Files query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
@@ -1974,166 +2759,86 @@ class QueryApi(object):
         >>> thread = api.research_subject_files_query(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The research subject query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The research subject query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.research_subject_files_query_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def research_subject_files_query_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Execute ResearchSubject Files query  # noqa: E501
-
-        Execute a ResearchSubject Files query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.research_subject_files_query_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The research subject query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.research_subject_files_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method research_subject_files_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `research_subject_files_query`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `research_subject_files_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/researchsubjects/files/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def research_subject_query(self, version, query, **kwargs):  # noqa: E501
+    def research_subject_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Execute Research Subject query  # noqa: E501
 
         Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
@@ -2143,166 +2848,86 @@ class QueryApi(object):
         >>> thread = api.research_subject_query(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The Research Subject query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The Research Subject query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.research_subject_query_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def research_subject_query_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Execute Research Subject query  # noqa: E501
-
-        Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.research_subject_query_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The Research Subject query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.research_subject_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method research_subject_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `research_subject_query`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `research_subject_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/researchsubjects/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def specimen_counts_query(self, version, query, **kwargs):  # noqa: E501
+    def specimen_counts_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Execute Specimen Counts query  # noqa: E501
 
         Execute a Specimen Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
@@ -2312,166 +2937,86 @@ class QueryApi(object):
         >>> thread = api.specimen_counts_query(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The specimen query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The specimen query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.specimen_counts_query_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def specimen_counts_query_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Execute Specimen Counts query  # noqa: E501
-
-        Execute a Specimen Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.specimen_counts_query_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The specimen query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.specimen_counts_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method specimen_counts_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `specimen_counts_query`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `specimen_counts_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/specimen/counts/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def specimen_file_counts_query(self, version, query, **kwargs):  # noqa: E501
+    def specimen_file_counts_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Execute Specimen File Counts query  # noqa: E501
 
         Execute a Specimen File Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
@@ -2481,166 +3026,86 @@ class QueryApi(object):
         >>> thread = api.specimen_file_counts_query(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The specimen query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The specimen query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.specimen_file_counts_query_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def specimen_file_counts_query_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Execute Specimen File Counts query  # noqa: E501
-
-        Execute a Specimen File Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.specimen_file_counts_query_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The specimen query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.specimen_file_counts_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method specimen_file_counts_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `specimen_file_counts_query`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `specimen_file_counts_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/specimen/files/counts/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def specimen_files_query(self, version, query, **kwargs):  # noqa: E501
+    def specimen_files_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Execute Specimen Files query  # noqa: E501
 
         Execute a Specimen Files query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
@@ -2650,166 +3115,86 @@ class QueryApi(object):
         >>> thread = api.specimen_files_query(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The specimen query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The specimen query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.specimen_files_query_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def specimen_files_query_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Execute Specimen Files query  # noqa: E501
-
-        Execute a Specimen Files query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.specimen_files_query_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The specimen query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.specimen_files_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method specimen_files_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `specimen_files_query`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `specimen_files_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/specimen/files/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def specimen_query(self, version, query, **kwargs):  # noqa: E501
+    def specimen_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Execute Specimens query  # noqa: E501
 
         Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
@@ -2819,166 +3204,85 @@ class QueryApi(object):
         >>> thread = api.specimen_query(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The specimen query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The specimen query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.specimen_query_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def specimen_query_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Execute Specimens query  # noqa: E501
-
-        Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.specimen_query_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The specimen query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.specimen_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method specimen_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `specimen_query`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `specimen_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/specimens/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def sql_query(self, body, **kwargs):  # noqa: E501
+    def sql_query(
+        self,
+        body,
+        **kwargs
+    ):
         """Execute SQL directly on a version of the dataset  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -2987,141 +3291,81 @@ class QueryApi(object):
         >>> thread = api.sql_query(body, async_req=True)
         >>> result = thread.get()
 
-        :param body: BigQuery SQL to run on data table (required)
-        :type body: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            body (str): BigQuery SQL to run on data table
+
+        Keyword Args:
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.sql_query_with_http_info(body, **kwargs)  # noqa: E501
-
-    def sql_query_with_http_info(self, body, **kwargs):  # noqa: E501
-        """Execute SQL directly on a version of the dataset  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.sql_query_with_http_info(body, async_req=True)
-        >>> result = thread.get()
-
-        :param body: BigQuery SQL to run on data table (required)
-        :type body: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'body'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['body'] = \
+            body
+        return self.sql_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method sql_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'body' is set
-        if self.api_client.client_side_validation and local_var_params.get('body') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `body` when calling `sql_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-
-        query_params = []
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['text/plain'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/sql-query', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def subject_counts_query(self, version, query, **kwargs):  # noqa: E501
+    def subject_counts_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Execute Subjects Counts query  # noqa: E501
 
         Execute a Subjects Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
@@ -3131,166 +3375,86 @@ class QueryApi(object):
         >>> thread = api.subject_counts_query(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The subjects query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The subjects query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.subject_counts_query_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def subject_counts_query_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Execute Subjects Counts query  # noqa: E501
-
-        Execute a Subjects Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.subject_counts_query_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The subjects query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.subject_counts_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method subject_counts_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `subject_counts_query`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `subject_counts_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/subjects/counts/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def subject_file_counts_query(self, version, query, **kwargs):  # noqa: E501
+    def subject_file_counts_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Execute Subjects File Counts query  # noqa: E501
 
         Execute a Subjects File Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
@@ -3300,166 +3464,86 @@ class QueryApi(object):
         >>> thread = api.subject_file_counts_query(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The subjects query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The subjects query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.subject_file_counts_query_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def subject_file_counts_query_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Execute Subjects File Counts query  # noqa: E501
-
-        Execute a Subjects File Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.subject_file_counts_query_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The subjects query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.subject_file_counts_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method subject_file_counts_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `subject_file_counts_query`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `subject_file_counts_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/subjects/files/counts/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def subject_files_query(self, version, query, **kwargs):  # noqa: E501
+    def subject_files_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Execute Subject Files query  # noqa: E501
 
         Execute a Subject Files query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
@@ -3469,166 +3553,86 @@ class QueryApi(object):
         >>> thread = api.subject_files_query(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The subject query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The subject query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.subject_files_query_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def subject_files_query_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Execute Subject Files query  # noqa: E501
-
-        Execute a Subject Files query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.subject_files_query_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The subject query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.subject_files_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method subject_files_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `subject_files_query`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `subject_files_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/subjects/files/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def subject_query(self, version, query, **kwargs):  # noqa: E501
+    def subject_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Execute Subject query  # noqa: E501
 
         Execute a Subject query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
@@ -3638,166 +3642,86 @@ class QueryApi(object):
         >>> thread = api.subject_query(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The subject query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The subject query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.subject_query_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def subject_query_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Execute Subject query  # noqa: E501
-
-        Execute a Subject query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.subject_query_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The subject query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.subject_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method subject_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `subject_query`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `subject_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/subjects/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def treatment_counts_query(self, version, query, **kwargs):  # noqa: E501
+    def treatment_counts_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Execute Treatments Counts query  # noqa: E501
 
         Execute a Treatments Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
@@ -3807,166 +3731,86 @@ class QueryApi(object):
         >>> thread = api.treatment_counts_query(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The treatment query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The treatment query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.treatment_counts_query_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def treatment_counts_query_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Execute Treatments Counts query  # noqa: E501
-
-        Execute a Treatments Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.treatment_counts_query_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The treatment query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.treatment_counts_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method treatment_counts_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `treatment_counts_query`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `treatment_counts_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/treatments/counts/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def treatments_query(self, version, query, **kwargs):  # noqa: E501
+    def treatments_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
         """Execute Treatments query  # noqa: E501
 
         Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
@@ -3976,166 +3820,86 @@ class QueryApi(object):
         >>> thread = api.treatments_query(version, query, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The treatments query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            query (Query): The treatments query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.treatments_query_with_http_info(version, query, **kwargs)  # noqa: E501
-
-    def treatments_query_with_http_info(self, version, query, **kwargs):  # noqa: E501
-        """Execute Treatments query  # noqa: E501
-
-        Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.treatments_query_with_http_info(version, query, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param query: The treatments query (required)
-        :type query: Query
-        :param dry_run: If true, don't run the query, only generate and return it.
-        :type dry_run: bool
-        :param table: tablename
-        :type table: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'query',
-            'dry_run',
-            'table'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.treatments_query_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method treatments_query" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `treatments_query`")  # noqa: E501
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and local_var_params.get('query') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `treatments_query`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('dry_run') is not None:  # noqa: E501
-            query_params.append(('dryRun', local_var_params['dry_run']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'query' in local_var_params:
-            body_params = local_var_params['query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/treatments/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def unique_values(self, version, body, **kwargs):  # noqa: E501
+    def unique_values(
+        self,
+        version,
+        body,
+        **kwargs
+    ):
         """Returns all unique values  # noqa: E501
 
         Return unique values given a qualified columnName  # noqa: E501
@@ -4145,168 +3909,78 @@ class QueryApi(object):
         >>> thread = api.unique_values(version, body, async_req=True)
         >>> result = thread.get()
 
-        :param version: Dataset version (required)
-        :type version: str
-        :param body: column_name of table value being requested (required)
-        :type body: str
-        :param system: Filter on system for results
-        :type system: str
-        :param table: tablename
-        :type table: str
-        :param count: Filter on system for results
-        :type count: bool
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: QueryCreatedData
+        Args:
+            version (str): Dataset version
+            body (str): column_name of table value being requested
+
+        Keyword Args:
+            system (str): Filter on system for results. [optional]
+            table (str): tablename. [optional]
+            count (bool): Filter on system for results. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
         """
-        kwargs['_return_http_data_only'] = True
-        return self.unique_values_with_http_info(version, body, **kwargs)  # noqa: E501
-
-    def unique_values_with_http_info(self, version, body, **kwargs):  # noqa: E501
-        """Returns all unique values  # noqa: E501
-
-        Return unique values given a qualified columnName  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.unique_values_with_http_info(version, body, async_req=True)
-        >>> result = thread.get()
-
-        :param version: Dataset version (required)
-        :type version: str
-        :param body: column_name of table value being requested (required)
-        :type body: str
-        :param system: Filter on system for results
-        :type system: str
-        :param table: tablename
-        :type table: str
-        :param count: Filter on system for results
-        :type count: bool
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(QueryCreatedData, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'version',
-            'body',
-            'system',
-            'table',
-            'count'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
         )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['body'] = \
+            body
+        return self.unique_values_endpoint.call_with_http_info(**kwargs)
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method unique_values" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'version' is set
-        if self.api_client.client_side_validation and local_var_params.get('version') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version` when calling `unique_values`")  # noqa: E501
-        # verify the required parameter 'body' is set
-        if self.api_client.client_side_validation and local_var_params.get('body') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `body` when calling `unique_values`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'version' in local_var_params:
-            path_params['version'] = local_var_params['version']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('system') is not None:  # noqa: E501
-            query_params.append(('system', local_var_params['system']))  # noqa: E501
-        if local_var_params.get('table') is not None:  # noqa: E501
-            query_params.append(('table', local_var_params['table']))  # noqa: E501
-        if local_var_params.get('count') is not None:  # noqa: E501
-            query_params.append(('count', local_var_params['count']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['text/plain'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        response_types_map = {
-            200: "QueryCreatedData",
-        }
-
-        return self.api_client.call_api(
-            '/api/v1/unique-values/{version}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))

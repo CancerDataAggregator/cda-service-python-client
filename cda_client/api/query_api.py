@@ -160,7 +160,7 @@ class QueryApi(object):
         )
         self.columns_endpoint = _Endpoint(
             settings={
-                'response_type': (QueryCreatedData,),
+                'response_type': (QueryResponseData,),
                 'auth': [],
                 'endpoint_path': '/api/v1/columns/{version}',
                 'operation_id': 'columns',
@@ -588,6 +588,138 @@ class QueryApi(object):
                     'application/json'
                 ],
                 'content_type': [],
+            },
+            api_client=api_client
+        )
+        self.mutation_counts_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/mutations/counts/{version}',
+                'operation_id': 'mutation_counts_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.mutation_query_endpoint = _Endpoint(
+            settings={
+                'response_type': (QueryCreatedData,),
+                'auth': [],
+                'endpoint_path': '/api/v1/mutations/{version}',
+                'operation_id': 'mutation_query',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'version',
+                    'query',
+                    'dry_run',
+                    'table',
+                ],
+                'required': [
+                    'version',
+                    'query',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'version':
+                        (str,),
+                    'query':
+                        (Query,),
+                    'dry_run':
+                        (bool,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'version': 'version',
+                    'dry_run': 'dryRun',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'version': 'path',
+                    'query': 'body',
+                    'dry_run': 'query',
+                    'table': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
             },
             api_client=api_client
         )
@@ -1874,9 +2006,9 @@ class QueryApi(object):
         version,
         **kwargs
     ):
-        """Returns all column names  # noqa: E501
+        """Returns all column names and definitions for schema  # noqa: E501
 
-        Return columnNames for schema  # noqa: E501
+        Return columnNames for schema along with their descriptions  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -1920,7 +2052,7 @@ class QueryApi(object):
             async_req (bool): execute request asynchronously
 
         Returns:
-            QueryCreatedData
+            QueryResponseData
                 If the method is called asynchronously, returns the request
                 thread.
         """
@@ -2480,6 +2612,184 @@ class QueryApi(object):
         kwargs['id'] = \
             id
         return self.job_status_endpoint.call_with_http_info(**kwargs)
+
+    def mutation_counts_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
+        """Execute Mutation Counts query  # noqa: E501
+
+        Execute a Mutation Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.mutation_counts_query(version, query, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            version (str): Dataset version
+            query (Query): The mutation query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
+        )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.mutation_counts_query_endpoint.call_with_http_info(**kwargs)
+
+    def mutation_query(
+        self,
+        version,
+        query,
+        **kwargs
+    ):
+        """Execute Mutation query  # noqa: E501
+
+        Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response.   # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.mutation_query(version, query, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            version (str): Dataset version
+            query (Query): The diagnosis query
+
+        Keyword Args:
+            dry_run (bool): If true, don't run the query, only generate and return it.. [optional] if omitted the server will use the default value of False
+            table (str): tablename. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            QueryCreatedData
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
+        )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['version'] = \
+            version
+        kwargs['query'] = \
+            query
+        return self.mutation_query_endpoint.call_with_http_info(**kwargs)
 
     def query(
         self,

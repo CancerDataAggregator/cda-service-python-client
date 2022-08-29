@@ -82,7 +82,7 @@ class QueryResponseData(ModelNormal):
         """
         return {
             'result': ([{str: (bool, date, datetime, dict, float, int, list, str, none_type)}],),  # noqa: E501
-            'query_sql': (str,),  # noqa: E501
+            'query_sql': (str, none_type,),  # noqa: E501
             'total_row_count': (int, none_type,),  # noqa: E501
             'next_url': (str, none_type,),  # noqa: E501
         }
@@ -141,7 +141,7 @@ class QueryResponseData(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             result ([{str: (bool, date, datetime, dict, float, int, list, str, none_type)}]): [optional]  # noqa: E501
-            query_sql (str): the generated BigQuery SQL. [optional]  # noqa: E501
+            query_sql (str, none_type): the generated BigQuery SQL. [optional]  # noqa: E501
             total_row_count (int, none_type): the total number of rows in the query. can be null if the query is not complete. [optional]  # noqa: E501
             next_url (str, none_type): a URL to use to fetch the next page of data in the query. can be null if the query is not complete. [optional]  # noqa: E501
         """
@@ -230,7 +230,7 @@ class QueryResponseData(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             result ([{str: (bool, date, datetime, dict, float, int, list, str, none_type)}]): [optional]  # noqa: E501
-            query_sql (str): the generated BigQuery SQL. [optional]  # noqa: E501
+            query_sql (str, none_type): the generated BigQuery SQL. [optional]  # noqa: E501
             total_row_count (int, none_type): the total number of rows in the query. can be null if the query is not complete. [optional]  # noqa: E501
             next_url (str, none_type): a URL to use to fetch the next page of data in the query. can be null if the query is not complete. [optional]  # noqa: E501
         """

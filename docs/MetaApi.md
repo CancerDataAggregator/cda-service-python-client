@@ -18,6 +18,7 @@ Return data model and release notes of all releases.
 
 ### Example
 
+
 ```python
 import time
 import cda_client
@@ -64,6 +65,7 @@ No authorization required
 
 
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | List of dataset descriptions |  -  |
@@ -78,6 +80,7 @@ Description of latest dataset
 Return data model and release notes for latest release.
 
 ### Example
+
 
 ```python
 import time
@@ -125,6 +128,7 @@ No authorization required
 
 
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Latest dataset description |  -  |
@@ -139,6 +143,7 @@ CDA status
 Returns the operational status of the service
 
 ### Example
+
 
 ```python
 import time
@@ -186,6 +191,7 @@ No authorization required
 
 
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | common status response |  -  |

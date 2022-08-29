@@ -12,8 +12,8 @@ import sys
 import unittest
 
 import cda_client
-from cda_client.model.system_status_systems_value import SystemStatusSystemsValue
-globals()['SystemStatusSystemsValue'] = SystemStatusSystemsValue
+from cda_client.model.system_status_systems import SystemStatusSystems
+globals()['SystemStatusSystems'] = SystemStatusSystems
 from cda_client.model.system_status import SystemStatus
 
 

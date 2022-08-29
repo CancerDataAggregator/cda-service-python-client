@@ -40,7 +40,7 @@ class TestQueryApi(unittest.TestCase):
     def test_columns(self):
         """Test case for columns
 
-        Returns all column names  # noqa: E501
+        Returns all column names and definitions for schema  # noqa: E501
         """
         pass
 
@@ -83,6 +83,20 @@ class TestQueryApi(unittest.TestCase):
         """Test case for job_status
 
         Return the running status of long running queries.  # noqa: E501
+        """
+        pass
+
+    def test_mutation_counts_query(self):
+        """Test case for mutation_counts_query
+
+        Execute Mutation Counts query  # noqa: E501
+        """
+        pass
+
+    def test_mutation_query(self):
+        """Test case for mutation_query
+
+        Execute Mutation query  # noqa: E501
         """
         pass
 

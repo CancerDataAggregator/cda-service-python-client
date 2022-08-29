@@ -43,7 +43,6 @@ Execute a query composed of conditions on columns combined with boolean operator
 
 ### Example
 
-
 ```python
 import time
 import cda_client
@@ -115,7 +114,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -130,7 +128,6 @@ Return all data in CDA
 Return all data in CDA
 
 ### Example
-
 
 ```python
 import time
@@ -193,7 +190,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -208,7 +204,6 @@ Returns all column names and definitions for schema
 Return columnNames for schema along with their descriptions
 
 ### Example
-
 
 ```python
 import time
@@ -271,7 +266,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query data response |  -  |
@@ -286,7 +280,6 @@ Execute Diagnosis Counts query
 Execute a Diagnosis Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -359,7 +352,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -374,7 +366,6 @@ Execute Diagnosis query
 Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -447,7 +438,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -462,7 +452,6 @@ Execute File Counts query
 Execute a File Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -535,7 +524,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -550,7 +538,6 @@ Returns a list of files given a boolean query
 Return list of files for given query
 
 ### Example
-
 
 ```python
 import time
@@ -623,7 +610,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -638,7 +624,6 @@ Returns counts of the DCS
 Return GlobalCounts for schema
 
 ### Example
-
 
 ```python
 import time
@@ -711,7 +696,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -726,7 +710,6 @@ Return the running status of long running queries.
 For long running queries we may need to determine if the query is PENDING RUNNING, DONE or FAILURE. Pass the Job ID to this endpoint and get the running status back. 
 
 ### Example
-
 
 ```python
 import time
@@ -778,7 +761,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Get&#39;s Bigquery job id status |  -  |
@@ -793,7 +775,6 @@ Execute Mutation Counts query
 Execute a Mutation Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -866,7 +847,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -881,7 +861,6 @@ Execute Mutation query
 Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -954,7 +933,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -969,7 +947,6 @@ Given a query ID, return the a page of data from the query result.
 Use this API to get the data back from a query. If there is more data present, next_url will contain the link to use to get the rest of the data. If the current page of data is not yet ready, the result will be empty, but next_url will be set. 
 
 ### Example
-
 
 ```python
 import time
@@ -1034,7 +1011,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query data response |  -  |
@@ -1049,7 +1025,6 @@ Execute ResearchSubjects Counts query
 Execute a ResearchSubjects Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -1122,7 +1097,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1137,7 +1111,6 @@ Execute ResearchSubjects File Counts query
 Execute a ResearchSubjects File Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -1210,7 +1183,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1225,7 +1197,6 @@ Execute ResearchSubject Files query
 Execute a ResearchSubject Files query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -1298,7 +1269,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1313,7 +1283,6 @@ Execute Research Subject query
 Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -1386,7 +1355,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1401,7 +1369,6 @@ Execute Specimen Counts query
 Execute a Specimen Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -1474,7 +1441,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1489,7 +1455,6 @@ Execute Specimen File Counts query
 Execute a Specimen File Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -1562,7 +1527,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1577,7 +1541,6 @@ Execute Specimen Files query
 Execute a Specimen Files query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -1650,7 +1613,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1665,7 +1627,6 @@ Execute Specimens query
 Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -1738,7 +1699,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1751,7 +1711,6 @@ No authorization required
 Execute SQL directly on a version of the dataset
 
 ### Example
-
 
 ```python
 import time
@@ -1803,7 +1762,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1818,7 +1776,6 @@ Execute Subjects Counts query
 Execute a Subjects Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -1891,7 +1848,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1906,7 +1862,6 @@ Execute Subjects File Counts query
 Execute a Subjects File Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -1979,7 +1934,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -1994,7 +1948,6 @@ Execute Subject Files query
 Execute a Subject Files query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -2067,7 +2020,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -2082,7 +2034,6 @@ Execute Subject query
 Execute a Subject query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -2155,7 +2106,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -2170,7 +2120,6 @@ Execute Treatments Counts query
 Execute a Treatments Counts query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -2243,7 +2192,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -2258,7 +2206,6 @@ Execute Treatments query
 Execute a query composed of conditions on columns combined with boolean operators. The generated SQL query is returned in the response. 
 
 ### Example
-
 
 ```python
 import time
@@ -2331,7 +2278,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |
@@ -2346,7 +2292,6 @@ Returns all unique values
 Return unique values given a qualified columnName
 
 ### Example
-
 
 ```python
 import time
@@ -2415,7 +2360,6 @@ No authorization required
 
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | query created response |  -  |

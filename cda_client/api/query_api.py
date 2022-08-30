@@ -21,6 +21,7 @@ from cda_client.model_utils import (  # noqa: F401
     none_type,
     validate_and_convert_types
 )
+from cda_client.model.columns_response_data import ColumnsResponseData
 from cda_client.model.job_status_data import JobStatusData
 from cda_client.model.query import Query
 from cda_client.model.query_created_data import QueryCreatedData
@@ -160,7 +161,7 @@ class QueryApi(object):
         )
         self.columns_endpoint = _Endpoint(
             settings={
-                'response_type': (QueryResponseData,),
+                'response_type': (ColumnsResponseData,),
                 'auth': [],
                 'endpoint_path': '/api/v1/columns/{version}',
                 'operation_id': 'columns',
@@ -2052,7 +2053,7 @@ class QueryApi(object):
             async_req (bool): execute request asynchronously
 
         Returns:
-            QueryResponseData
+            ColumnsResponseData
                 If the method is called asynchronously, returns the request
                 thread.
         """

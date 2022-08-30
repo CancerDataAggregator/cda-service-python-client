@@ -201,7 +201,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **columns**
-> QueryResponseData columns(version)
+> ColumnsResponseData columns(version)
 
 Returns all column names and definitions for schema
 
@@ -214,7 +214,7 @@ Return columnNames for schema along with their descriptions
 import time
 import cda_client
 from cda_client.api import query_api
-from cda_client.model.query_response_data import QueryResponseData
+from cda_client.model.columns_response_data import ColumnsResponseData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -258,7 +258,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**QueryResponseData**](QueryResponseData.md)
+[**ColumnsResponseData**](ColumnsResponseData.md)
 
 ### Authorization
 
@@ -274,7 +274,7 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | query data response |  -  |
+**200** | columns response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

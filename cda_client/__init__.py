@@ -10,7 +10,7 @@
 """
 
 
-__version__ = "8.29.2022"
+__version__ = "8.30.2022"
 
 # import ApiClient
 from cda_client.api_client import ApiClient

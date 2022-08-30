@@ -9,6 +9,7 @@
 # import sys
 # sys.setrecursionlimit(n)
 
+from cda_client.model.columns_response_data import ColumnsResponseData
 from cda_client.model.dataset_description import DatasetDescription
 from cda_client.model.dataset_info import DatasetInfo
 from cda_client.model.error_report import ErrorReport

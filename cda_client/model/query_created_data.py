@@ -82,7 +82,7 @@ class QueryCreatedData(ModelNormal):
         """
         return {
             'query_id': (str,),  # noqa: E501
-            'query_sql': (str, none_type,),  # noqa: E501
+            'query_sql': (str,),  # noqa: E501
         }
 
     @cached_property
@@ -137,7 +137,7 @@ class QueryCreatedData(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             query_id (str): the created query ID. [optional]  # noqa: E501
-            query_sql (str, none_type): the generated BigQuery SQL. [optional]  # noqa: E501
+            query_sql (str): the generated BigQuery SQL. [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -224,7 +224,7 @@ class QueryCreatedData(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             query_id (str): the created query ID. [optional]  # noqa: E501
-            query_sql (str, none_type): the generated BigQuery SQL. [optional]  # noqa: E501
+            query_sql (str): the generated BigQuery SQL. [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

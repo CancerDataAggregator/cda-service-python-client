@@ -78,6 +78,8 @@ class Query(ModelNormal):
             'IS_NOT': "IS NOT",
             'NOT_IN': "NOT IN",
             'NOT_LIKE': "NOT LIKE",
+            'ORDERBY': "ORDERBY",
+            'ORDERBYVALUES': "ORDERBYVALUES",
         },
     }
 

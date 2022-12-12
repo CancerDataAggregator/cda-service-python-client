@@ -24,7 +24,6 @@ Method | HTTP request | Description
 [**specimen_file_counts_query**](QueryApi.md#specimen_file_counts_query) | **POST** /api/v1/specimen/files/counts/{version} | Execute Specimen File Counts query
 [**specimen_files_query**](QueryApi.md#specimen_files_query) | **POST** /api/v1/specimen/files/{version} | Execute Specimen Files query
 [**specimen_query**](QueryApi.md#specimen_query) | **POST** /api/v1/specimens/{version} | Execute Specimens query
-[**sql_query**](QueryApi.md#sql_query) | **POST** /api/v1/sql-query | Execute SQL directly on a version of the dataset
 [**subject_counts_query**](QueryApi.md#subject_counts_query) | **POST** /api/v1/subjects/counts/{version} | Execute Subjects Counts query
 [**subject_file_counts_query**](QueryApi.md#subject_file_counts_query) | **POST** /api/v1/subjects/files/counts/{version} | Execute Subjects File Counts query
 [**subject_files_query**](QueryApi.md#subject_files_query) | **POST** /api/v1/subjects/files/{version} | Execute Subject Files query
@@ -1734,71 +1733,6 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | query created response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **sql_query**
-> QueryCreatedData sql_query(body)
-
-Execute SQL directly on a version of the dataset
-
-### Example
-
-
-```python
-import time
-import cda_client
-from cda_client.api import query_api
-from cda_client.model.query_created_data import QueryCreatedData
-from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = cda_client.Configuration(
-    host = "http://localhost"
-)
-
-
-# Enter a context with an instance of the API client
-with cda_client.ApiClient() as api_client:
-    # Create an instance of the API class
-    api_instance = query_api.QueryApi(api_client)
-    body = "body_example" # str | BigQuery SQL to run on data table
-
-    # example passing only required values which don't have defaults set
-    try:
-        # Execute SQL directly on a version of the dataset
-        api_response = api_instance.sql_query(body)
-        pprint(api_response)
-    except cda_client.ApiException as e:
-        print("Exception when calling QueryApi->sql_query: %s\n" % e)
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | **str**| BigQuery SQL to run on data table |
-
-### Return type
-
-[**QueryCreatedData**](QueryCreatedData.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: text/plain
  - **Accept**: application/json
 
 

@@ -80,6 +80,8 @@ class Query(ModelNormal):
             'NOT_LIKE': "NOT LIKE",
             'ORDERBY': "ORDERBY",
             'ORDERBYVALUES': "ORDERBYVALUES",
+            'LIMIT': "LIMIT",
+            'OFFSET': "OFFSET",
         },
     }
 

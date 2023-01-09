@@ -163,13 +163,6 @@ class TestQueryApi(unittest.TestCase):
         """
         pass
 
-    def test_sql_query(self):
-        """Test case for sql_query
-
-        Execute SQL directly on a version of the dataset  # noqa: E501
-        """
-        pass
-
     def test_subject_counts_query(self):
         """Test case for subject_counts_query
 

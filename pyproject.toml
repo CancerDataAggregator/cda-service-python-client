@@ -3,7 +3,7 @@
 # Minimum requirements for the build system to execute.
 requires = ["setuptools", "wheel"]  # PEP 508 specifications.
 [tool.poetry.dependencies]
-wheel ="0.36.2"
+wheel ="0.38.4"
 python_dateutil = "2.5.3" 
 setuptools = "21.0.0" 
 urllib3 = "1.25.3" 

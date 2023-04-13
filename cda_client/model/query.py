@@ -82,6 +82,10 @@ class Query(ModelNormal):
             'ORDERBYVALUES': "ORDERBYVALUES",
             'LIMIT': "LIMIT",
             'OFFSET': "OFFSET",
+            '+': "+",
+            '-': "-",
+            '/': "/",
+            '*': "*",
         },
     }
 

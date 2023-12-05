@@ -13,10 +13,9 @@ from cda_client.model.columns_response_data import ColumnsResponseData
 from cda_client.model.dataset_description import DatasetDescription
 from cda_client.model.dataset_info import DatasetInfo
 from cda_client.model.error_report import ErrorReport
-from cda_client.model.job_status_data import JobStatusData
 from cda_client.model.model import Model
+from cda_client.model.paged_response_data import PagedResponseData
 from cda_client.model.query import Query
-from cda_client.model.query_created_data import QueryCreatedData
 from cda_client.model.query_response_data import QueryResponseData
 from cda_client.model.system_status import SystemStatus
 from cda_client.model.system_status_systems_value import SystemStatusSystemsValue

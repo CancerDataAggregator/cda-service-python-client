@@ -1,8 +1,10 @@
 """Contains all the data models used in inputs/outputs"""
 
+from .client_error import ClientError
 from .column_response_obj import ColumnResponseObj
 from .column_response_obj_result_item_type_0 import ColumnResponseObjResultItemType0
 from .http_validation_error import HTTPValidationError
+from .internal_error import InternalError
 from .paged_response_obj import PagedResponseObj
 from .paged_response_obj_result_item_type_0 import PagedResponseObjResultItemType0
 from .q_node import QNode
@@ -15,9 +17,11 @@ from .unique_value_response_obj_result_item_type_0 import UniqueValueResponseObj
 from .validation_error import ValidationError
 
 __all__ = (
+    "ClientError",
     "ColumnResponseObj",
     "ColumnResponseObjResultItemType0",
     "HTTPValidationError",
+    "InternalError",
     "PagedResponseObj",
     "PagedResponseObjResultItemType0",
     "QNode",

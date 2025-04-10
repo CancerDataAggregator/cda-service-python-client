@@ -55,7 +55,7 @@ def sync_detailed(
         db (Session, optional): _description_. Defaults to Depends(get_db).
 
     Returns:
-        FrequencyResponseObj: _description_
+        ReleaseMetadataObj: _description_
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -87,7 +87,7 @@ def sync(
         db (Session, optional): _description_. Defaults to Depends(get_db).
 
     Returns:
-        FrequencyResponseObj: _description_
+        ReleaseMetadataObj: _description_
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -115,7 +115,7 @@ async def asyncio_detailed(
         db (Session, optional): _description_. Defaults to Depends(get_db).
 
     Returns:
-        FrequencyResponseObj: _description_
+        ReleaseMetadataObj: _description_
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -145,7 +145,7 @@ async def asyncio(
         db (Session, optional): _description_. Defaults to Depends(get_db).
 
     Returns:
-        FrequencyResponseObj: _description_
+        ReleaseMetadataObj: _description_
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

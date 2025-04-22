@@ -6,35 +6,35 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.unique_value_response_obj_result_item_type_0 import UniqueValueResponseObjResultItemType0
+    from ..models.column_values_response_obj_result_item_type_0 import ColumnValuesResponseObjResultItemType0
 
 
-T = TypeVar("T", bound="UniqueValueResponseObj")
+T = TypeVar("T", bound="ColumnValuesResponseObj")
 
 
 @_attrs_define
-class UniqueValueResponseObj:
+class ColumnValuesResponseObj:
     """
     Attributes:
-        result (list[Union['UniqueValueResponseObjResultItemType0', None]]): List of query result json objects
+        result (list[Union['ColumnValuesResponseObjResultItemType0', None]]): List of query result json objects
         query_sql (Union[None, str]): SQL Query generated to yield the results
         total_row_count (Union[None, Unset, int]): Count of total number of results from the query
         next_url (Union[None, Unset, str]): URL to get to next page of results
     """
 
-    result: list[Union["UniqueValueResponseObjResultItemType0", None]]
+    result: list[Union["ColumnValuesResponseObjResultItemType0", None]]
     query_sql: Union[None, str]
     total_row_count: Union[None, Unset, int] = UNSET
     next_url: Union[None, Unset, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.unique_value_response_obj_result_item_type_0 import UniqueValueResponseObjResultItemType0
+        from ..models.column_values_response_obj_result_item_type_0 import ColumnValuesResponseObjResultItemType0
 
         result = []
         for result_item_data in self.result:
             result_item: Union[None, dict[str, Any]]
-            if isinstance(result_item_data, UniqueValueResponseObjResultItemType0):
+            if isinstance(result_item_data, ColumnValuesResponseObjResultItemType0):
                 result_item = result_item_data.to_dict()
             else:
                 result_item = result_item_data
@@ -72,25 +72,25 @@ class UniqueValueResponseObj:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
-        from ..models.unique_value_response_obj_result_item_type_0 import UniqueValueResponseObjResultItemType0
+        from ..models.column_values_response_obj_result_item_type_0 import ColumnValuesResponseObjResultItemType0
 
         d = src_dict.copy()
         result = []
         _result = d.pop("result")
         for result_item_data in _result:
 
-            def _parse_result_item(data: object) -> Union["UniqueValueResponseObjResultItemType0", None]:
+            def _parse_result_item(data: object) -> Union["ColumnValuesResponseObjResultItemType0", None]:
                 if data is None:
                     return data
                 try:
                     if not isinstance(data, dict):
                         raise TypeError()
-                    result_item_type_0 = UniqueValueResponseObjResultItemType0.from_dict(data)
+                    result_item_type_0 = ColumnValuesResponseObjResultItemType0.from_dict(data)
 
                     return result_item_type_0
                 except:  # noqa: E722
                     pass
-                return cast(Union["UniqueValueResponseObjResultItemType0", None], data)
+                return cast(Union["ColumnValuesResponseObjResultItemType0", None], data)
 
             result_item = _parse_result_item(result_item_data)
 
@@ -121,15 +121,15 @@ class UniqueValueResponseObj:
 
         next_url = _parse_next_url(d.pop("next_url", UNSET))
 
-        unique_value_response_obj = cls(
+        column_values_response_obj = cls(
             result=result,
             query_sql=query_sql,
             total_row_count=total_row_count,
             next_url=next_url,
         )
 
-        unique_value_response_obj.additional_properties = d
-        return unique_value_response_obj
+        column_values_response_obj.additional_properties = d
+        return column_values_response_obj
 
     @property
     def additional_keys(self) -> list[str]:

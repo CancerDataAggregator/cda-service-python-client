@@ -6,14 +6,14 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
-from ...models.q_node import QNode
+from ...models.summary_request_body import SummaryRequestBody
 from ...models.summary_response_obj import SummaryResponseObj
 from ...types import Response
 
 
 def _get_kwargs(
     *,
-    body: QNode,
+    body: SummaryRequestBody,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
@@ -62,7 +62,7 @@ def _build_response(
 def sync_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: QNode,
+    body: SummaryRequestBody,
 ) -> Response[Union[HTTPValidationError, SummaryResponseObj]]:
     """Subject Summary Endpoint
 
@@ -70,14 +70,14 @@ def sync_detailed(
 
     Args:
         request (Request): _description_
-        qnode (QNode): _description_
+        request_body (SummaryRequestBody): _description_
         db (Session, optional): _description_. Defaults to Depends(get_db).
 
     Returns:
         SummaryResponseObj: _description_
 
     Args:
-        body (QNode):
+        body (SummaryRequestBody):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -101,7 +101,7 @@ def sync_detailed(
 def sync(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: QNode,
+    body: SummaryRequestBody,
 ) -> Optional[Union[HTTPValidationError, SummaryResponseObj]]:
     """Subject Summary Endpoint
 
@@ -109,14 +109,14 @@ def sync(
 
     Args:
         request (Request): _description_
-        qnode (QNode): _description_
+        request_body (SummaryRequestBody): _description_
         db (Session, optional): _description_. Defaults to Depends(get_db).
 
     Returns:
         SummaryResponseObj: _description_
 
     Args:
-        body (QNode):
+        body (SummaryRequestBody):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -135,7 +135,7 @@ def sync(
 async def asyncio_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: QNode,
+    body: SummaryRequestBody,
 ) -> Response[Union[HTTPValidationError, SummaryResponseObj]]:
     """Subject Summary Endpoint
 
@@ -143,14 +143,14 @@ async def asyncio_detailed(
 
     Args:
         request (Request): _description_
-        qnode (QNode): _description_
+        request_body (SummaryRequestBody): _description_
         db (Session, optional): _description_. Defaults to Depends(get_db).
 
     Returns:
         SummaryResponseObj: _description_
 
     Args:
-        body (QNode):
+        body (SummaryRequestBody):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -172,7 +172,7 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: QNode,
+    body: SummaryRequestBody,
 ) -> Optional[Union[HTTPValidationError, SummaryResponseObj]]:
     """Subject Summary Endpoint
 
@@ -180,14 +180,14 @@ async def asyncio(
 
     Args:
         request (Request): _description_
-        qnode (QNode): _description_
+        request_body (SummaryRequestBody): _description_
         db (Session, optional): _description_. Defaults to Depends(get_db).
 
     Returns:
         SummaryResponseObj: _description_
 
     Args:
-        body (QNode):
+        body (SummaryRequestBody):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -6,16 +6,16 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.client_error import ClientError
+from ...models.data_request_body import DataRequestBody
 from ...models.http_validation_error import HTTPValidationError
 from ...models.internal_error import InternalError
 from ...models.paged_response_obj import PagedResponseObj
-from ...models.q_node import QNode
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
-    body: QNode,
+    body: DataRequestBody,
     limit: Union[Unset, int] = 100,
     offset: Union[Unset, int] = 0,
 ) -> dict[str, Any]:
@@ -83,7 +83,7 @@ def _build_response(
 def sync_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: QNode,
+    body: DataRequestBody,
     limit: Union[Unset, int] = 100,
     offset: Union[Unset, int] = 0,
 ) -> Response[Union[ClientError, HTTPValidationError, InternalError, PagedResponseObj]]:
@@ -93,7 +93,7 @@ def sync_detailed(
 
     Args:
         request (Request): HTTP request object
-        qnode (QNode): JSON input query
+        request_body (DataRequestBody): JSON input query
         limit (int, optional): Limit for paged results. Defaults to 100.
         offset (int, optional): Offset for paged results. Defaults to 0.
         db (Session, optional): Database session object. Defaults to Depends(get_db).
@@ -110,7 +110,7 @@ def sync_detailed(
     Args:
         limit (Union[Unset, int]):  Default: 100.
         offset (Union[Unset, int]):  Default: 0.
-        body (QNode):
+        body (DataRequestBody):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -136,7 +136,7 @@ def sync_detailed(
 def sync(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: QNode,
+    body: DataRequestBody,
     limit: Union[Unset, int] = 100,
     offset: Union[Unset, int] = 0,
 ) -> Optional[Union[ClientError, HTTPValidationError, InternalError, PagedResponseObj]]:
@@ -146,7 +146,7 @@ def sync(
 
     Args:
         request (Request): HTTP request object
-        qnode (QNode): JSON input query
+        request_body (DataRequestBody): JSON input query
         limit (int, optional): Limit for paged results. Defaults to 100.
         offset (int, optional): Offset for paged results. Defaults to 0.
         db (Session, optional): Database session object. Defaults to Depends(get_db).
@@ -163,7 +163,7 @@ def sync(
     Args:
         limit (Union[Unset, int]):  Default: 100.
         offset (Union[Unset, int]):  Default: 0.
-        body (QNode):
+        body (DataRequestBody):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -184,7 +184,7 @@ def sync(
 async def asyncio_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: QNode,
+    body: DataRequestBody,
     limit: Union[Unset, int] = 100,
     offset: Union[Unset, int] = 0,
 ) -> Response[Union[ClientError, HTTPValidationError, InternalError, PagedResponseObj]]:
@@ -194,7 +194,7 @@ async def asyncio_detailed(
 
     Args:
         request (Request): HTTP request object
-        qnode (QNode): JSON input query
+        request_body (DataRequestBody): JSON input query
         limit (int, optional): Limit for paged results. Defaults to 100.
         offset (int, optional): Offset for paged results. Defaults to 0.
         db (Session, optional): Database session object. Defaults to Depends(get_db).
@@ -211,7 +211,7 @@ async def asyncio_detailed(
     Args:
         limit (Union[Unset, int]):  Default: 100.
         offset (Union[Unset, int]):  Default: 0.
-        body (QNode):
+        body (DataRequestBody):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -235,7 +235,7 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: QNode,
+    body: DataRequestBody,
     limit: Union[Unset, int] = 100,
     offset: Union[Unset, int] = 0,
 ) -> Optional[Union[ClientError, HTTPValidationError, InternalError, PagedResponseObj]]:
@@ -245,7 +245,7 @@ async def asyncio(
 
     Args:
         request (Request): HTTP request object
-        qnode (QNode): JSON input query
+        request_body (DataRequestBody): JSON input query
         limit (int, optional): Limit for paged results. Defaults to 100.
         offset (int, optional): Offset for paged results. Defaults to 0.
         db (Session, optional): Database session object. Defaults to Depends(get_db).
@@ -262,7 +262,7 @@ async def asyncio(
     Args:
         limit (Union[Unset, int]):  Default: 100.
         offset (Union[Unset, int]):  Default: 0.
-        body (QNode):
+        body (DataRequestBody):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

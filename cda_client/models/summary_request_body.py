@@ -5,25 +5,23 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="QNode")
+T = TypeVar("T", bound="SummaryRequestBody")
 
 
 @_attrs_define
-class QNode:
+class SummaryRequestBody:
     """
     Attributes:
         match_all (Union[None, Unset, list[str]]):
         match_some (Union[None, Unset, list[str]]):
         add_columns (Union[None, Unset, list[str]]):
         exclude_columns (Union[None, Unset, list[str]]):
-        expand_results (Union[None, Unset, bool]):  Default: False.
     """
 
     match_all: Union[None, Unset, list[str]] = UNSET
     match_some: Union[None, Unset, list[str]] = UNSET
     add_columns: Union[None, Unset, list[str]] = UNSET
     exclude_columns: Union[None, Unset, list[str]] = UNSET
-    expand_results: Union[None, Unset, bool] = False
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -63,12 +61,6 @@ class QNode:
         else:
             exclude_columns = self.exclude_columns
 
-        expand_results: Union[None, Unset, bool]
-        if isinstance(self.expand_results, Unset):
-            expand_results = UNSET
-        else:
-            expand_results = self.expand_results
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -80,8 +72,6 @@ class QNode:
             field_dict["ADD_COLUMNS"] = add_columns
         if exclude_columns is not UNSET:
             field_dict["EXCLUDE_COLUMNS"] = exclude_columns
-        if expand_results is not UNSET:
-            field_dict["EXPAND_RESULTS"] = expand_results
 
         return field_dict
 
@@ -157,25 +147,15 @@ class QNode:
 
         exclude_columns = _parse_exclude_columns(d.pop("EXCLUDE_COLUMNS", UNSET))
 
-        def _parse_expand_results(data: object) -> Union[None, Unset, bool]:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(Union[None, Unset, bool], data)
-
-        expand_results = _parse_expand_results(d.pop("EXPAND_RESULTS", UNSET))
-
-        q_node = cls(
+        summary_request_body = cls(
             match_all=match_all,
             match_some=match_some,
             add_columns=add_columns,
             exclude_columns=exclude_columns,
-            expand_results=expand_results,
         )
 
-        q_node.additional_properties = d
-        return q_node
+        summary_request_body.additional_properties = d
+        return summary_request_body
 
     @property
     def additional_keys(self) -> list[str]:

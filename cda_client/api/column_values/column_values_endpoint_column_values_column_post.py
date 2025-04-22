@@ -5,27 +5,21 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.column_values_response_obj import ColumnValuesResponseObj
 from ...models.http_validation_error import HTTPValidationError
-from ...models.unique_value_response_obj import UniqueValueResponseObj
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
-    columnname: str,
+    column: str,
     *,
-    system: Union[Unset, str] = "",
-    count: Union[Unset, bool] = False,
-    total_count: Union[Unset, bool] = False,
+    data_source: Union[Unset, str] = "",
     limit: Union[Unset, int] = UNSET,
     offset: Union[Unset, int] = UNSET,
 ) -> dict[str, Any]:
     params: dict[str, Any] = {}
 
-    params["system"] = system
-
-    params["count"] = count
-
-    params["totalCount"] = total_count
+    params["data_source"] = data_source
 
     params["limit"] = limit
 
@@ -35,7 +29,7 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/unique_values/{columnname}",
+        "url": f"/column_values/{column}",
         "params": params,
     }
 
@@ -44,9 +38,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, UniqueValueResponseObj]]:
+) -> Optional[Union[ColumnValuesResponseObj, HTTPValidationError]]:
     if response.status_code == 200:
-        response_200 = UniqueValueResponseObj.from_dict(response.json())
+        response_200 = ColumnValuesResponseObj.from_dict(response.json())
 
         return response_200
     if response.status_code == 422:
@@ -61,7 +55,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, UniqueValueResponseObj]]:
+) -> Response[Union[ColumnValuesResponseObj, HTTPValidationError]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -71,33 +65,29 @@ def _build_response(
 
 
 def sync_detailed(
-    columnname: str,
+    column: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    system: Union[Unset, str] = "",
-    count: Union[Unset, bool] = False,
-    total_count: Union[Unset, bool] = False,
+    data_source: Union[Unset, str] = "",
     limit: Union[Unset, int] = UNSET,
     offset: Union[Unset, int] = UNSET,
-) -> Response[Union[HTTPValidationError, UniqueValueResponseObj]]:
-    """Unique Values Endpoint
+) -> Response[Union[ColumnValuesResponseObj, HTTPValidationError]]:
+    """Column Values Endpoint
 
      _summary_
 
     Args:
         request (Request): _description_
-        column_name (str): _description_
-        qnode (QNode): _description_
+        column (str): _description_
+        data_source (str): _description_
         db (Session, optional): _description_. Defaults to Depends(get_db).
 
     Returns:
-        FrequencyResponseObj: _description_
+        ColumnValuesResponseObj: _description_
 
     Args:
-        columnname (str):
-        system (Union[Unset, str]):  Default: ''.
-        count (Union[Unset, bool]):  Default: False.
-        total_count (Union[Unset, bool]):  Default: False.
+        column (str):
+        data_source (Union[Unset, str]):  Default: ''.
         limit (Union[Unset, int]):
         offset (Union[Unset, int]):
 
@@ -106,14 +96,12 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, UniqueValueResponseObj]]
+        Response[Union[ColumnValuesResponseObj, HTTPValidationError]]
     """
 
     kwargs = _get_kwargs(
-        columnname=columnname,
-        system=system,
-        count=count,
-        total_count=total_count,
+        column=column,
+        data_source=data_source,
         limit=limit,
         offset=offset,
     )
@@ -126,33 +114,29 @@ def sync_detailed(
 
 
 def sync(
-    columnname: str,
+    column: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    system: Union[Unset, str] = "",
-    count: Union[Unset, bool] = False,
-    total_count: Union[Unset, bool] = False,
+    data_source: Union[Unset, str] = "",
     limit: Union[Unset, int] = UNSET,
     offset: Union[Unset, int] = UNSET,
-) -> Optional[Union[HTTPValidationError, UniqueValueResponseObj]]:
-    """Unique Values Endpoint
+) -> Optional[Union[ColumnValuesResponseObj, HTTPValidationError]]:
+    """Column Values Endpoint
 
      _summary_
 
     Args:
         request (Request): _description_
-        column_name (str): _description_
-        qnode (QNode): _description_
+        column (str): _description_
+        data_source (str): _description_
         db (Session, optional): _description_. Defaults to Depends(get_db).
 
     Returns:
-        FrequencyResponseObj: _description_
+        ColumnValuesResponseObj: _description_
 
     Args:
-        columnname (str):
-        system (Union[Unset, str]):  Default: ''.
-        count (Union[Unset, bool]):  Default: False.
-        total_count (Union[Unset, bool]):  Default: False.
+        column (str):
+        data_source (Union[Unset, str]):  Default: ''.
         limit (Union[Unset, int]):
         offset (Union[Unset, int]):
 
@@ -161,48 +145,42 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, UniqueValueResponseObj]
+        Union[ColumnValuesResponseObj, HTTPValidationError]
     """
 
     return sync_detailed(
-        columnname=columnname,
+        column=column,
         client=client,
-        system=system,
-        count=count,
-        total_count=total_count,
+        data_source=data_source,
         limit=limit,
         offset=offset,
     ).parsed
 
 
 async def asyncio_detailed(
-    columnname: str,
+    column: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    system: Union[Unset, str] = "",
-    count: Union[Unset, bool] = False,
-    total_count: Union[Unset, bool] = False,
+    data_source: Union[Unset, str] = "",
     limit: Union[Unset, int] = UNSET,
     offset: Union[Unset, int] = UNSET,
-) -> Response[Union[HTTPValidationError, UniqueValueResponseObj]]:
-    """Unique Values Endpoint
+) -> Response[Union[ColumnValuesResponseObj, HTTPValidationError]]:
+    """Column Values Endpoint
 
      _summary_
 
     Args:
         request (Request): _description_
-        column_name (str): _description_
-        qnode (QNode): _description_
+        column (str): _description_
+        data_source (str): _description_
         db (Session, optional): _description_. Defaults to Depends(get_db).
 
     Returns:
-        FrequencyResponseObj: _description_
+        ColumnValuesResponseObj: _description_
 
     Args:
-        columnname (str):
-        system (Union[Unset, str]):  Default: ''.
-        count (Union[Unset, bool]):  Default: False.
-        total_count (Union[Unset, bool]):  Default: False.
+        column (str):
+        data_source (Union[Unset, str]):  Default: ''.
         limit (Union[Unset, int]):
         offset (Union[Unset, int]):
 
@@ -211,14 +189,12 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, UniqueValueResponseObj]]
+        Response[Union[ColumnValuesResponseObj, HTTPValidationError]]
     """
 
     kwargs = _get_kwargs(
-        columnname=columnname,
-        system=system,
-        count=count,
-        total_count=total_count,
+        column=column,
+        data_source=data_source,
         limit=limit,
         offset=offset,
     )
@@ -229,33 +205,29 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    columnname: str,
+    column: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    system: Union[Unset, str] = "",
-    count: Union[Unset, bool] = False,
-    total_count: Union[Unset, bool] = False,
+    data_source: Union[Unset, str] = "",
     limit: Union[Unset, int] = UNSET,
     offset: Union[Unset, int] = UNSET,
-) -> Optional[Union[HTTPValidationError, UniqueValueResponseObj]]:
-    """Unique Values Endpoint
+) -> Optional[Union[ColumnValuesResponseObj, HTTPValidationError]]:
+    """Column Values Endpoint
 
      _summary_
 
     Args:
         request (Request): _description_
-        column_name (str): _description_
-        qnode (QNode): _description_
+        column (str): _description_
+        data_source (str): _description_
         db (Session, optional): _description_. Defaults to Depends(get_db).
 
     Returns:
-        FrequencyResponseObj: _description_
+        ColumnValuesResponseObj: _description_
 
     Args:
-        columnname (str):
-        system (Union[Unset, str]):  Default: ''.
-        count (Union[Unset, bool]):  Default: False.
-        total_count (Union[Unset, bool]):  Default: False.
+        column (str):
+        data_source (Union[Unset, str]):  Default: ''.
         limit (Union[Unset, int]):
         offset (Union[Unset, int]):
 
@@ -264,16 +236,14 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, UniqueValueResponseObj]
+        Union[ColumnValuesResponseObj, HTTPValidationError]
     """
 
     return (
         await asyncio_detailed(
-            columnname=columnname,
+            column=column,
             client=client,
-            system=system,
-            count=count,
-            total_count=total_count,
+            data_source=data_source,
             limit=limit,
             offset=offset,
         )

@@ -3,11 +3,11 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="UniqueValueResponseObjResultItemType0")
+T = TypeVar("T", bound="ColumnValuesResponseObjResultItemType0")
 
 
 @_attrs_define
-class UniqueValueResponseObjResultItemType0:
+class ColumnValuesResponseObjResultItemType0:
     """ """
 
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -21,10 +21,10 @@ class UniqueValueResponseObjResultItemType0:
     @classmethod
     def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
-        unique_value_response_obj_result_item_type_0 = cls()
+        column_values_response_obj_result_item_type_0 = cls()
 
-        unique_value_response_obj_result_item_type_0.additional_properties = d
-        return unique_value_response_obj_result_item_type_0
+        column_values_response_obj_result_item_type_0.additional_properties = d
+        return column_values_response_obj_result_item_type_0
 
     @property
     def additional_keys(self) -> list[str]:

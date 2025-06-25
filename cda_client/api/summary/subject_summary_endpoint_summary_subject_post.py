@@ -5,7 +5,9 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.client_error import ClientError
 from ...models.http_validation_error import HTTPValidationError
+from ...models.internal_error import InternalError
 from ...models.summary_request_body import SummaryRequestBody
 from ...models.summary_response_obj import SummaryResponseObj
 from ...types import Response
@@ -33,11 +35,19 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[HTTPValidationError, SummaryResponseObj]]:
+) -> Optional[Union[ClientError, HTTPValidationError, InternalError, SummaryResponseObj]]:
     if response.status_code == 200:
         response_200 = SummaryResponseObj.from_dict(response.json())
 
         return response_200
+    if response.status_code == 400:
+        response_400 = ClientError.from_dict(response.json())
+
+        return response_400
+    if response.status_code == 500:
+        response_500 = InternalError.from_dict(response.json())
+
+        return response_500
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
@@ -50,7 +60,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[HTTPValidationError, SummaryResponseObj]]:
+) -> Response[Union[ClientError, HTTPValidationError, InternalError, SummaryResponseObj]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -63,7 +73,7 @@ def sync_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
     body: SummaryRequestBody,
-) -> Response[Union[HTTPValidationError, SummaryResponseObj]]:
+) -> Response[Union[ClientError, HTTPValidationError, InternalError, SummaryResponseObj]]:
     """Subject Summary Endpoint
 
      _summary_
@@ -84,7 +94,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, SummaryResponseObj]]
+        Response[Union[ClientError, HTTPValidationError, InternalError, SummaryResponseObj]]
     """
 
     kwargs = _get_kwargs(
@@ -102,7 +112,7 @@ def sync(
     *,
     client: Union[AuthenticatedClient, Client],
     body: SummaryRequestBody,
-) -> Optional[Union[HTTPValidationError, SummaryResponseObj]]:
+) -> Optional[Union[ClientError, HTTPValidationError, InternalError, SummaryResponseObj]]:
     """Subject Summary Endpoint
 
      _summary_
@@ -123,7 +133,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, SummaryResponseObj]
+        Union[ClientError, HTTPValidationError, InternalError, SummaryResponseObj]
     """
 
     return sync_detailed(
@@ -136,7 +146,7 @@ async def asyncio_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
     body: SummaryRequestBody,
-) -> Response[Union[HTTPValidationError, SummaryResponseObj]]:
+) -> Response[Union[ClientError, HTTPValidationError, InternalError, SummaryResponseObj]]:
     """Subject Summary Endpoint
 
      _summary_
@@ -157,7 +167,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[HTTPValidationError, SummaryResponseObj]]
+        Response[Union[ClientError, HTTPValidationError, InternalError, SummaryResponseObj]]
     """
 
     kwargs = _get_kwargs(
@@ -173,7 +183,7 @@ async def asyncio(
     *,
     client: Union[AuthenticatedClient, Client],
     body: SummaryRequestBody,
-) -> Optional[Union[HTTPValidationError, SummaryResponseObj]]:
+) -> Optional[Union[ClientError, HTTPValidationError, InternalError, SummaryResponseObj]]:
     """Subject Summary Endpoint
 
      _summary_
@@ -194,7 +204,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[HTTPValidationError, SummaryResponseObj]
+        Union[ClientError, HTTPValidationError, InternalError, SummaryResponseObj]
     """
 
     return (

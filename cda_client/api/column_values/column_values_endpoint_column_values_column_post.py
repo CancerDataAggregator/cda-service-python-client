@@ -5,8 +5,10 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.client_error import ClientError
 from ...models.column_values_response_obj import ColumnValuesResponseObj
 from ...models.http_validation_error import HTTPValidationError
+from ...models.internal_error import InternalError
 from ...types import UNSET, Response, Unset
 
 
@@ -38,11 +40,19 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[ColumnValuesResponseObj, HTTPValidationError]]:
+) -> Optional[Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]]:
     if response.status_code == 200:
         response_200 = ColumnValuesResponseObj.from_dict(response.json())
 
         return response_200
+    if response.status_code == 400:
+        response_400 = ClientError.from_dict(response.json())
+
+        return response_400
+    if response.status_code == 500:
+        response_500 = InternalError.from_dict(response.json())
+
+        return response_500
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
@@ -55,7 +65,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[ColumnValuesResponseObj, HTTPValidationError]]:
+) -> Response[Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -71,7 +81,7 @@ def sync_detailed(
     data_source: Union[Unset, str] = "",
     limit: Union[Unset, int] = UNSET,
     offset: Union[Unset, int] = UNSET,
-) -> Response[Union[ColumnValuesResponseObj, HTTPValidationError]]:
+) -> Response[Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]]:
     """Column Values Endpoint
 
      _summary_
@@ -96,7 +106,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[ColumnValuesResponseObj, HTTPValidationError]]
+        Response[Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]]
     """
 
     kwargs = _get_kwargs(
@@ -120,7 +130,7 @@ def sync(
     data_source: Union[Unset, str] = "",
     limit: Union[Unset, int] = UNSET,
     offset: Union[Unset, int] = UNSET,
-) -> Optional[Union[ColumnValuesResponseObj, HTTPValidationError]]:
+) -> Optional[Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]]:
     """Column Values Endpoint
 
      _summary_
@@ -145,7 +155,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[ColumnValuesResponseObj, HTTPValidationError]
+        Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]
     """
 
     return sync_detailed(
@@ -164,7 +174,7 @@ async def asyncio_detailed(
     data_source: Union[Unset, str] = "",
     limit: Union[Unset, int] = UNSET,
     offset: Union[Unset, int] = UNSET,
-) -> Response[Union[ColumnValuesResponseObj, HTTPValidationError]]:
+) -> Response[Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]]:
     """Column Values Endpoint
 
      _summary_
@@ -189,7 +199,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[ColumnValuesResponseObj, HTTPValidationError]]
+        Response[Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]]
     """
 
     kwargs = _get_kwargs(
@@ -211,7 +221,7 @@ async def asyncio(
     data_source: Union[Unset, str] = "",
     limit: Union[Unset, int] = UNSET,
     offset: Union[Unset, int] = UNSET,
-) -> Optional[Union[ColumnValuesResponseObj, HTTPValidationError]]:
+) -> Optional[Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]]:
     """Column Values Endpoint
 
      _summary_
@@ -236,7 +246,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[ColumnValuesResponseObj, HTTPValidationError]
+        Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]
     """
 
     return (

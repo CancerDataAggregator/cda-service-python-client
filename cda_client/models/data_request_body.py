@@ -16,14 +16,14 @@ class DataRequestBody:
         match_some (Union[None, Unset, list[str]]):
         add_columns (Union[None, Unset, list[str]]):
         exclude_columns (Union[None, Unset, list[str]]):
-        expand_results (Union[None, Unset, bool]):  Default: False.
+        collate_results (Union[None, Unset, bool]):  Default: False.
     """
 
     match_all: Union[None, Unset, list[str]] = UNSET
     match_some: Union[None, Unset, list[str]] = UNSET
     add_columns: Union[None, Unset, list[str]] = UNSET
     exclude_columns: Union[None, Unset, list[str]] = UNSET
-    expand_results: Union[None, Unset, bool] = False
+    collate_results: Union[None, Unset, bool] = False
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -63,11 +63,11 @@ class DataRequestBody:
         else:
             exclude_columns = self.exclude_columns
 
-        expand_results: Union[None, Unset, bool]
-        if isinstance(self.expand_results, Unset):
-            expand_results = UNSET
+        collate_results: Union[None, Unset, bool]
+        if isinstance(self.collate_results, Unset):
+            collate_results = UNSET
         else:
-            expand_results = self.expand_results
+            collate_results = self.collate_results
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -80,8 +80,8 @@ class DataRequestBody:
             field_dict["ADD_COLUMNS"] = add_columns
         if exclude_columns is not UNSET:
             field_dict["EXCLUDE_COLUMNS"] = exclude_columns
-        if expand_results is not UNSET:
-            field_dict["EXPAND_RESULTS"] = expand_results
+        if collate_results is not UNSET:
+            field_dict["COLLATE_RESULTS"] = collate_results
 
         return field_dict
 
@@ -157,21 +157,21 @@ class DataRequestBody:
 
         exclude_columns = _parse_exclude_columns(d.pop("EXCLUDE_COLUMNS", UNSET))
 
-        def _parse_expand_results(data: object) -> Union[None, Unset, bool]:
+        def _parse_collate_results(data: object) -> Union[None, Unset, bool]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
             return cast(Union[None, Unset, bool], data)
 
-        expand_results = _parse_expand_results(d.pop("EXPAND_RESULTS", UNSET))
+        collate_results = _parse_collate_results(d.pop("COLLATE_RESULTS", UNSET))
 
         data_request_body = cls(
             match_all=match_all,
             match_some=match_some,
             add_columns=add_columns,
             exclude_columns=exclude_columns,
-            expand_results=expand_results,
+            collate_results=collate_results,
         )
 
         data_request_body.additional_properties = d

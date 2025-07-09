@@ -17,6 +17,7 @@ class DataRequestBody:
         add_columns (Union[None, Unset, list[str]]):
         exclude_columns (Union[None, Unset, list[str]]):
         collate_results (Union[None, Unset, bool]):  Default: False.
+        external_reference (Union[None, Unset, bool]):  Default: False.
     """
 
     match_all: Union[None, Unset, list[str]] = UNSET
@@ -24,6 +25,7 @@ class DataRequestBody:
     add_columns: Union[None, Unset, list[str]] = UNSET
     exclude_columns: Union[None, Unset, list[str]] = UNSET
     collate_results: Union[None, Unset, bool] = False
+    external_reference: Union[None, Unset, bool] = False
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -69,6 +71,12 @@ class DataRequestBody:
         else:
             collate_results = self.collate_results
 
+        external_reference: Union[None, Unset, bool]
+        if isinstance(self.external_reference, Unset):
+            external_reference = UNSET
+        else:
+            external_reference = self.external_reference
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -82,6 +90,8 @@ class DataRequestBody:
             field_dict["EXCLUDE_COLUMNS"] = exclude_columns
         if collate_results is not UNSET:
             field_dict["COLLATE_RESULTS"] = collate_results
+        if external_reference is not UNSET:
+            field_dict["EXTERNAL_REFERENCE"] = external_reference
 
         return field_dict
 
@@ -166,12 +176,22 @@ class DataRequestBody:
 
         collate_results = _parse_collate_results(d.pop("COLLATE_RESULTS", UNSET))
 
+        def _parse_external_reference(data: object) -> Union[None, Unset, bool]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, bool], data)
+
+        external_reference = _parse_external_reference(d.pop("EXTERNAL_REFERENCE", UNSET))
+
         data_request_body = cls(
             match_all=match_all,
             match_some=match_some,
             add_columns=add_columns,
             exclude_columns=exclude_columns,
             collate_results=collate_results,
+            external_reference=external_reference,
         )
 
         data_request_body.additional_properties = d

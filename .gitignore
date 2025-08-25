@@ -1,8 +1,11 @@
 __pycache__/
+zz00_build
 build/
 dist/
 *.egg-info/
 .pytest_cache/
+
+.DS_Store
 
 # pyenv
 .python-version
@@ -21,3 +24,5 @@ dmypy.json
 
 /coverage.xml
 /.coverage
+
+

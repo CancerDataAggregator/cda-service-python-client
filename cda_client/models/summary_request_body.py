@@ -1,4 +1,7 @@
-from typing import Any, TypeVar, Union, cast
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -12,20 +15,28 @@ T = TypeVar("T", bound="SummaryRequestBody")
 class SummaryRequestBody:
     """
     Attributes:
-        match_all (Union[None, Unset, list[str]]):
-        match_some (Union[None, Unset, list[str]]):
-        add_columns (Union[None, Unset, list[str]]):
-        exclude_columns (Union[None, Unset, list[str]]):
+        search_string (None | str | Unset):  Default: ''.
+        match_all (list[str] | None | Unset):
+        match_some (list[str] | None | Unset):
+        add_columns (list[str] | None | Unset):
+        exclude_columns (list[str] | None | Unset):
     """
 
-    match_all: Union[None, Unset, list[str]] = UNSET
-    match_some: Union[None, Unset, list[str]] = UNSET
-    add_columns: Union[None, Unset, list[str]] = UNSET
-    exclude_columns: Union[None, Unset, list[str]] = UNSET
+    search_string: None | str | Unset = ""
+    match_all: list[str] | None | Unset = UNSET
+    match_some: list[str] | None | Unset = UNSET
+    add_columns: list[str] | None | Unset = UNSET
+    exclude_columns: list[str] | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        match_all: Union[None, Unset, list[str]]
+        search_string: None | str | Unset
+        if isinstance(self.search_string, Unset):
+            search_string = UNSET
+        else:
+            search_string = self.search_string
+
+        match_all: list[str] | None | Unset
         if isinstance(self.match_all, Unset):
             match_all = UNSET
         elif isinstance(self.match_all, list):
@@ -34,7 +45,7 @@ class SummaryRequestBody:
         else:
             match_all = self.match_all
 
-        match_some: Union[None, Unset, list[str]]
+        match_some: list[str] | None | Unset
         if isinstance(self.match_some, Unset):
             match_some = UNSET
         elif isinstance(self.match_some, list):
@@ -43,7 +54,7 @@ class SummaryRequestBody:
         else:
             match_some = self.match_some
 
-        add_columns: Union[None, Unset, list[str]]
+        add_columns: list[str] | None | Unset
         if isinstance(self.add_columns, Unset):
             add_columns = UNSET
         elif isinstance(self.add_columns, list):
@@ -52,7 +63,7 @@ class SummaryRequestBody:
         else:
             add_columns = self.add_columns
 
-        exclude_columns: Union[None, Unset, list[str]]
+        exclude_columns: list[str] | None | Unset
         if isinstance(self.exclude_columns, Unset):
             exclude_columns = UNSET
         elif isinstance(self.exclude_columns, list):
@@ -64,6 +75,8 @@ class SummaryRequestBody:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if search_string is not UNSET:
+            field_dict["SEARCH_STRING"] = search_string
         if match_all is not UNSET:
             field_dict["MATCH_ALL"] = match_all
         if match_some is not UNSET:
@@ -76,10 +89,19 @@ class SummaryRequestBody:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
 
-        def _parse_match_all(data: object) -> Union[None, Unset, list[str]]:
+        def _parse_search_string(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        search_string = _parse_search_string(d.pop("SEARCH_STRING", UNSET))
+
+        def _parse_match_all(data: object) -> list[str] | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -90,13 +112,13 @@ class SummaryRequestBody:
                 match_all_type_0 = cast(list[str], data)
 
                 return match_all_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
-            return cast(Union[None, Unset, list[str]], data)
+            return cast(list[str] | None | Unset, data)
 
         match_all = _parse_match_all(d.pop("MATCH_ALL", UNSET))
 
-        def _parse_match_some(data: object) -> Union[None, Unset, list[str]]:
+        def _parse_match_some(data: object) -> list[str] | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -107,13 +129,13 @@ class SummaryRequestBody:
                 match_some_type_0 = cast(list[str], data)
 
                 return match_some_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
-            return cast(Union[None, Unset, list[str]], data)
+            return cast(list[str] | None | Unset, data)
 
         match_some = _parse_match_some(d.pop("MATCH_SOME", UNSET))
 
-        def _parse_add_columns(data: object) -> Union[None, Unset, list[str]]:
+        def _parse_add_columns(data: object) -> list[str] | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -124,13 +146,13 @@ class SummaryRequestBody:
                 add_columns_type_0 = cast(list[str], data)
 
                 return add_columns_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
-            return cast(Union[None, Unset, list[str]], data)
+            return cast(list[str] | None | Unset, data)
 
         add_columns = _parse_add_columns(d.pop("ADD_COLUMNS", UNSET))
 
-        def _parse_exclude_columns(data: object) -> Union[None, Unset, list[str]]:
+        def _parse_exclude_columns(data: object) -> list[str] | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -141,13 +163,14 @@ class SummaryRequestBody:
                 exclude_columns_type_0 = cast(list[str], data)
 
                 return exclude_columns_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
-            return cast(Union[None, Unset, list[str]], data)
+            return cast(list[str] | None | Unset, data)
 
         exclude_columns = _parse_exclude_columns(d.pop("EXCLUDE_COLUMNS", UNSET))
 
         summary_request_body = cls(
+            search_string=search_string,
             match_all=match_all,
             match_some=match_some,
             add_columns=add_columns,

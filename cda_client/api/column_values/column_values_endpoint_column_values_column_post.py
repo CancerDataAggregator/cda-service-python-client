@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 
 import httpx
 
@@ -15,10 +16,11 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     column: str,
     *,
-    data_source: Union[Unset, str] = "",
-    limit: Union[Unset, int] = UNSET,
-    offset: Union[Unset, int] = UNSET,
+    data_source: str | Unset = "",
+    limit: int | Unset = UNSET,
+    offset: int | Unset = UNSET,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     params["data_source"] = data_source
@@ -31,7 +33,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/column_values/{column}",
+        "url": "/column_values/{column}".format(
+            column=quote(str(column), safe=""),
+        ),
         "params": params,
     }
 
@@ -39,24 +43,28 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> ClientError | ColumnValuesResponseObj | HTTPValidationError | InternalError | None:
     if response.status_code == 200:
         response_200 = ColumnValuesResponseObj.from_dict(response.json())
 
         return response_200
+
     if response.status_code == 400:
         response_400 = ClientError.from_dict(response.json())
 
         return response_400
-    if response.status_code == 500:
-        response_500 = InternalError.from_dict(response.json())
 
-        return response_500
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
         return response_422
+
+    if response.status_code == 500:
+        response_500 = InternalError.from_dict(response.json())
+
+        return response_500
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -64,8 +72,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[ClientError | ColumnValuesResponseObj | HTTPValidationError | InternalError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -77,11 +85,11 @@ def _build_response(
 def sync_detailed(
     column: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    data_source: Union[Unset, str] = "",
-    limit: Union[Unset, int] = UNSET,
-    offset: Union[Unset, int] = UNSET,
-) -> Response[Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]]:
+    client: AuthenticatedClient | Client,
+    data_source: str | Unset = "",
+    limit: int | Unset = UNSET,
+    offset: int | Unset = UNSET,
+) -> Response[ClientError | ColumnValuesResponseObj | HTTPValidationError | InternalError]:
     """Column Values Endpoint
 
      _summary_
@@ -97,16 +105,16 @@ def sync_detailed(
 
     Args:
         column (str):
-        data_source (Union[Unset, str]):  Default: ''.
-        limit (Union[Unset, int]):
-        offset (Union[Unset, int]):
+        data_source (str | Unset):  Default: ''.
+        limit (int | Unset):
+        offset (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]]
+        Response[ClientError | ColumnValuesResponseObj | HTTPValidationError | InternalError]
     """
 
     kwargs = _get_kwargs(
@@ -126,11 +134,11 @@ def sync_detailed(
 def sync(
     column: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    data_source: Union[Unset, str] = "",
-    limit: Union[Unset, int] = UNSET,
-    offset: Union[Unset, int] = UNSET,
-) -> Optional[Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]]:
+    client: AuthenticatedClient | Client,
+    data_source: str | Unset = "",
+    limit: int | Unset = UNSET,
+    offset: int | Unset = UNSET,
+) -> ClientError | ColumnValuesResponseObj | HTTPValidationError | InternalError | None:
     """Column Values Endpoint
 
      _summary_
@@ -146,16 +154,16 @@ def sync(
 
     Args:
         column (str):
-        data_source (Union[Unset, str]):  Default: ''.
-        limit (Union[Unset, int]):
-        offset (Union[Unset, int]):
+        data_source (str | Unset):  Default: ''.
+        limit (int | Unset):
+        offset (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]
+        ClientError | ColumnValuesResponseObj | HTTPValidationError | InternalError
     """
 
     return sync_detailed(
@@ -170,11 +178,11 @@ def sync(
 async def asyncio_detailed(
     column: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    data_source: Union[Unset, str] = "",
-    limit: Union[Unset, int] = UNSET,
-    offset: Union[Unset, int] = UNSET,
-) -> Response[Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]]:
+    client: AuthenticatedClient | Client,
+    data_source: str | Unset = "",
+    limit: int | Unset = UNSET,
+    offset: int | Unset = UNSET,
+) -> Response[ClientError | ColumnValuesResponseObj | HTTPValidationError | InternalError]:
     """Column Values Endpoint
 
      _summary_
@@ -190,16 +198,16 @@ async def asyncio_detailed(
 
     Args:
         column (str):
-        data_source (Union[Unset, str]):  Default: ''.
-        limit (Union[Unset, int]):
-        offset (Union[Unset, int]):
+        data_source (str | Unset):  Default: ''.
+        limit (int | Unset):
+        offset (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]]
+        Response[ClientError | ColumnValuesResponseObj | HTTPValidationError | InternalError]
     """
 
     kwargs = _get_kwargs(
@@ -217,11 +225,11 @@ async def asyncio_detailed(
 async def asyncio(
     column: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    data_source: Union[Unset, str] = "",
-    limit: Union[Unset, int] = UNSET,
-    offset: Union[Unset, int] = UNSET,
-) -> Optional[Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]]:
+    client: AuthenticatedClient | Client,
+    data_source: str | Unset = "",
+    limit: int | Unset = UNSET,
+    offset: int | Unset = UNSET,
+) -> ClientError | ColumnValuesResponseObj | HTTPValidationError | InternalError | None:
     """Column Values Endpoint
 
      _summary_
@@ -237,16 +245,16 @@ async def asyncio(
 
     Args:
         column (str):
-        data_source (Union[Unset, str]):  Default: ''.
-        limit (Union[Unset, int]):
-        offset (Union[Unset, int]):
+        data_source (str | Unset):  Default: ''.
+        limit (int | Unset):
+        offset (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[ClientError, ColumnValuesResponseObj, HTTPValidationError, InternalError]
+        ClientError | ColumnValuesResponseObj | HTTPValidationError | InternalError
     """
 
     return (

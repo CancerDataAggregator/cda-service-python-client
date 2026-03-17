@@ -1,4 +1,7 @@
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,12 +17,12 @@ T = TypeVar("T", bound="SummaryResponseObj")
 class SummaryResponseObj:
     """
     Attributes:
-        result (list[Union['SummaryResponseObjResultItemType0', None]]): List of query result json objects
-        query_sql (Union[None, str]): SQL Query generated to yield the results
+        result (list[None | SummaryResponseObjResultItemType0]): List of query result json objects
+        query_sql (None | str): SQL Query generated to yield the results
     """
 
-    result: list[Union["SummaryResponseObjResultItemType0", None]]
-    query_sql: Union[None, str]
+    result: list[None | SummaryResponseObjResultItemType0]
+    query_sql: None | str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -27,14 +30,14 @@ class SummaryResponseObj:
 
         result = []
         for result_item_data in self.result:
-            result_item: Union[None, dict[str, Any]]
+            result_item: dict[str, Any] | None
             if isinstance(result_item_data, SummaryResponseObjResultItemType0):
                 result_item = result_item_data.to_dict()
             else:
                 result_item = result_item_data
             result.append(result_item)
 
-        query_sql: Union[None, str]
+        query_sql: None | str
         query_sql = self.query_sql
 
         field_dict: dict[str, Any] = {}
@@ -49,15 +52,15 @@ class SummaryResponseObj:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.summary_response_obj_result_item_type_0 import SummaryResponseObjResultItemType0
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         result = []
         _result = d.pop("result")
         for result_item_data in _result:
 
-            def _parse_result_item(data: object) -> Union["SummaryResponseObjResultItemType0", None]:
+            def _parse_result_item(data: object) -> None | SummaryResponseObjResultItemType0:
                 if data is None:
                     return data
                 try:
@@ -66,18 +69,18 @@ class SummaryResponseObj:
                     result_item_type_0 = SummaryResponseObjResultItemType0.from_dict(data)
 
                     return result_item_type_0
-                except:  # noqa: E722
+                except (TypeError, ValueError, AttributeError, KeyError):
                     pass
-                return cast(Union["SummaryResponseObjResultItemType0", None], data)
+                return cast(None | SummaryResponseObjResultItemType0, data)
 
             result_item = _parse_result_item(result_item_data)
 
             result.append(result_item)
 
-        def _parse_query_sql(data: object) -> Union[None, str]:
+        def _parse_query_sql(data: object) -> None | str:
             if data is None:
                 return data
-            return cast(Union[None, str], data)
+            return cast(None | str, data)
 
         query_sql = _parse_query_sql(d.pop("query_sql"))
 

@@ -1,4 +1,7 @@
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,10 +17,10 @@ T = TypeVar("T", bound="ColumnResponseObj")
 class ColumnResponseObj:
     """
     Attributes:
-        result (list[Union['ColumnResponseObjResultItemType0', None]]): List of query result json objects
+        result (list[ColumnResponseObjResultItemType0 | None]): List of query result json objects
     """
 
-    result: list[Union["ColumnResponseObjResultItemType0", None]]
+    result: list[ColumnResponseObjResultItemType0 | None]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -25,7 +28,7 @@ class ColumnResponseObj:
 
         result = []
         for result_item_data in self.result:
-            result_item: Union[None, dict[str, Any]]
+            result_item: dict[str, Any] | None
             if isinstance(result_item_data, ColumnResponseObjResultItemType0):
                 result_item = result_item_data.to_dict()
             else:
@@ -43,15 +46,15 @@ class ColumnResponseObj:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.column_response_obj_result_item_type_0 import ColumnResponseObjResultItemType0
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         result = []
         _result = d.pop("result")
         for result_item_data in _result:
 
-            def _parse_result_item(data: object) -> Union["ColumnResponseObjResultItemType0", None]:
+            def _parse_result_item(data: object) -> ColumnResponseObjResultItemType0 | None:
                 if data is None:
                     return data
                 try:
@@ -60,9 +63,9 @@ class ColumnResponseObj:
                     result_item_type_0 = ColumnResponseObjResultItemType0.from_dict(data)
 
                     return result_item_type_0
-                except:  # noqa: E722
+                except (TypeError, ValueError, AttributeError, KeyError):
                     pass
-                return cast(Union["ColumnResponseObjResultItemType0", None], data)
+                return cast(ColumnResponseObjResultItemType0 | None, data)
 
             result_item = _parse_result_item(result_item_data)
 

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -12,6 +12,7 @@ from ...types import Response
 
 
 def _get_kwargs() -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/columns/",
@@ -21,20 +22,23 @@ def _get_kwargs() -> dict[str, Any]:
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[ClientError, ColumnResponseObj, InternalError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> ClientError | ColumnResponseObj | InternalError | None:
     if response.status_code == 200:
         response_200 = ColumnResponseObj.from_dict(response.json())
 
         return response_200
+
     if response.status_code == 400:
         response_400 = ClientError.from_dict(response.json())
 
         return response_400
+
     if response.status_code == 500:
         response_500 = InternalError.from_dict(response.json())
 
         return response_500
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -42,8 +46,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[ClientError, ColumnResponseObj, InternalError]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[ClientError | ColumnResponseObj | InternalError]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -54,8 +58,8 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[Union[ClientError, ColumnResponseObj, InternalError]]:
+    client: AuthenticatedClient | Client,
+) -> Response[ClientError | ColumnResponseObj | InternalError]:
     """Columns Endpoint
 
      _summary_
@@ -72,7 +76,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[ClientError, ColumnResponseObj, InternalError]]
+        Response[ClientError | ColumnResponseObj | InternalError]
     """
 
     kwargs = _get_kwargs()
@@ -86,8 +90,8 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[Union[ClientError, ColumnResponseObj, InternalError]]:
+    client: AuthenticatedClient | Client,
+) -> ClientError | ColumnResponseObj | InternalError | None:
     """Columns Endpoint
 
      _summary_
@@ -104,7 +108,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[ClientError, ColumnResponseObj, InternalError]
+        ClientError | ColumnResponseObj | InternalError
     """
 
     return sync_detailed(
@@ -114,8 +118,8 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[Union[ClientError, ColumnResponseObj, InternalError]]:
+    client: AuthenticatedClient | Client,
+) -> Response[ClientError | ColumnResponseObj | InternalError]:
     """Columns Endpoint
 
      _summary_
@@ -132,7 +136,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[ClientError, ColumnResponseObj, InternalError]]
+        Response[ClientError | ColumnResponseObj | InternalError]
     """
 
     kwargs = _get_kwargs()
@@ -144,8 +148,8 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[Union[ClientError, ColumnResponseObj, InternalError]]:
+    client: AuthenticatedClient | Client,
+) -> ClientError | ColumnResponseObj | InternalError | None:
     """Columns Endpoint
 
      _summary_
@@ -162,7 +166,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[ClientError, ColumnResponseObj, InternalError]
+        ClientError | ColumnResponseObj | InternalError
     """
 
     return (

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -16,8 +16,8 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     *,
     body: DataRequestBody,
-    limit: Union[Unset, int] = 100,
-    offset: Union[Unset, int] = 0,
+    limit: int | Unset = 100,
+    offset: int | Unset = 0,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
@@ -35,9 +35,8 @@ def _get_kwargs(
         "params": params,
     }
 
-    _body = body.to_dict()
+    _kwargs["json"] = body.to_dict()
 
-    _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
@@ -45,24 +44,28 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[ClientError, HTTPValidationError, InternalError, PagedResponseObj]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> ClientError | HTTPValidationError | InternalError | PagedResponseObj | None:
     if response.status_code == 200:
         response_200 = PagedResponseObj.from_dict(response.json())
 
         return response_200
+
     if response.status_code == 400:
         response_400 = ClientError.from_dict(response.json())
 
         return response_400
-    if response.status_code == 500:
-        response_500 = InternalError.from_dict(response.json())
 
-        return response_500
     if response.status_code == 422:
         response_422 = HTTPValidationError.from_dict(response.json())
 
         return response_422
+
+    if response.status_code == 500:
+        response_500 = InternalError.from_dict(response.json())
+
+        return response_500
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -70,8 +73,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[ClientError, HTTPValidationError, InternalError, PagedResponseObj]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[ClientError | HTTPValidationError | InternalError | PagedResponseObj]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -82,11 +85,11 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: DataRequestBody,
-    limit: Union[Unset, int] = 100,
-    offset: Union[Unset, int] = 0,
-) -> Response[Union[ClientError, HTTPValidationError, InternalError, PagedResponseObj]]:
+    limit: int | Unset = 100,
+    offset: int | Unset = 0,
+) -> Response[ClientError | HTTPValidationError | InternalError | PagedResponseObj]:
     """Subject Fetch Rows Endpoint
 
      Subject data endpoint that returns json formatted row data based on input query
@@ -108,8 +111,8 @@ def sync_detailed(
         }
 
     Args:
-        limit (Union[Unset, int]):  Default: 100.
-        offset (Union[Unset, int]):  Default: 0.
+        limit (int | Unset):  Default: 100.
+        offset (int | Unset):  Default: 0.
         body (DataRequestBody):
 
     Raises:
@@ -117,7 +120,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[ClientError, HTTPValidationError, InternalError, PagedResponseObj]]
+        Response[ClientError | HTTPValidationError | InternalError | PagedResponseObj]
     """
 
     kwargs = _get_kwargs(
@@ -135,11 +138,11 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: DataRequestBody,
-    limit: Union[Unset, int] = 100,
-    offset: Union[Unset, int] = 0,
-) -> Optional[Union[ClientError, HTTPValidationError, InternalError, PagedResponseObj]]:
+    limit: int | Unset = 100,
+    offset: int | Unset = 0,
+) -> ClientError | HTTPValidationError | InternalError | PagedResponseObj | None:
     """Subject Fetch Rows Endpoint
 
      Subject data endpoint that returns json formatted row data based on input query
@@ -161,8 +164,8 @@ def sync(
         }
 
     Args:
-        limit (Union[Unset, int]):  Default: 100.
-        offset (Union[Unset, int]):  Default: 0.
+        limit (int | Unset):  Default: 100.
+        offset (int | Unset):  Default: 0.
         body (DataRequestBody):
 
     Raises:
@@ -170,7 +173,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[ClientError, HTTPValidationError, InternalError, PagedResponseObj]
+        ClientError | HTTPValidationError | InternalError | PagedResponseObj
     """
 
     return sync_detailed(
@@ -183,11 +186,11 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: DataRequestBody,
-    limit: Union[Unset, int] = 100,
-    offset: Union[Unset, int] = 0,
-) -> Response[Union[ClientError, HTTPValidationError, InternalError, PagedResponseObj]]:
+    limit: int | Unset = 100,
+    offset: int | Unset = 0,
+) -> Response[ClientError | HTTPValidationError | InternalError | PagedResponseObj]:
     """Subject Fetch Rows Endpoint
 
      Subject data endpoint that returns json formatted row data based on input query
@@ -209,8 +212,8 @@ async def asyncio_detailed(
         }
 
     Args:
-        limit (Union[Unset, int]):  Default: 100.
-        offset (Union[Unset, int]):  Default: 0.
+        limit (int | Unset):  Default: 100.
+        offset (int | Unset):  Default: 0.
         body (DataRequestBody):
 
     Raises:
@@ -218,7 +221,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[ClientError, HTTPValidationError, InternalError, PagedResponseObj]]
+        Response[ClientError | HTTPValidationError | InternalError | PagedResponseObj]
     """
 
     kwargs = _get_kwargs(
@@ -234,11 +237,11 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: DataRequestBody,
-    limit: Union[Unset, int] = 100,
-    offset: Union[Unset, int] = 0,
-) -> Optional[Union[ClientError, HTTPValidationError, InternalError, PagedResponseObj]]:
+    limit: int | Unset = 100,
+    offset: int | Unset = 0,
+) -> ClientError | HTTPValidationError | InternalError | PagedResponseObj | None:
     """Subject Fetch Rows Endpoint
 
      Subject data endpoint that returns json formatted row data based on input query
@@ -260,8 +263,8 @@ async def asyncio(
         }
 
     Args:
-        limit (Union[Unset, int]):  Default: 100.
-        offset (Union[Unset, int]):  Default: 0.
+        limit (int | Unset):  Default: 100.
+        offset (int | Unset):  Default: 0.
         body (DataRequestBody):
 
     Raises:
@@ -269,7 +272,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[ClientError, HTTPValidationError, InternalError, PagedResponseObj]
+        ClientError | HTTPValidationError | InternalError | PagedResponseObj
     """
 
     return (

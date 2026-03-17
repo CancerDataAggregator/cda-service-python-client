@@ -1,4 +1,7 @@
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,16 +19,16 @@ T = TypeVar("T", bound="ColumnValuesResponseObj")
 class ColumnValuesResponseObj:
     """
     Attributes:
-        result (list[Union['ColumnValuesResponseObjResultItemType0', None]]): List of query result json objects
-        query_sql (Union[None, str]): SQL Query generated to yield the results
-        total_row_count (Union[None, Unset, int]): Count of total number of results from the query
-        next_url (Union[None, Unset, str]): URL to get to next page of results
+        result (list[ColumnValuesResponseObjResultItemType0 | None]): List of query result json objects
+        query_sql (None | str): SQL Query generated to yield the results
+        total_row_count (int | None | Unset): Count of total number of results from the query
+        next_url (None | str | Unset): URL to get to next page of results
     """
 
-    result: list[Union["ColumnValuesResponseObjResultItemType0", None]]
-    query_sql: Union[None, str]
-    total_row_count: Union[None, Unset, int] = UNSET
-    next_url: Union[None, Unset, str] = UNSET
+    result: list[ColumnValuesResponseObjResultItemType0 | None]
+    query_sql: None | str
+    total_row_count: int | None | Unset = UNSET
+    next_url: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -33,23 +36,23 @@ class ColumnValuesResponseObj:
 
         result = []
         for result_item_data in self.result:
-            result_item: Union[None, dict[str, Any]]
+            result_item: dict[str, Any] | None
             if isinstance(result_item_data, ColumnValuesResponseObjResultItemType0):
                 result_item = result_item_data.to_dict()
             else:
                 result_item = result_item_data
             result.append(result_item)
 
-        query_sql: Union[None, str]
+        query_sql: None | str
         query_sql = self.query_sql
 
-        total_row_count: Union[None, Unset, int]
+        total_row_count: int | None | Unset
         if isinstance(self.total_row_count, Unset):
             total_row_count = UNSET
         else:
             total_row_count = self.total_row_count
 
-        next_url: Union[None, Unset, str]
+        next_url: None | str | Unset
         if isinstance(self.next_url, Unset):
             next_url = UNSET
         else:
@@ -71,15 +74,15 @@ class ColumnValuesResponseObj:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.column_values_response_obj_result_item_type_0 import ColumnValuesResponseObjResultItemType0
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         result = []
         _result = d.pop("result")
         for result_item_data in _result:
 
-            def _parse_result_item(data: object) -> Union["ColumnValuesResponseObjResultItemType0", None]:
+            def _parse_result_item(data: object) -> ColumnValuesResponseObjResultItemType0 | None:
                 if data is None:
                     return data
                 try:
@@ -88,36 +91,36 @@ class ColumnValuesResponseObj:
                     result_item_type_0 = ColumnValuesResponseObjResultItemType0.from_dict(data)
 
                     return result_item_type_0
-                except:  # noqa: E722
+                except (TypeError, ValueError, AttributeError, KeyError):
                     pass
-                return cast(Union["ColumnValuesResponseObjResultItemType0", None], data)
+                return cast(ColumnValuesResponseObjResultItemType0 | None, data)
 
             result_item = _parse_result_item(result_item_data)
 
             result.append(result_item)
 
-        def _parse_query_sql(data: object) -> Union[None, str]:
+        def _parse_query_sql(data: object) -> None | str:
             if data is None:
                 return data
-            return cast(Union[None, str], data)
+            return cast(None | str, data)
 
         query_sql = _parse_query_sql(d.pop("query_sql"))
 
-        def _parse_total_row_count(data: object) -> Union[None, Unset, int]:
+        def _parse_total_row_count(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, int], data)
+            return cast(int | None | Unset, data)
 
         total_row_count = _parse_total_row_count(d.pop("total_row_count", UNSET))
 
-        def _parse_next_url(data: object) -> Union[None, Unset, str]:
+        def _parse_next_url(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         next_url = _parse_next_url(d.pop("next_url", UNSET))
 

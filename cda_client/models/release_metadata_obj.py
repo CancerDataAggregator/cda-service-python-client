@@ -1,4 +1,7 @@
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,10 +17,10 @@ T = TypeVar("T", bound="ReleaseMetadataObj")
 class ReleaseMetadataObj:
     """
     Attributes:
-        result (list[Union['ReleaseMetadataObjResultItemType0', None]]):
+        result (list[None | ReleaseMetadataObjResultItemType0]):
     """
 
-    result: list[Union["ReleaseMetadataObjResultItemType0", None]]
+    result: list[None | ReleaseMetadataObjResultItemType0]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -25,7 +28,7 @@ class ReleaseMetadataObj:
 
         result = []
         for result_item_data in self.result:
-            result_item: Union[None, dict[str, Any]]
+            result_item: dict[str, Any] | None
             if isinstance(result_item_data, ReleaseMetadataObjResultItemType0):
                 result_item = result_item_data.to_dict()
             else:
@@ -43,15 +46,15 @@ class ReleaseMetadataObj:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.release_metadata_obj_result_item_type_0 import ReleaseMetadataObjResultItemType0
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         result = []
         _result = d.pop("result")
         for result_item_data in _result:
 
-            def _parse_result_item(data: object) -> Union["ReleaseMetadataObjResultItemType0", None]:
+            def _parse_result_item(data: object) -> None | ReleaseMetadataObjResultItemType0:
                 if data is None:
                     return data
                 try:
@@ -60,9 +63,9 @@ class ReleaseMetadataObj:
                     result_item_type_0 = ReleaseMetadataObjResultItemType0.from_dict(data)
 
                     return result_item_type_0
-                except:  # noqa: E722
+                except (TypeError, ValueError, AttributeError, KeyError):
                     pass
-                return cast(Union["ReleaseMetadataObjResultItemType0", None], data)
+                return cast(None | ReleaseMetadataObjResultItemType0, data)
 
             result_item = _parse_result_item(result_item_data)
 

@@ -16,6 +16,7 @@ from .summary_request_body import SummaryRequestBody
 from .summary_response_obj import SummaryResponseObj
 from .summary_response_obj_result_item_type_0 import SummaryResponseObjResultItemType0
 from .validation_error import ValidationError
+from .validation_error_context import ValidationErrorContext
 
 __all__ = (
     "ClientError",
@@ -34,4 +35,5 @@ __all__ = (
     "SummaryResponseObj",
     "SummaryResponseObjResultItemType0",
     "ValidationError",
+    "ValidationErrorContext",
 )

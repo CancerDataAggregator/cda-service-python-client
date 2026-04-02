@@ -15,14 +15,14 @@ T = TypeVar("T", bound="SummaryRequestBody")
 class SummaryRequestBody:
     """
     Attributes:
-        search_string (None | str | Unset):  Default: ''.
+        search_list (list[str] | None | Unset):
         match_all (list[str] | None | Unset):
         match_some (list[str] | None | Unset):
         add_columns (list[str] | None | Unset):
         exclude_columns (list[str] | None | Unset):
     """
 
-    search_string: None | str | Unset = ""
+    search_list: list[str] | None | Unset = UNSET
     match_all: list[str] | None | Unset = UNSET
     match_some: list[str] | None | Unset = UNSET
     add_columns: list[str] | None | Unset = UNSET
@@ -30,11 +30,14 @@ class SummaryRequestBody:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        search_string: None | str | Unset
-        if isinstance(self.search_string, Unset):
-            search_string = UNSET
+        search_list: list[str] | None | Unset
+        if isinstance(self.search_list, Unset):
+            search_list = UNSET
+        elif isinstance(self.search_list, list):
+            search_list = self.search_list
+
         else:
-            search_string = self.search_string
+            search_list = self.search_list
 
         match_all: list[str] | None | Unset
         if isinstance(self.match_all, Unset):
@@ -75,8 +78,8 @@ class SummaryRequestBody:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
-        if search_string is not UNSET:
-            field_dict["SEARCH_STRING"] = search_string
+        if search_list is not UNSET:
+            field_dict["SEARCH_LIST"] = search_list
         if match_all is not UNSET:
             field_dict["MATCH_ALL"] = match_all
         if match_some is not UNSET:
@@ -92,14 +95,22 @@ class SummaryRequestBody:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
 
-        def _parse_search_string(data: object) -> None | str | Unset:
+        def _parse_search_list(data: object) -> list[str] | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(None | str | Unset, data)
+            try:
+                if not isinstance(data, list):
+                    raise TypeError()
+                search_list_type_0 = cast(list[str], data)
 
-        search_string = _parse_search_string(d.pop("SEARCH_STRING", UNSET))
+                return search_list_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(list[str] | None | Unset, data)
+
+        search_list = _parse_search_list(d.pop("SEARCH_LIST", UNSET))
 
         def _parse_match_all(data: object) -> list[str] | None | Unset:
             if data is None:
@@ -170,7 +181,7 @@ class SummaryRequestBody:
         exclude_columns = _parse_exclude_columns(d.pop("EXCLUDE_COLUMNS", UNSET))
 
         summary_request_body = cls(
-            search_string=search_string,
+            search_list=search_list,
             match_all=match_all,
             match_some=match_some,
             add_columns=add_columns,
